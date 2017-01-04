@@ -1,0 +1,7 @@
+index:
+    path:       /
+    defaults:   { _controller: "AppBundle:Default:index" }
+
+#app.user:
+#    resource: '@AppBundle/Resources/config/routing/user.yml'
+
