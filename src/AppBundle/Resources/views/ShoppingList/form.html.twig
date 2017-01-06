@@ -1,0 +1,14 @@
+{{ form_start(form, {'attr': {'id': 'form-shoppinglist'}}) }}
+    <h3>Recettes</h3>
+
+    <div id="recipes-container" class="row recipes" data-prototype="{% filter escape %}{{ include('@App/Recipe/recipe-prototype.html.twig', { 'recipe': form.recipes.vars.prototype }) }}{% endfilter %}">
+        {% for recipe in form.recipes %}
+            {{ include('@App/Recipe/recipe-prototype.html.twig', { 'recipe': recipe }) }}
+        {% endfor %}
+    </div>
+
+    <hr />
+
+    <input type="submit" value="Valider" class="btn btn-primary">
+    {{ form_row(form._token) }}
+{{ form_end(form, {'render_rest': false}) }}

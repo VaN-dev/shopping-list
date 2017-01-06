@@ -1,0 +1,27 @@
+app.recipe:
+    path:     /recettes
+    defaults: { _controller: AppBundle:Recipe:index }
+
+app.recipe.create:
+    path:     /recettes/create
+    defaults: { _controller: AppBundle:Recipe:create }
+
+app.recipe.update:
+    path:     /recettes/update/{id}
+    defaults: { _controller: AppBundle:Recipe:update }
+    requirements:
+        id: \d+
+
+app.recipe.read:
+    path:     /recettes/read/{id}
+    defaults: { _controller: AppBundle:Recipe:read }
+    requirements:
+        id: \d+
+
+app.recipe.search_by_pattern:
+    path:     /recettes/search
+    defaults: { _controller: AppBundle:Recipe:searchByPattern }
+
+app.recipe.random:
+    path:     /recettes/random
+    defaults: { _controller: AppBundle:Recipe:random }

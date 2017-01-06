@@ -1,0 +1,61 @@
+{% extends ':default:layout.html.twig' %}
+
+{% block content %}
+    <h1>Ajouter une recette</h1>
+
+    <div class="row">
+        <div class="col-xs-12">
+
+            <form method="POST">
+                {{ form_row(form.name) }}
+                {{ form_row(form.people) }}
+
+                <h3>Ingredients</h3>
+                <div class="ingredients" data-prototype="{% filter escape %}{{ include('@App/Recipe/ingredient-prototype.html.twig', { 'ingredient': form.ingredients.vars.prototype }) }}{% endfilter %}">
+                    {% for ingredient in form.ingredients %}
+                        {{ include('@App/Recipe/ingredient-prototype.html.twig', { 'ingredient': ingredient }) }}
+                    {% endfor %}
+                </div>
+
+                <a href="#" id="add-ingredient-trigger">Ajouter un ingrédient</a>
+
+                <hr />
+
+                <input type="submit" value="Valider" class="btn btn-primary">
+                {{ form_rest(form) }}
+            </form>
+
+        </div>
+    </div>
+{% endblock content %}
+
+{% block javascripts %}
+    <script type="text/javascript">
+        function addIngredientForm(collectionHolder) {
+            // Récupère l'élément ayant l'attribut data-prototype comme expliqué plus tôt
+            var prototype = collectionHolder.attr('data-prototype');
+
+            // Remplace '__name__' dans le HTML du prototype par un nombre basé sur
+            // la longueur de la collection courante
+            var newForm = prototype.replace(/__name__/g, collectionHolder.children().length);
+
+            // Affiche le formulaire dans la page dans un li, avant le lien "ajouter un tag"
+            $(collectionHolder).append(newForm);
+        }
+
+        $(document).ready(function() {
+            // Récupère le div qui contient la collection d'ingredients
+            var collectionHolder = $('div.ingredients');
+
+            $(document).on('click', '#add-ingredient-trigger', function(e) {
+                e.preventDefault();
+                addIngredientForm(collectionHolder);
+            });
+
+            $(document).on('click', '.delete-ingredient-trigger', function(e) {
+                e.preventDefault();
+                $(this).parents('fieldset').remove();
+            });
+        });
+    </script>
+{% endblock javascripts %}

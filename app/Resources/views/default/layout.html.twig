@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block stylesheets %}
+{% block base_stylesheets %}
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
@@ -10,7 +10,7 @@
     %}
     <link rel="stylesheet" href="{{ asset_url }}"/>
     {% endstylesheets %}
-{% endblock stylesheets %}
+{% endblock base_stylesheets %}
 
 {% block body %}
     <nav class="navbar navbar-inverse navbar-fixed-top">
@@ -22,19 +22,63 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#">Project name</a>
+                <a class="navbar-brand" href="{{ path('index') }}">Shopping List</a>
             </div>
-            <div id="navbar" class="collapse navbar-collapse">
-                <ul class="nav navbar-nav">
-                    <li class="active"><a href="#">Home</a></li>
-                    <li><a href="#about">About</a></li>
-                    <li><a href="#contact">Contact</a></li>
+            <div id="navbar" class="navbar-collapse collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="#">Contact us</a></li>
+                    {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+                        <li><a href="{{ path('app.user.profile') }}">Profile</a></li>
+                        <li><a href="{{ path('app.security.logout') }}">Logout</a></li>
+                    {% else %}
+                        <li><a href="{{ path('app.user.registration') }}">Register</a></li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Sign in</a>
+                            <div class="dropdown-menu dropdown-navbar-login">
+                                <form method="post" action="{{ path('app.security.login_check') }}">
+                                    <div class="form-group">
+                                        <input type="text" placeholder="Username" id="username" name="_username" class="form-control" required="1">
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="password" placeholder="Password" id="password" name="_password" class="form-control" required="1">
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-xs-6">
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox">
+                                                    Remember me
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-6">
+                                            <div class="form-group text-right">
+                                                <input class="btn btn-default" type="submit" id="sign-in" value="Sign In">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </li>
+                    {% endif %}
                 </ul>
-            </div><!--/.nav-collapse -->
+                <form class="navbar-form navbar-search-form navbar-right">
+                    <div class="input-group">
+                        <input type="text" class="form-control expandable" placeholder="Search...">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="button"><i class="glyphicon glyphicon-search"></i></button>
+                        </span>
+                    </div>
+                </form>
+            </div>
         </div>
     </nav>
 
     <div class="container">
+
+        {% for type, flashMessage in app.session.flashbag.all %}
+            {% include '@App/flash-message.html.twig' with {'type': type, 'message': flashMessage.0 | raw} %}
+        {% endfor %}
 
         {% block content %}
         {% endblock content %}
@@ -42,7 +86,8 @@
     </div><!-- /.container -->
 {% endblock body %}
 
-{% block javascripts %}
+{% block base_javascripts %}
     <!-- Latest compiled and minified JavaScript -->
+    <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-{% endblock javascripts %}
+{% endblock base_javascripts %}

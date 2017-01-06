@@ -1,0 +1,6 @@
+services:
+    app.form.type.shoppinglist_recipe:
+        class: AppBundle\Form\Type\ShoppingListRecipeType
+        arguments: ["@doctrine.orm.entity_manager"]
+        tags:
+            - { name: form.type }

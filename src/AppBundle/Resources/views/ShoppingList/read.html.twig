@@ -1,0 +1,28 @@
+{% extends ':default:layout.html.twig' %}
+
+{% block content %}
+    <h1>Liste de courses du {{ shoppingList.createdAt | date('d/m/Y') }}</h1>
+
+
+
+    <div class="row">
+        <div class="col-xs-12">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Recette</th>
+                    <th>Personnes</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for recipe in shoppingList.recipes %}
+                    <tr>
+                        <td><img src="{{ recipe.recipe.image }}" alt="" width="100"> {{ recipe.recipe.name }}</td>
+                        <td>{{ recipe.people }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock content %}

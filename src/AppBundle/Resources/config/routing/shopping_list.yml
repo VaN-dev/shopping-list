@@ -1,0 +1,23 @@
+app.shopping_list:
+    path:     /shopping-lists
+    defaults: { _controller: AppBundle:ShoppingList:index }
+
+app.shopping_list.read:
+    path:     /shopping-lists/{id}
+    defaults: { _controller: AppBundle:ShoppingList:read }
+    requirements:
+        id: \d+
+
+app.shopping_list.create:
+    path:     /shopping-lists/create
+    defaults: { _controller: AppBundle:ShoppingList:create }
+
+app.shopping_list.update:
+    path:     /shopping-lists/{id}/update
+    defaults: { _controller: AppBundle:ShoppingList:update }
+    requirements:
+        id: \d+
+
+app.shopping_list.add_recipe:
+    path:     /shopping-lists/add-recipe
+    defaults: { _controller: AppBundle:ShoppingList:addRecipe }

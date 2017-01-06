@@ -1,0 +1,23 @@
+{% extends ':default:layout.html.twig' %}
+
+{% block content %}
+    <h1>Liste de courses</h1>
+
+
+
+    <div class="row">
+        <div class="col-xs-12">
+            <ul>
+                {% for shoppingList in shoppingLists %}
+                    <li>
+                        {{ shoppingList.createdAt | date("d/m/Y") }}, {{ shoppingList.recipes | length ~ ' recette(s)' }}
+                        <a href="{{ path('app.shopping_list.read', {'id': shoppingList.id}) }}">voir</a> -
+                        <a href="{{ path('app.shopping_list.update', {'id': shoppingList.id}) }}">modifier</a> -
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+    <a href="{{ path('app.shopping_list.create') }}" class="btn btn-primary btn-block">Créer une nouvelle liste de courses</a>
+{% endblock content %}

@@ -1,0 +1,198 @@
+{% extends ':default:layout.html.twig' %}
+
+{% block stylesheets %}
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
+    <link href="https://select2.github.io/css/s2-docs.css" rel="stylesheet" />
+{% endblock %}
+
+{% block content %}
+    <h1>Créer une liste de courses</h1>
+
+    {% include '@App/Recipe/search-form.html.twig' with {'form': searchForm} %}
+    {% include '@App/ShoppingList/form.html.twig' %}
+
+{% endblock content %}
+
+{% block javascripts %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
+
+    <script type="text/javascript">
+        $(function(e) {
+            $('select').select2({
+                ajax: {
+                    url: "{{ path('app.recipe.search_by_pattern') }}",
+                    dataType: 'json',
+                    delay: 250,
+                    data: function (params) {
+                        return {
+                            q: params.term, // search term
+                            page: params.page
+                        };
+                    },
+                    processResults: function (data, params) {
+                        // parse the results into the format expected by Select2
+                        // since we are using custom formatting functions we do not need to
+                        // alter the remote JSON data, except to indicate that infinite
+                        // scrolling can be used
+                        params.page = params.page || 1;
+
+                        return {
+                            results: data.items,
+                            pagination: {
+                                more: (params.page * 30) < data.total_count
+                            }
+                        };
+                    },
+                    cache: true
+                },
+                escapeMarkup: function (markup) { return markup; }, // let our custom formatter work
+                minimumInputLength: 1,
+                templateResult: formatRecipe, // omitted for brevity, see the source of this page
+                templateSelection: formatRepoSelection // omitted for brevity, see the source of this page
+            })
+            .on('select2:select', function (e) {
+                var container = $('#recipes-container');
+                var item = e.params.data;
+
+                var elem = $('#form-shoppinglist');
+                var form = elem.serialize();
+                var request = form + '&id='+item.id;
+
+                $.post( "{{ path('app.shopping_list.add_recipe') }}", request)
+                .done(function( data ) {
+                    var recipes = $(data).find('#recipes-container').html();
+                    container.html(recipes);
+                });
+            })
+            ;
+
+            $(document)
+            .on('click', '.delete-recipe-trigger', function(e) {
+                e.preventDefault();
+                $(this).parents('.recipe').fadeOut('slow', function(e) {
+                    $(this).remove();
+                });
+            })
+            .on('click', '#random-recipes-trigger', function(e) {
+                e.preventDefault();
+
+                $.getJSON( "{{ path('app.recipe.random') }}", function( data ) {
+                    var container = $('#random-container');
+                    var html = '';
+                    $.each( data, function( key, recipe ) {
+                        html += '<div class="col-sm-4 recipe">' +
+                                '<div class="media" style="border: 1px solid #ddd; padding: 10px;">' +
+                                '<div class="media-left">' +
+                                '<a href="#">' +
+                                '<img class="media-object" src="' + recipe.image + '" alt="" width="150" height="100">' +
+                                '</a>' +
+                                '</div>' +
+                                '<div class="media-body">' +
+                                '<h4 class="media-heading">' + recipe.name + '</h4>' +
+                                recipe.people +
+                                '</div>' +
+                                '</div>' +
+                                '</div>';
+
+                    });
+
+                    container.html(html);
+                });
+            })
+            ;
+        });
+
+
+        function formatRecipe (recipe) {
+            if (recipe.loading) return recipe.text;
+
+            var markup = "<div class='select2-result-repository clearfix'>" +
+                    "<div class='select2-result-repository__avatar'><img src='" + recipe.image + "' /></div>" +
+                    "<div class='select2-result-repository__meta'>" +
+                    "<div class='select2-result-repository__title'>" + recipe.name + "</div>";
+
+            if (recipe.description) {
+                markup += "<div class='select2-result-repository__description'>" + recipe.description + "</div>";
+            }
+
+            markup += "<div class='select2-result-repository__statistics'>" +
+//                    "<div class='select2-result-repository__forks'><i class='fa fa-flash'></i> " + recipe.people + " personnes</div>" +
+//                    "<div class='select2-result-repository__stargazers'><i class='fa fa-star'></i> " + recipe.stargazers_count + " Stars</div>" +
+//                    "<div class='select2-result-repository__watchers'><i class='fa fa-eye'></i> " + recipe.watchers_count + " Watchers</div>" +
+                    "</div>" +
+                    "</div></div>";
+
+            return markup;
+        }
+
+        function formatRepoSelection (recipe) {
+            return recipe.name;
+        }
+
+        $.fn.serializeObject = function()
+        {
+            var o = {};
+            var a = this.serializeArray();
+            $.each(a, function() {
+                if (o[this.name] !== undefined) {
+                    if (!o[this.name].push) {
+                        o[this.name] = [o[this.name]];
+                    }
+                    o[this.name].push(this.value || '');
+                } else {
+                    o[this.name] = this.value || '';
+                }
+            });
+            return o;
+        };
+    </script>
+
+    {#<script type="text/javascript" src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>#}
+    {#<script type="text/javascript">#}
+        {#function addRecipeForm(collectionHolder) {#}
+            {#// Récupère l'élément ayant l'attribut data-prototype comme expliqué plus tôt#}
+            {#var prototype = collectionHolder.attr('data-prototype');#}
+
+            {#// Remplace '__name__' dans le HTML du prototype par un nombre basé sur#}
+            {#// la longueur de la collection courante#}
+            {#var newForm = prototype.replace(/__name__/g, collectionHolder.children().length);#}
+
+            {#// Affiche le formulaire dans la page dans un li, avant le lien "ajouter un tag"#}
+            {#$(collectionHolder).append(newForm);#}
+        {#}#}
+
+        {#$(document).ready(function() {#}
+            {#// Récupère le div qui contient la collection d'ingredients#}
+            {#var collectionHolder = $('div.recipes');#}
+
+            {#$(document).on('click', '#add-recipe-trigger', function(e) {#}
+                {#e.preventDefault();#}
+                {#addRecipeForm(collectionHolder);#}
+            {#});#}
+
+            {#$(document).on('click', '.delete-recipe-trigger', function(e) {#}
+                {#e.preventDefault();#}
+                {#$(this).parents('fieldset').remove();#}
+            {#});#}
+
+            {#$( "#search" ).autocomplete({#}
+                {#source: "{{ path('app.recipe.search_by_pattern') }}",#}
+                {#minLength: 2,#}
+{#//                select: function( event, ui ) {#}
+{#//                    $( "#project" ).val( ui.item.label );#}
+{#//                    $( "#project-id" ).val( ui.item.value );#}
+{#//                    $( "#project-description" ).html( ui.item.desc );#}
+{#//                    $( "#project-icon" ).attr( "src", "images/" + ui.item.icon );#}
+{#//#}
+{#//                    return false;#}
+{#//                }#}
+            {#})#}
+                    {#.autocomplete( "instance" )._renderItem = function( ul, item ) {#}
+                {#return $( "<li>" )#}
+                        {#.append(item.name)#}
+                        {#.appendTo( ul );#}
+            {#}#}
+            {#;#}
+        {#});#}
+    {#</script>#}
+{% endblock javascripts %}

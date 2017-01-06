@@ -2,6 +2,14 @@ index:
     path:       /
     defaults:   { _controller: "AppBundle:Default:index" }
 
-#app.user:
-#    resource: '@AppBundle/Resources/config/routing/user.yml'
+app.user:
+    resource: '@AppBundle/Resources/config/routing/user.yml'
 
+app.security:
+    resource: '@AppBundle/Resources/config/routing/security.yml'
+
+app.recipe:
+    resource: '@AppBundle/Resources/config/routing/recipe.yml'
+
+app.shopping_list:
+    resource: '@AppBundle/Resources/config/routing/shopping_list.yml'

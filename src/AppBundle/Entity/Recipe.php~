@@ -1,0 +1,185 @@
+<?php
+
+namespace AppBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
+
+/**
+ * Recipe
+ *
+ * @ORM\Table(name="recipes")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\RecipeRepository")
+ */
+class Recipe
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="name", type="string", length=255)
+     */
+    private $name;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="people", type="smallint")
+     */
+    private $people;
+
+    /**
+     * @var User
+     *
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User")
+     * @ORM\JoinColumn(name="user", nullable=true)
+     */
+    protected $user;
+
+    /**
+     * @var Ingredient[]
+     *
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Ingredient", cascade={"persist"})
+     * @ORM\JoinTable(name="recipe_ingredients")
+     */
+    private $ingredients;
+
+    /**
+     * @var string
+     */
+    private $image;
+
+
+    public function getImage()
+    {
+        return 'http://img.cac.pmdstatic.net/fit/http.3A.2F.2Fwww.2Ecuisineactuelle.2Efr.2Fvar.2Fcui.2Fstorage.2Fimages.2Frecettes-de-cuisine.2Ftype-de-plat.2Fplat-principal.2Ftruffade-au-four.2F1114223-2-fre-FR.2Ftruffade-au-four.2Ejpg/345x258/crop-from/center/truffade-au-four.jpeg';
+    }
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->ingredients = new ArrayCollection();
+    }
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set name
+     *
+     * @param string $name
+     * @return Recipe
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * Set people
+     *
+     * @param integer $people
+     * @return Recipe
+     */
+    public function setPeople($people)
+    {
+        $this->people = $people;
+
+        return $this;
+    }
+
+    /**
+     * Get people
+     *
+     * @return integer
+     */
+    public function getPeople()
+    {
+        return $this->people;
+    }
+
+    /**
+     * Set user
+     *
+     * @param User $user
+     * @return Recipe
+     */
+    public function setUser(User $user = null)
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return User
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    /**
+     * Add ingredients
+     *
+     * @param Ingredient $ingredients
+     * @return Recipe
+     */
+    public function addIngredient(Ingredient $ingredients)
+    {
+        $this->ingredients[] = $ingredients;
+
+        return $this;
+    }
+
+    /**
+     * Remove ingredients
+     *
+     * @param Ingredient $ingredients
+     */
+    public function removeIngredient(Ingredient $ingredients)
+    {
+        $this->ingredients->removeElement($ingredients);
+    }
+
+    /**
+     * Get ingredients
+     *
+     * @return Ingredient[]
+     */
+    public function getIngredients()
+    {
+        return $this->ingredients;
+    }
+}

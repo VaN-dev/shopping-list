@@ -1,0 +1,17 @@
+<div class="row">
+    <div class="col-xs-12">
+        {{ form_start(form) }}
+            <h2>Recherche</h2>
+
+            <div class="form-group">
+                {{ form_row(form.pattern) }}
+            </div>
+        {{ form_end(form) }}
+    </div>
+</div>
+
+<a href="#" class="btn btn-warning" id="random-recipes-trigger">Propose-moi 3 recettes alétoires !</a>
+
+<br /><br />
+
+<div class="row" id="random-container"></div>

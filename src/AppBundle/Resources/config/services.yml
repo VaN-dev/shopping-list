@@ -1,2 +1,3 @@
 imports:
-#    - { resource: services/security.yml }
+    - { resource: services/security.yml }
+    - { resource: services/shopping_list.yml }
