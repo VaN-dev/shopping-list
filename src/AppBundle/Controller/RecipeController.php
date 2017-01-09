@@ -5,7 +5,6 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\Recipe;
 use AppBundle\Form\Type\RecipeType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -20,10 +19,22 @@ class RecipeController extends Controller
      */
     public function indexAction()
     {
-        $receipts = $this->getDoctrine()->getManager()->getRepository('AppBundle:Recipe')->findBy(["user" => $this->getUser()]);
+        $recipes = $this->getDoctrine()->getManager()->getRepository('AppBundle:Recipe')->findAll();
 
         return $this->render('AppBundle:Recipe:index.html.twig', [
-            'receipts' => $receipts,
+            'recipes' => $recipes,
+        ]);
+    }
+
+    /**
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function myAction()
+    {
+        $recipes = $this->getDoctrine()->getManager()->getRepository('AppBundle:Recipe')->findBy(["user" => $this->getUser()]);
+
+        return $this->render('AppBundle:Recipe:index.html.twig', [
+            'recipes' => $recipes,
         ]);
     }
 
@@ -47,7 +58,7 @@ class RecipeController extends Controller
 
                 $this->get('session')->getFlashBag()->add('success', 'Votre recette a été enregistrée.');
 
-                return $this->redirect($this->generateUrl('app.recipe'));
+                return $this->redirect($this->generateUrl('app.recipe.my'));
             }
         }
 
@@ -74,7 +85,7 @@ class RecipeController extends Controller
 
                 $this->get('session')->getFlashBag()->add('success', 'Votre recette a été mise à jour.');
 
-                return $this->redirect($this->generateUrl('app.recipe'));
+                return $this->redirect($this->generateUrl('app.recipe.my'));
             }
         }
 

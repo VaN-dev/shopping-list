@@ -2,6 +2,10 @@ app.recipe:
     path:     /recettes
     defaults: { _controller: AppBundle:Recipe:index }
 
+app.recipe.my:
+    path:     /mes-recettes
+    defaults: { _controller: AppBundle:Recipe:my }
+
 app.recipe.create:
     path:     /recettes/create
     defaults: { _controller: AppBundle:Recipe:create }

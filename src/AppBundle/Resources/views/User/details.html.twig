@@ -1,7 +1,9 @@
 {% extends ':default:layout.html.twig' %}
 
 {% block content %}
-    <h1>Toutes les recettes</h1>
+    <h1>Profile de {{ user.username }}</h1>
+
+    <h2>Ses recettes</h2>
 
     <div class="row">
         {% for recipe in recipes %}

@@ -5,3 +5,9 @@ app.user.registration:
 app.user.profile:
     path:     /profile
     defaults: { _controller: AppBundle:User:profile }
+
+app.user.details:
+    path:     /users/{id}
+    defaults: { _controller: AppBundle:User:details }
+    requirements:
+        id: \d+

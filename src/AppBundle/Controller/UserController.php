@@ -50,4 +50,18 @@ class UserController extends Controller
     {
         return $this->render('AppBundle:User:profile.html.twig');
     }
+
+    /**
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function detailsAction(Request $request, $id)
+    {
+        $user = $this->getDoctrine()->getRepository("AppBundle:User")->find($id);
+        $recipes = $this->getDoctrine()->getRepository("AppBundle:Recipe")->findBy(['user' => $user]);
+
+        return $this->render('AppBundle:User:details.html.twig', [
+            'user' => $user,
+            'recipes' => $recipes,
+        ]);
+    }
 }
