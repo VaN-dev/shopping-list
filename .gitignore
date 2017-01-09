@@ -14,4 +14,9 @@
 !var/SymfonyRequirements.php
 /vendor/
 /web/bundles/
+/web/uploads/
 /.idea/
+/_resources/
+
+# Doctrine entities backup
+*~

@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use JMS\Serializer\Annotation\VirtualProperty;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 
@@ -59,6 +60,13 @@ class Recipe
      */
     private $image;
 
+    /**
+     * @var Scope
+     *
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Scope")
+     */
+    private $scope;
+
 
     /**
      * Constructor
@@ -67,6 +75,32 @@ class Recipe
     {
         $this->ingredients = new ArrayCollection();
     }
+
+    public function getUploadRootDir()
+    {
+        // absolute path to your directory where images must be saved
+        return __DIR__.'/../../../web/'.$this->getUploadDir();
+    }
+
+    public function getUploadDir()
+    {
+        return 'uploads/recipes';
+    }
+
+    public function getAbsolutePath()
+    {
+        return null === $this->image ? null : $this->getUploadRootDir().'/'.$this->image;
+    }
+
+    /**
+     * @return null|string
+     * @VirtualProperty
+     */
+    public function getWebPath()
+    {
+        return null === $this->image ? null : '/'.$this->getUploadDir().'/'.$this->image;
+    }
+
 
     /**
      * Get id
@@ -201,5 +235,29 @@ class Recipe
         $this->image = $image;
 
         return $this;
+    }
+
+    /**
+     * Set scope
+     *
+     * @param \AppBundle\Entity\Scope $scope
+     *
+     * @return Recipe
+     */
+    public function setScope(\AppBundle\Entity\Scope $scope = null)
+    {
+        $this->scope = $scope;
+
+        return $this;
+    }
+
+    /**
+     * Get scope
+     *
+     * @return \AppBundle\Entity\Scope
+     */
+    public function getScope()
+    {
+        return $this->scope;
     }
 }

@@ -1,6 +1,8 @@
 {% extends ':default:layout.html.twig' %}
 
 {% block content %}
+    {% include "ComurImageBundle:Form:croppable_image_modal.html.twig" with {'include_jquery': false, 'include_bootstrap': false} %}
+
     <h1>Ajouter une recette</h1>
 
     <div class="row">
@@ -9,6 +11,8 @@
             <form method="POST">
                 {{ form_row(form.name) }}
                 {{ form_row(form.people) }}
+                {{ form_row(form.scope) }}
+                {{ form_row(form.image) }}
 
                 <h3>Ingredients</h3>
                 <div class="ingredients" data-prototype="{% filter escape %}{{ include('@App/Recipe/ingredient-prototype.html.twig', { 'ingredient': form.ingredients.vars.prototype }) }}{% endfilter %}">
@@ -30,6 +34,8 @@
 {% endblock content %}
 
 {% block javascripts %}
+    <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+    <script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
     <script type="text/javascript">
         function addIngredientForm(collectionHolder) {
             // Récupère l'élément ayant l'attribut data-prototype comme expliqué plus tôt

@@ -99,7 +99,7 @@ class RecipeController extends Controller
 
     /**
      * @param Request $request
-     * @return JsonResponse
+     * @return Response
      */
     public function searchByPatternAction(Request $request)
     {
@@ -110,7 +110,10 @@ class RecipeController extends Controller
             'items' => $recipes,
         ];
 
-        return new JsonResponse($response);
+        $serializer = $this->get('serializer');
+        $json = $serializer->serialize($response, 'json');
+
+        return new Response($json);
     }
 
     /**

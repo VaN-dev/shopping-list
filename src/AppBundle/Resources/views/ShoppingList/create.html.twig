@@ -84,7 +84,7 @@
                                 '<div class="media" style="border: 1px solid #ddd; padding: 10px;">' +
                                 '<div class="media-left">' +
                                 '<a href="#">' +
-                                '<img class="media-object" src="' + recipe.image + '" alt="" width="150" height="100">' +
+                                '<img class="media-object" src="' + recipe.web_path + '" alt="" width="150" height="100">' +
                                 '</a>' +
                                 '</div>' +
                                 '<div class="media-body">' +
@@ -107,7 +107,7 @@
             if (recipe.loading) return recipe.text;
 
             var markup = "<div class='select2-result-repository clearfix'>" +
-                    "<div class='select2-result-repository__avatar'><img src='" + recipe.image + "' /></div>" +
+                    "<div class='select2-result-repository__avatar'><img src='" + recipe.web_path + "' /></div>" +
                     "<div class='select2-result-repository__meta'>" +
                     "<div class='select2-result-repository__title'>" + recipe.name + "</div>";
 
