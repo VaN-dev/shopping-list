@@ -25,7 +25,7 @@ class SecurityController extends Controller
         // last username entered by the user
         $lastUsername = $authenticationUtils->getLastUsername();
 
-        if($error) {
+        if ($error) {
             $request->getSession()->getFlashBag()->add('danger', $error->getMessageKey());
         }
 

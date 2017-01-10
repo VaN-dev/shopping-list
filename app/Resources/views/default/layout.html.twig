@@ -29,40 +29,52 @@
                 <a class="navbar-brand" href="{{ path('index') }}">Shopping List</a>
             </div>
             <div id="navbar" class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li><a href="{{ path('app.recipe') }}">Toutes les recettes</a></li>
+                </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li><a href="#">Contact us</a></li>
                     {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
-                        <li><a href="{{ path('app.user.profile') }}">Profile</a></li>
-                        <li><a href="{{ path('app.security.logout') }}">Logout</a></li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ app.user.username }} <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="{{ path('app.recipe.my') }}">Mes recettes</a></li>
+                                <li><a href="{{ path('app.shopping_list') }}">Mes listes de courses</a></li>
+                                <li class="divider" role="separator"></li>
+                                <li><a href="{{ path('app.user.profile') }}">Profile</a></li>
+                                <li><a href="{{ path('app.security.logout') }}">Logout</a></li>
+                            </ul>
+                        </li>
+
                     {% else %}
                         <li><a href="{{ path('app.user.registration') }}">Register</a></li>
                         <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Sign in</a>
-                            <div class="dropdown-menu dropdown-navbar-login">
-                                <form method="post" action="{{ path('app.security.login_check') }}">
-                                    <div class="form-group">
-                                        <input type="text" placeholder="Username" id="username" name="_username" class="form-control" required="1">
-                                    </div>
-                                    <div class="form-group">
-                                        <input type="password" placeholder="Password" id="password" name="_password" class="form-control" required="1">
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-xs-6">
-                                            <div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox">
-                                                    Remember me
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-6">
-                                            <div class="form-group text-right">
-                                                <input class="btn btn-default" type="submit" id="sign-in" value="Sign In">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
+                            <a href="{{ path('app.security.login') }}">Sign in</a>
+                            {#<div class="dropdown-menu dropdown-navbar-login">#}
+                                {#<form method="post" action="{{ path('app.security.login_check') }}">#}
+                                    {#<div class="form-group">#}
+                                        {#<input type="text" placeholder="Username" id="username" name="_username" class="form-control" required="1">#}
+                                    {#</div>#}
+                                    {#<div class="form-group">#}
+                                        {#<input type="password" placeholder="Password" id="password" name="_password" class="form-control" required="1">#}
+                                    {#</div>#}
+                                    {#<div class="row">#}
+                                        {#<div class="col-xs-6">#}
+                                            {#<div class="checkbox">#}
+                                                {#<label>#}
+                                                    {#<input type="checkbox">#}
+                                                    {#Remember me#}
+                                                {#</label>#}
+                                            {#</div>#}
+                                        {#</div>#}
+                                        {#<div class="col-xs-6">#}
+                                            {#<div class="form-group text-right">#}
+                                                {#<input class="btn btn-default" type="submit" id="sign-in" value="Sign In">#}
+                                            {#</div>#}
+                                        {#</div>#}
+                                    {#</div>#}
+                                {#</form>#}
+                            {#</div>#}
                         </li>
                     {% endif %}
                 </ul>
@@ -88,6 +100,12 @@
         {% endblock content %}
 
     </div><!-- /.container -->
+
+    <footer class="footer">
+        <div class="container">
+            Footer
+        </div>
+    </footer>
 {% endblock body %}
 
 {% block base_javascripts %}

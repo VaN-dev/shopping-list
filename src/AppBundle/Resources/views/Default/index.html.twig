@@ -1,24 +1,9 @@
 {% extends ':default:layout.html.twig' %}
 
 {% block content %}
-    <h1>Bienvenue.</h1>
+    <h1>Bienvenue</h1>
 
-    <div class="row">
-        <div class="col-sm-4">
-            <a href="{{ path('app.shopping_list') }}" class="btn btn-primary btn-block">Mes listes de courses</a>
-        </div>
-        <div class="col-sm-4">
-            <a href="{{ path('app.recipe.my') }}" class="btn btn-primary btn-block">Mes recettes</a>
-        </div>
-    </div>
 
-    <br />
-
-    <div class="row">
-        <div class="col-sm-4">
-            <a href="{{ path('app.recipe') }}" class="btn btn-primary btn-block">Toutes les recettes</a>
-        </div>
-    </div>
 {% endblock content %}
 
 {% block javascript %}
