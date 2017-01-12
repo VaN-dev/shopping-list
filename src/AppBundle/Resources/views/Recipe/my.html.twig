@@ -12,7 +12,7 @@
 
             <h2>Vos recettes</h2>
             <ul>
-                {% for recipe in receipts %}
+                {% for recipe in recipes %}
                     <li>
                         {{ recipe.name }}
                         <a href="{{ path('app.recipe.read', {'id': recipe.id}) }}">voir</a> -

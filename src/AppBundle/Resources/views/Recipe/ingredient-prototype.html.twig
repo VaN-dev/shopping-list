@@ -1,8 +1,21 @@
 <fieldset class="form-group">
     <div class="row">
-        <div class="col-xs-6">{{ form_row(ingredient.name) }}</div>
-        <div class="col-xs-2">{{ form_row(ingredient.quantity) }}</div>
-        <div class="col-xs-2">{{ form_row(ingredient.unit) }}</div>
-        <div class="col-xs-2"><a href="#" class="delete-ingredient-trigger">Supprimer cet ingrédient</a></div>
+        <div class="col-xs-7">
+            {{ form_row(ingredient.ingredient, {'attr': {'class': 'select2 typeahead'}}) }}
+        </div>
+        <div class="col-xs-2">
+            {{ form_row(ingredient.quantity) }}
+        </div>
+        <div class="col-xs-2">
+            {{ form_row(ingredient.unit) }}
+        </div>
+        <div class="col-xs-1">
+            <div class="form-group">
+                <label class="control-label">&nbsp;</label>
+                <div class="form-control-static" style="padding-top: 0; padding-bottom: 0;">
+                    <a href="#" class="btn btn-danger pull-right delete-ingredient-trigger"><span class="glyphicon glyphicon-trash"></span></a>
+                </div>
+            </div>
+        </div>
     </div>
 </fieldset>

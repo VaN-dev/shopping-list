@@ -7,10 +7,21 @@ use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Form\DataTransformerInterface;
 use Symfony\Component\Form\Exception\TransformationFailedException;
 
+/**
+ * Class RecipeToNumberTransformer
+ * @package AppBundle\Form\DataTransformer
+ */
 class RecipeToNumberTransformer implements DataTransformerInterface
 {
+    /**
+     * @var ObjectManager
+     */
     private $manager;
 
+    /**
+     * RecipeToNumberTransformer constructor.
+     * @param ObjectManager $manager
+     */
     public function __construct(ObjectManager $manager)
     {
         $this->manager = $manager;

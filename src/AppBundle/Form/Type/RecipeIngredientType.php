@@ -2,18 +2,21 @@
 
 namespace AppBundle\Form\Type;
 
-use AppBundle\Form\DataTransformer\RecipeToNumberTransformer;
+use AppBundle\Entity\Ingredient;
+use AppBundle\Form\DataTransformer\IngredientToStringTransformer;
 use Doctrine\Common\Persistence\ObjectManager;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\HiddenType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
- * Class ShoppingListRecipeType
+ * Class RecipeIngredientType
  * @package AppBundle\Form\Type
  */
-class ShoppingListRecipeType extends AbstractType
+class RecipeIngredientType extends AbstractType
 {
     /**
      * @var ObjectManager
@@ -36,14 +39,18 @@ class ShoppingListRecipeType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('recipe', HiddenType::class, [
-                'invalid_message' => 'That is not a valid recipe number',
+//            ->add('ingredient', ChoiceType::class, [
+//                'data_class' => 'AppBundle\Entity\Ingredient',
+//            ])
+            ->add('ingredient', TextType::class, [
             ])
-            ->add('people')
+            ->add('quantity')
+            ->add('unit')
         ;
 
-        $builder->get('recipe')
-            ->addModelTransformer(new RecipeToNumberTransformer($this->manager));
+        $builder->get('ingredient')
+            ->addModelTransformer(new IngredientToStringTransformer($this->manager))
+        ;
     }
 
     /**
@@ -52,7 +59,7 @@ class ShoppingListRecipeType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\ShoppingListRecipe',
+            'data_class' => 'AppBundle\Entity\RecipeIngredient',
         ));
     }
 
@@ -61,6 +68,6 @@ class ShoppingListRecipeType extends AbstractType
      */
     public function getName()
     {
-        return 'appbundle_shopping_list_recipe_type';
+        return 'appbundle_recipe_ingredient_type';
     }
 }

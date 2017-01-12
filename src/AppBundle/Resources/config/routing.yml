@@ -8,6 +8,9 @@ app.user:
 app.security:
     resource: '@AppBundle/Resources/config/routing/security.yml'
 
+app.ingredient:
+    resource: '@AppBundle/Resources/config/routing/ingredient.yml'
+
 app.recipe:
     resource: '@AppBundle/Resources/config/routing/recipe.yml'
 

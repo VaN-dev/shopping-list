@@ -12,4 +12,17 @@ use Doctrine\ORM\EntityRepository;
  */
 class IngredientRepository extends EntityRepository
 {
+    /**
+     * @param $pattern
+     * @return array
+     */
+    public function searchByPattern($pattern)
+    {
+        $qb = $this->createQueryBuilder('i')
+            ->where('i.name LIKE :pattern')
+            ->setParameter('pattern', '%'.$pattern.'%')
+        ;
+
+        return $qb->getQuery()->getArrayResult();
+    }
 }

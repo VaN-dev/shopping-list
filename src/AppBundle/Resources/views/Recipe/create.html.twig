@@ -1,5 +1,11 @@
 {% extends ':default:layout.html.twig' %}
 
+{% block stylesheets %}
+    {#<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />#}
+    {#<link href="https://select2.github.io/css/s2-docs.css" rel="stylesheet" />#}
+    <link rel="stylesheet" href="{{ asset('') }}" />
+{% endblock %}
+
 {% block content %}
     {% include "ComurImageBundle:Form:croppable_image_modal.html.twig" with {'include_jquery': false, 'include_bootstrap': false} %}
 
@@ -31,11 +37,14 @@
 
         </div>
     </div>
+
 {% endblock content %}
 
 {% block javascripts %}
     <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
     <script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
+    {#<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>#}
+    <script type="text/javascript" src="{{ asset('assets/vendor/typeahead.js/dist/typeahead.bundle.min.js') }}"></script>
     <script type="text/javascript">
         function addIngredientForm(collectionHolder) {
             // Récupère l'élément ayant l'attribut data-prototype comme expliqué plus tôt
@@ -49,19 +58,40 @@
             $(collectionHolder).append(newForm);
         }
 
-        $(document).ready(function() {
+        function initAutocomplete() {
+            $( ".typeahead" ).autocomplete({
+                source: "{{ path('app.ingredient.json') }}",
+                minLength: 2,
+                select: function( event, ui ) {
+                    $( this ).val(ui.item.name);
+                    return false;
+                }
+            })
+            .autocomplete( "instance" )._renderItem = function( ul, item ) {
+                return $( "<li>" )
+                        .append( "<a>" + item.name + "</a>" )
+                        .appendTo( ul );
+            }
+            ;
+        }
+
+        $(function(e) {
             // Récupère le div qui contient la collection d'ingredients
             var collectionHolder = $('div.ingredients');
 
             $(document).on('click', '#add-ingredient-trigger', function(e) {
                 e.preventDefault();
                 addIngredientForm(collectionHolder);
+                initAutocomplete();
             });
 
             $(document).on('click', '.delete-ingredient-trigger', function(e) {
                 e.preventDefault();
                 $(this).parents('fieldset').remove();
             });
+
+//            initAutocomplete();
+
         });
     </script>
 {% endblock javascripts %}

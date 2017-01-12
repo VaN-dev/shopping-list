@@ -18,6 +18,12 @@ app.shopping_list.update:
     requirements:
         id: \d+
 
+app.shopping_list.print_ingredients:
+    path:     /shopping-lists/{id}/print-ingredients
+    defaults: { _controller: AppBundle:ShoppingList:printIngredients }
+    requirements:
+        id: \d+
+
 app.shopping_list.add_recipe:
     path:     /shopping-lists/add-recipe
     defaults: { _controller: AppBundle:ShoppingList:addRecipe }

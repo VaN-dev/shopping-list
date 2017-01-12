@@ -32,7 +32,7 @@ class RecipeType extends AbstractType
                 'choice_label' => 'name',
             ])
             ->add('ingredients', CollectionType::class, [
-                'entry_type' => IngredientType::class,
+                'entry_type' => RecipeIngredientType::class,
                 'allow_add' => true,
                 'allow_delete' => true,
                 'by_reference' => false,

@@ -2,7 +2,9 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Ingredient;
 use AppBundle\Entity\Recipe;
+use AppBundle\Entity\RecipeIngredient;
 use AppBundle\Form\Type\RecipeType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -19,7 +21,10 @@ class RecipeController extends Controller
      */
     public function indexAction()
     {
-        $recipes = $this->getDoctrine()->getManager()->getRepository('AppBundle:Recipe')->findAll();
+        $em = $this->getDoctrine();
+
+        $scope = $em->getRepository('AppBundle:Scope')->findOneBy(['slug' => 'public']);
+        $recipes = $this->getDoctrine()->getManager()->getRepository('AppBundle:Recipe')->findBy(['scope' => $scope]);
 
         return $this->render('AppBundle:Recipe:index.html.twig', [
             'recipes' => $recipes,
@@ -33,7 +38,7 @@ class RecipeController extends Controller
     {
         $recipes = $this->getDoctrine()->getManager()->getRepository('AppBundle:Recipe')->findBy(["user" => $this->getUser()]);
 
-        return $this->render('AppBundle:Recipe:index.html.twig', [
+        return $this->render('AppBundle:Recipe:my.html.twig', [
             'recipes' => $recipes,
         ]);
     }
@@ -44,7 +49,19 @@ class RecipeController extends Controller
      */
     public function createAction(Request $request)
     {
+        $em = $this->getDoctrine()->getManager();
+
         $recipe = new Recipe();
+
+        /**
+         * todo: to remove
+         */
+//        $ingredient = new Ingredient();
+//        $ingredient->setName('Poulet');
+//        $em->persist($ingredient);
+//        $recipeIngredient = new RecipeIngredient();
+//        $recipeIngredient->setIngredient($ingredient);
+//        $recipe->addIngredient($recipeIngredient);
 
         $form = $this->createForm(RecipeType::class, $recipe);
 
@@ -53,8 +70,8 @@ class RecipeController extends Controller
             if ($form->isValid()) {
                 $recipe->setUser($this->getUser());
 
-                $this->getDoctrine()->getManager()->persist($recipe);
-                $this->getDoctrine()->getManager()->flush();
+                $em->persist($recipe);
+                $em->flush();
 
                 $this->get('session')->getFlashBag()->add('success', 'Votre recette a été enregistrée.');
 

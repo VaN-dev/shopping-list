@@ -28,20 +28,6 @@ class Ingredient
      */
     private $name;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="quantity", type="decimal")
-     */
-    private $quantity;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="unit", type="string", length=50)
-     */
-    private $unit;
-
 
     /**
      * Get id
@@ -74,51 +60,5 @@ class Ingredient
     public function getName()
     {
         return $this->name;
-    }
-
-    /**
-     * Set quantity
-     *
-     * @param string $quantity
-     * @return Ingredient
-     */
-    public function setQuantity($quantity)
-    {
-        $this->quantity = $quantity;
-
-        return $this;
-    }
-
-    /**
-     * Get quantity
-     *
-     * @return string
-     */
-    public function getQuantity()
-    {
-        return $this->quantity;
-    }
-
-    /**
-     * Set unit
-     *
-     * @param string $unit
-     * @return Ingredient
-     */
-    public function setUnit($unit)
-    {
-        $this->unit = $unit;
-
-        return $this;
-    }
-
-    /**
-     * Get unit
-     *
-     * @return string
-     */
-    public function getUnit()
-    {
-        return $this->unit;
     }
 }

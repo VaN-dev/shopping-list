@@ -20,8 +20,6 @@ class IngredientType extends AbstractType
     {
         $builder
             ->add('name')
-            ->add('quantity')
-            ->add('unit')
         ;
     }
 

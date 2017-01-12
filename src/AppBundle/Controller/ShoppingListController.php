@@ -112,6 +112,13 @@ class ShoppingListController extends Controller
         ]);
     }
 
+    public function printIngredientsAction(Request $request, $id)
+    {
+        $shoppingList = $this->getDoctrine()->getRepository("AppBundle:ShoppingList")->find($id);
+
+        $ingredients = [];
+    }
+
     /**
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
