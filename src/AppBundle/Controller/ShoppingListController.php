@@ -116,7 +116,12 @@ class ShoppingListController extends Controller
     {
         $shoppingList = $this->getDoctrine()->getRepository("AppBundle:ShoppingList")->find($id);
 
-        $ingredients = [];
+        $ingredientsGrouper = $this->get('app.grouper.ingredients');
+        $ingredients = $ingredientsGrouper->groupFromShoppingList($shoppingList);
+
+        dump($ingredients);
+
+        die();
     }
 
     /**

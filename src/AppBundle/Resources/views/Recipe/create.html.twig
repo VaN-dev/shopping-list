@@ -44,7 +44,7 @@
     <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
     <script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
     {#<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>#}
-    <script type="text/javascript" src="{{ asset('assets/vendor/typeahead.js/dist/typeahead.bundle.min.js') }}"></script>
+    {#<script type="text/javascript" src="{{ asset('assets/vendor/typeahead.js/dist/typeahead.bundle.min.js') }}"></script>#}
     <script type="text/javascript">
         function addIngredientForm(collectionHolder) {
             // Récupère l'élément ayant l'attribut data-prototype comme expliqué plus tôt
@@ -59,8 +59,8 @@
         }
 
         function initAutocomplete() {
-            $( ".typeahead" ).autocomplete({
-                source: "{{ path('app.ingredient.json') }}",
+            $( ".autocomplete" ).autocomplete({
+                source: "{{ path('app.ingredient.search_by_pattern') }}",
                 minLength: 2,
                 select: function( event, ui ) {
                     $( this ).val(ui.item.name);
@@ -90,7 +90,7 @@
                 $(this).parents('fieldset').remove();
             });
 
-//            initAutocomplete();
+            initAutocomplete();
 
         });
     </script>

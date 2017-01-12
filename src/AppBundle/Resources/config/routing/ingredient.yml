@@ -1,7 +1,3 @@
 app.ingredient.search_by_pattern:
     path:     /ingredients/search
     defaults: { _controller: AppBundle:Ingredient:searchByPattern }
-
-app.ingredient.json:
-    path:     /ingredients/json
-    defaults: { _controller: AppBundle:Ingredient:json }

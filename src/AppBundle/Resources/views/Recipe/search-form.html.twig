@@ -4,7 +4,7 @@
             <h2>Recherche</h2>
 
             <div class="form-group">
-                {{ form_row(form.pattern) }}
+                {{ form_row(form.pattern, {'attr': {'class': 'autocomplete'}}) }}
             </div>
         {{ form_end(form) }}
     </div>

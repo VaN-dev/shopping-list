@@ -19,37 +19,11 @@ class IngredientController extends Controller
 {
     /**
      * @param Request $request
-     * @return Response
+     * @return JsonResponse
      */
     public function searchByPatternAction(Request $request)
     {
-        $ingredients = $this->getDoctrine()->getManager()->getRepository('AppBundle:Ingredient')->searchByPattern($request->query->get('q'));
-
-        $response = [
-            'total_count' => count($ingredients),
-            'items' => $ingredients,
-        ];
-
-        $response = $ingredients;
-
-        $serializer = $this->get('serializer');
-        $json = $serializer->serialize($response, 'json');
-
-        return new Response($json);
-    }
-
-    /**
-     * @return Response
-     */
-    public function jsonAction()
-    {
-        $ingredients = $this->getDoctrine()->getManager()->getRepository('AppBundle:Ingredient')->findAll();
-
-//        $arr = [];
-//        foreach ($ingredients as $ingredient) {
-//            $arr[] = $ingredient->getName();
-//        }
-//        $ingredients = $arr;
+        $ingredients = $this->getDoctrine()->getManager()->getRepository('AppBundle:Ingredient')->searchByPattern($request->query->get('term'));
 
         $serializer = $this->get('serializer');
         $json = $serializer->serialize($ingredients, 'json');
