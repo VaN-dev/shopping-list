@@ -1,72 +1,50 @@
-<nav class="navbar navbar-inverse navbar-fixed-top">
-    <div class="container">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="{{ path('index') }}">Shopping List</a>
-        </div>
-        <div id="navbar" class="navbar-collapse collapse">
-            <ul class="nav navbar-nav">
-                <li><a href="{{ path('app.recipe') }}">Toutes les recettes</a></li>
-            </ul>
-            <ul class="nav navbar-nav navbar-right">
-                <li><a href="#">Contact us</a></li>
-                {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ app.user.username }} <span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="{{ path('app.recipe.my') }}">Mes recettes</a></li>
-                            <li><a href="{{ path('app.shopping_list') }}">Mes listes de courses</a></li>
-                            <li class="divider" role="separator"></li>
-                            <li><a href="{{ path('app.user.profile') }}">Profile</a></li>
-                            <li><a href="{{ path('app.security.logout') }}">Logout</a></li>
-                        </ul>
-                    </li>
+<header>
+    {#<nav class="navbar navbar-inverse navbar-fixed-top">#}
+    <nav class="navbar navbar-default navbar-main navbar-fixed-top  lightHeader">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="{{ path('index') }}"></a>
+            </div>
+            <div id="navbar" class="collapsenavbar-collapse navbar-ex1-collapse">
+                <ul class="nav navbar-nav">
+                    <li><a href="{{ path('app.recipe') }}">Toutes les recettes</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="dropdown singleDrop"><a href="#">Contact us</a></li>
+                    {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+                        <li class="dropdown singleDrop">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ app.user.username }} <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="{{ path('app.recipe.my') }}">Mes recettes</a></li>
+                                <li><a href="{{ path('app.shopping_list') }}">Mes listes de courses</a></li>
+                                <li class="divider" role="separator"></li>
+                                <li><a href="{{ path('app.user.profile') }}">Profile</a></li>
+                                <li><a href="{{ path('app.security.logout') }}">Logout</a></li>
+                            </ul>
+                        </li>
 
-                {% else %}
-                    <li><a href="{{ path('app.user.registration') }}">Register</a></li>
-                    <li class="dropdown">
-                        <a href="{{ path('app.security.login') }}">Sign in</a>
-                        {#<div class="dropdown-menu dropdown-navbar-login">#}
-                        {#<form method="post" action="{{ path('app.security.login_check') }}">#}
-                        {#<div class="form-group">#}
-                        {#<input type="text" placeholder="Username" id="username" name="_username" class="form-control" required="1">#}
-                        {#</div>#}
-                        {#<div class="form-group">#}
-                        {#<input type="password" placeholder="Password" id="password" name="_password" class="form-control" required="1">#}
-                        {#</div>#}
-                        {#<div class="row">#}
-                        {#<div class="col-xs-6">#}
-                        {#<div class="checkbox">#}
-                        {#<label>#}
-                        {#<input type="checkbox">#}
-                        {#Remember me#}
-                        {#</label>#}
-                        {#</div>#}
-                        {#</div>#}
-                        {#<div class="col-xs-6">#}
-                        {#<div class="form-group text-right">#}
-                        {#<input class="btn btn-default" type="submit" id="sign-in" value="Sign In">#}
-                        {#</div>#}
-                        {#</div>#}
-                        {#</div>#}
-                        {#</form>#}
-                        {#</div>#}
-                    </li>
-                {% endif %}
-            </ul>
-            <form class="navbar-form navbar-search-form navbar-right">
-                <div class="input-group">
-                    <input type="text" class="form-control expandable" placeholder="Search...">
-                    <span class="input-group-btn">
-                            <button class="btn btn-default" type="button"><i class="glyphicon glyphicon-search"></i></button>
-                        </span>
-                </div>
-            </form>
+                    {% else %}
+                        <li class="dropdown singleDrop"><a href="{{ path('app.user.registration') }}">Register</a></li>
+                        <li class="dropdown singleDrop">
+                            <a href="{{ path('app.security.login') }}">Sign in</a>
+                        </li>
+                    {% endif %}
+                </ul>
+                {#<form class="navbar-form navbar-search-form navbar-right">#}
+                    {#<div class="input-group">#}
+                        {#<input type="text" class="form-control expandable" placeholder="Search...">#}
+                        {#<span class="input-group-btn">#}
+                                {#<button class="btn btn-default" type="button"><i class="glyphicon glyphicon-search"></i></button>#}
+                            {#</span>#}
+                    {#</div>#}
+                {#</form>#}
+            </div>
         </div>
-    </div>
-</nav>
+    </nav>
+</header>
