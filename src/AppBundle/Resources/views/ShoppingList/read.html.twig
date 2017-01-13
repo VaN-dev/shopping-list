@@ -25,5 +25,5 @@
     </div>
 
     <a href="{{ path('app.shopping_list.update', {'id': shoppingList.id}) }}" class="btn btn-default"><span class="glyphicon glyphicon-edit"></span> Modifier</a>
-    <a href="#" class="btn btn-default"><span class="glyphicon glyphicon-print"></span> Imprimer les ingrédients</a>
+    <a href="{{ path('app.shopping_list.print_ingredients', {'id': shoppingList.id}) }}" class="btn btn-default"><span class="glyphicon glyphicon-print"></span> Imprimer les ingrédients</a>
 {% endblock content %}

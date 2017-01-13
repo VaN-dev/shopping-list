@@ -1,0 +1,37 @@
+{% extends ':default:layout-print.html.twig' %}
+
+{% block content %}
+    <h1>Liste de courses du {{ shoppingList.createdAt | date('d/m/Y') }}</h1>
+
+    <div class="row">
+        <div class="col-xs-12">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th width="50"></th>
+                    <th>Ingrédient</th>
+                    <th>Quantité</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for ingredient in shoppingList.groupedIngredients %}
+                    <tr>
+                        <td>
+                            <div class="tick-container glyphicon glyphicon-ok" style="opacity: .2;"></div>
+                        </td>
+                        <td>{{ ingredient.ingredient.name }}</td>
+                        <td>{{ ingredient.quantity ~ ' ' ~ ingredient.unit }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+{% endblock content %}
+
+{% block javascripts %}
+    <script type="text/javascript">
+        window.print();
+    </script>
+{% endblock javascripts %}

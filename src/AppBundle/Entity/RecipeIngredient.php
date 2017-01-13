@@ -38,9 +38,9 @@ class RecipeIngredient
     private $ingredient;
 
     /**
-     * @var string
+     * @var float
      *
-     * @ORM\Column(name="quantity", type="decimal")
+     * @ORM\Column(name="quantity", type="float")
      */
     private $quantity;
 
@@ -50,6 +50,14 @@ class RecipeIngredient
      * @ORM\Column(name="unit", type="string", length=50)
      */
     private $unit;
+
+    /**
+     * CUSTOM METHODS
+     */
+    public function __clone()
+    {
+        $this->id = null;
+    }
 
     /**
      * Get id
@@ -64,7 +72,7 @@ class RecipeIngredient
     /**
      * Set quantity
      *
-     * @param string $quantity
+     * @param float $quantity
      *
      * @return RecipeIngredient
      */
@@ -78,7 +86,7 @@ class RecipeIngredient
     /**
      * Get quantity
      *
-     * @return string
+     * @return float
      */
     public function getQuantity()
     {

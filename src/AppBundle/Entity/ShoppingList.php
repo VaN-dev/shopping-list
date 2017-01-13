@@ -51,6 +51,15 @@ class ShoppingList
      */
     private $recipes;
 
+    /**
+     * @var RecipeIngredient[]
+     */
+    private $groupedIngredients = [];
+
+
+    /**
+     * CUSTOM METHODS
+     */
 
     /**
      * Constructor
@@ -61,6 +70,43 @@ class ShoppingList
         $this->recipes = new ArrayCollection();
         $this->scope = 0;
     }
+
+    /**
+     * Add groupedIngredient
+     *
+     * @param RecipeIngredient $recipeIngredient
+     * @return ShoppingList
+     */
+    public function addGroupedIngredient(RecipeIngredient $recipeIngredient)
+    {
+        $this->groupedIngredients[] = $recipeIngredient;
+
+        return $this;
+    }
+
+    /**
+     * Remove groupedIngredient
+     *
+     * @param RecipeIngredient $recipeIngredient
+     */
+    public function removeGroupedIngredient(RecipeIngredient $recipeIngredient)
+    {
+        $this->groupedIngredients->removeElement($recipeIngredient);
+    }
+
+    /**
+     * Get groupedIngredients
+     *
+     * @return recipeIngredient[]
+     */
+    public function getGroupedIngredients()
+    {
+        return $this->groupedIngredients;
+    }
+
+    /**
+     * GETTERS & SETTERS
+     */
 
     /**
      * Get id

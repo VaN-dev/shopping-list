@@ -112,16 +112,21 @@ class ShoppingListController extends Controller
         ]);
     }
 
+    /**
+     * @param Request $request
+     * @param $id
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
     public function printIngredientsAction(Request $request, $id)
     {
         $shoppingList = $this->getDoctrine()->getRepository("AppBundle:ShoppingList")->find($id);
 
         $ingredientsGrouper = $this->get('app.grouper.ingredients');
-        $ingredients = $ingredientsGrouper->groupFromShoppingList($shoppingList);
+        $ingredientsGrouper->groupFromShoppingList($shoppingList);
 
-        dump($ingredients);
-
-        die();
+        return $this->render('@App/ShoppingList/print-ingredients.html.twig', [
+            'shoppingList' => $shoppingList,
+        ]);
     }
 
     /**

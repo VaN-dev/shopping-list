@@ -17,8 +17,6 @@
 {% endblock base_head_javascripts %}
 
 {% block body %}
-    {% include '@App/navigation.html.twig' %}
-
     <div class="container">
 
         {% for type, flashMessage in app.session.flashbag.all %}
@@ -29,8 +27,6 @@
         {% endblock content %}
 
     </div><!-- /.container -->
-
-    {% include '@App/footer.html.twig' %}
 {% endblock body %}
 
 {% block base_javascripts %}

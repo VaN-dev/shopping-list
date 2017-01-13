@@ -1,3 +1,8 @@
 services:
     app.grouper.ingredients:
         class: AppBundle\Service\Grouper\IngredientsGrouper
+        arguments:
+            - "@app.comparator.ingredients"
+
+    app.comparator.ingredients:
+        class: AppBundle\Service\Comparator\IngredientsComparator
