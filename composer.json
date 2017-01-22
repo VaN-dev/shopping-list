@@ -17,12 +17,6 @@
         }
     },
     "minimum-stability": "dev",
-    "repositories": [
-        {
-            "type": "vcs",
-            "url": "https://github.com/VaN-dev/ComurImageBundle"
-        }
-    ],
     "require": {
         "php": ">=5.5.9",
         "symfony/symfony": "3.2.*",
@@ -39,7 +33,7 @@
         "jms/serializer-bundle": "^1.1",
         "jms/translation-bundle": "^1.3",
         "twig/twig": "1.30",
-        "comur/image-bundle": "sf3.2-compatibility"
+        "comur/image-bundle": "1.3.x-dev"
     },
     "require-dev": {
         "sensio/generator-bundle": "^3.0",

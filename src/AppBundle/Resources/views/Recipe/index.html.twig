@@ -96,7 +96,8 @@
                 </div>
                 <div class="col-sm-9 col-xs-12">
                     <div class="row">
-                        <div class="col-lg-4 col-sm-6 col-xs-12">
+                        {% for recipe in recipes %}
+                            <div class="col-lg-4 col-sm-6 col-xs-12">
                             <div class="thumbnail deals packagesPage">
                                 <img src="/img/deal-01.jpg" alt="deal-image">
                                 <div class="discountInfo">
@@ -133,71 +134,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-4 col-sm-6 col-xs-12">
-                            <div class="thumbnail deals packagesPage">
-                                <img src="/img/deal-01.jpg" alt="deal-image">
-                                <div class="discountInfo">
-                                    <ul class="list-inline rating homePage">
-                                        <li><i class="fa fa-star" aria-hidden="true"></i></li>
-                                        <li><i class="fa fa-star" aria-hidden="true"></i></li>
-                                        <li><i class="fa fa-star" aria-hidden="true"></i></li>
-                                        <li><i class="fa fa-star" aria-hidden="true"></i></li>
-                                        <li><i class="fa fa-star" aria-hidden="true"></i></li>
-                                    </ul>
-                                    <ul class="list-inline duration">
-                                        <li>12 days</li>
-                                        <li>3 hrs</li>
-                                        <li>12 min</li>
-                                    </ul>
-                                </div>
-                                <div class="caption">
-                                    <h4><a href="single-package-left-sidebar.html" class="captionTitle">Eros Erat Tour</a></h4>
-                                    <p>Proin convallis magna vel libero accumsan sollicitudin. Quisque dapibus vitae turpis eu magna sagittis.</p>
-                                    <div class="detailsInfo">
-                                        <h5>
-                                            <span>Start From</span>
-                                            $499
-                                        </h5>
-                                        <ul class="list-inline detailsBtn">
-                                            <li><a href="booking-1.html" class="btn buttonTransparent">Book now</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-sm-6 col-xs-12">
-                            <div class="thumbnail deals packagesPage">
-                                <img src="/img/deal-01.jpg" alt="deal-image">
-                                <div class="discountInfo">
-                                    <ul class="list-inline rating homePage">
-                                        <li><i class="fa fa-star" aria-hidden="true"></i></li>
-                                        <li><i class="fa fa-star" aria-hidden="true"></i></li>
-                                        <li><i class="fa fa-star" aria-hidden="true"></i></li>
-                                        <li><i class="fa fa-star" aria-hidden="true"></i></li>
-                                        <li><i class="fa fa-star" aria-hidden="true"></i></li>
-                                    </ul>
-                                    <ul class="list-inline duration">
-                                        <li>17 days</li>
-                                        <li>14 hrs</li>
-                                        <li>10 min</li>
-                                    </ul>
-                                </div>
-                                <div class="caption">
-                                    <h4><a href="single-package-left-sidebar.html" class="captionTitle">Quisque Tour</a></h4>
-                                    <p>Vivamus eu mattis nibh. Quisque eget ipsum at odio fringilla consequat vel id erat. Suspendisse non feugiat mi.</p>
-                                    <div class="detailsInfo">
-                                        <h5>
-                                            <span>Start From</span>
-                                            $349
-                                        </h5>
-                                        <ul class="list-inline detailsBtn">
-                                            <li><a href="single-package-fullwidth.html" class="btn buttonTransparent">Details</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
+                        {% endfor %}
                     </div>
                 </div>
             </div>
