@@ -1,23 +1,50 @@
 {% extends ':default:layout.html.twig' %}
 
 {% block content %}
-    <h1>Liste de courses</h1>
+    <section class="mainContentSection packagesSection">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-3 col-xs-12">
+                    <aside>
+                        <div class="panel panel-default packagesFilter">
+                            <div class="panel-body">
+                                <ul>
+                                    <li><a href="#">aaa</a></li>
+                                    <li><a href="#">bbb</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </aside>
+                </div>
+                <div class="col-sm-9 col-xs-12">
 
+                    <h1>Mes listes de courses</h1>
 
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for shoppingList in shoppingLists %}
+                                <tr>
+                                    <td>{{ shoppingList.createdAt | date("d/m/Y") }}, {{ shoppingList.recipes | length ~ ' recette(s)' }}</td>
+                                    <td>
+                                        <a href="{{ path('app.shopping_list.read', {'id': shoppingList.id}) }}">voir</a> -
+                                        <a href="{{ path('app.shopping_list.update', {'id': shoppingList.id}) }}">modifier</a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
 
-    <div class="row">
-        <div class="col-xs-12">
-            <ul>
-                {% for shoppingList in shoppingLists %}
-                    <li>
-                        {{ shoppingList.createdAt | date("d/m/Y") }}, {{ shoppingList.recipes | length ~ ' recette(s)' }}
-                        <a href="{{ path('app.shopping_list.read', {'id': shoppingList.id}) }}">voir</a> -
-                        <a href="{{ path('app.shopping_list.update', {'id': shoppingList.id}) }}">modifier</a> -
-                    </li>
-                {% endfor %}
-            </ul>
         </div>
-    </div>
+    </section>
+
 
     <a href="{{ path('app.shopping_list.create') }}" class="btn btn-primary btn-block">Créer une nouvelle liste de courses</a>
 {% endblock content %}
