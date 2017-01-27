@@ -1,0 +1,36 @@
+.navbar {
+  margin: 0;
+  border-radius: 0;
+
+  .navbar-toggle {
+    border: 1px solid #fff;
+
+    .icon-bar {
+      background-color: #fff;
+    }
+  }
+
+  .nav {
+    >li {
+      >a {
+        &:hover, &:focus {
+          color: #fff;
+          background: transparent;
+        }
+      }
+    }
+
+    .open {
+      >a {
+        background: transparent;
+
+        &:hover, &:focus {
+          color: #fff;
+          background: transparent;
+        }
+      }
+    }
+  }
+}
+
+//.navbar-default .navbar-toggle .icon-bar

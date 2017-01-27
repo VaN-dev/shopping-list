@@ -1,18 +1,9 @@
 {% extends 'base.html.twig' %}
 
 {% block base_stylesheets %}
-    <link rel="stylesheet" href="{{ asset('bundles/app/vendors/jquery-ui-bootstrap/jquery-ui-1.10.3.custom.css') }}"/>
-    <link rel="stylesheet" href="{{ asset('bundles/app/vendors/jquery-ui-bootstrap/jquery.ui.1.10.3.ie.css') }}"/>
-    <link rel="stylesheet" href="{{ asset('bundles/app/vendors/jquery-selectbox/select_option1.css') }}"/>
-    <link rel="stylesheet" href="{{ asset('bundles/app/vendors/datepicker/datepicker.css') }}"/>
-    <!-- GOOGLE FONT -->
-    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Montserrat:400,700">
-    <!-- FONT AWESOME -->
-    <link rel="stylesheet" type="text/css" href="{{ asset('bundles/app/vendors/font-awesome/css/font-awesome.min.css') }}">
-
     {% stylesheets
     filter="compass"
-    "@AppBundle/Resources/themes/default/compass/*.scss"
+    "@AppBundle/Resources/themes/minton/compass/*.scss"
     %}
     <link rel="stylesheet" href="{{ asset_url }}"/>
     {% endstylesheets %}
@@ -24,59 +15,23 @@
 {% endblock base_head_javascripts %}
 
 {% block body %}
-    <div class="main-wrapper">
 
-        {% include '@App/navigation.html.twig' %}
+    {% include '@App/header.html.twig' %}
 
-
-
+    <div class="container-fluid">
         {% for type, flashMessage in app.session.flashbag.all %}
             {% include '@App/flash-message.html.twig' with {'type': type, 'message': flashMessage.0 | raw} %}
         {% endfor %}
 
         {% block content %}
         {% endblock content %}
-
-
-
-        {% include '@App/footer.html.twig' %}
-
     </div>
+
+    {% include '@App/footer.html.twig' %}
+
 {% endblock body %}
 
 {% block base_javascripts %}
     <!-- Latest compiled and minified JavaScript -->
     <script src="{{ asset('assets/vendor/bootstrap-sass/assets/javascripts/bootstrap.min.js') }}"></script>
-    <script src="{{ asset('bundles/app/vendors/jquery-selectbox/jquery.selectbox-0.1.3.min.js') }}"></script>
-    <script src="{{ asset('bundles/app/vendors/datepicker/bootstrap-datepicker.js') }}"></script>
-
-    <script type="text/javascript">
-        $(function(e) {
-            $('.select-drop').selectbox();
-            $(".ed-datepicker input.form-control").focus(function(){
-                $(".sbOptions").css("display","none");
-            });
-            $('.ed-datepicker').datepicker({
-                format:'dd/mm/yyyy',
-                autoclose:true,
-                orientation:'top auto',
-                todayBtn:'linked',
-                todayHighlight:true
-            });
-            var minimum=20;
-            var maximum=300;
-            $("#price-range").slider({
-                range:true,
-                min:minimum,
-                max:maximum,
-                values:[minimum,maximum],
-                slide:function(event,ui){
-                    $("#price-amount-1").val("$"+ ui.values[0]);
-                    $("#price-amount-2").val("$"+ ui.values[1]);
-                }
-            });
-            $("#price-amount-1").val("$"+ $("#price-range").slider("values",0));
-            $("#price-amount-2").val("$"+ $("#price-range").slider("values",1));
-        });
-    </script>
 {% endblock base_javascripts %}
