@@ -78,7 +78,11 @@ class Recipe
     public function getUploadRootDir()
     {
         // absolute path to your directory where images must be saved
-        return __DIR__.'/../../../web/'.$this->getUploadDir();
+//        return __DIR__.'/../../../web/'.$this->getUploadDir();
+
+        $dir = strtoupper(substr(PHP_OS, 0, 3)) === 'WIN' ? str_replace('\\', '/', __DIR__) : __DIR__;
+
+        return $dir.'/../../../web/'.$this->getUploadDir();
     }
 
     public function getUploadDir()
