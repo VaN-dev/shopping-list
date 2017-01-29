@@ -10,6 +10,7 @@ $icon-font-path: '/assets/vendor/bootstrap-sass/assets/fonts/bootstrap/';
 @import "core/_partials/form";
 @import "core/_partials/button";
 @import "core/_partials/h";
+@import "core/jquery-ui-theme";
 
 @import "pages/home";
 @import "pages/login";

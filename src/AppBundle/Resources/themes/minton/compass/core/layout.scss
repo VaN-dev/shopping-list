@@ -127,12 +127,36 @@ html {
       }
     }
 
+    .w-recipe {
+      padding: 20px;
+      min-height: 112px;
+
+      .w-recipe__body {
+        padding: 0;
+        margin-left: 120px;
+      }
+
+      .w-recipe__img {
+        float: left;
+        height: 72px;
+        vertical-align: middle;
+
+        &--responsive {
+          display: block;
+          max-width: 100%;
+        }
+      }
+    }
+
     .text-muted {
       color: #98a6ad;
     }
     .animated {
       animation-duration: 1s;
       animation-fill-mode: both;
+    }
+    .img--circle {
+      border-radius: 50%;
     }
   }
 

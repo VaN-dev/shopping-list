@@ -6,15 +6,26 @@
 {% endblock %}
 
 {% block content %}
-    <h1>Créer une liste de courses</h1>
 
-    {% include '@App/Recipe/search-form.html.twig' with {'form': searchForm} %}
-    {% include '@App/ShoppingList/form.html.twig' %}
+    <div class="container-fluid">
+
+        <h1>Créer une liste de courses</h1>
+
+        <div class="row">
+            <div class="col-xs-12 col-sm-6">
+                {% include '@App/Recipe/search-form.html.twig' with {'form': searchForm} %}
+            </div>
+            <div class="col-xs-12 col-sm-6">
+                {% include '@App/ShoppingList/form.html.twig' %}
+            </div>
+        </div>
+
+    </div>
 
 {% endblock content %}
 
 {% block javascripts %}
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
+    <script type="text/javascript" src="{{ asset('bundles/app/vendors/bootstrap-touchspin/bootstrap-touchspin.js') }}"></script>
 
     <script type="text/javascript">
         function initAutocomplete() {
@@ -32,21 +43,35 @@
                     .done(function( data ) {
                         var recipes = $(data).find('#recipes-container').html();
                         container.html(recipes);
+
+                        init();
                     });
 
 //                    return false;
                 }
             })
-                    .autocomplete( "instance" )._renderItem = function( ul, item ) {
+            .autocomplete( "instance" )._renderItem = function( ul, item ) {
                 return $( "<li>" )
-                        .append( "<a>" + item.name + "</a>" )
-                        .appendTo( ul );
+                .append( "<a>" + item.name + "</a>" )
+                .appendTo( ul );
             }
             ;
         }
 
-        $(function(e) {
+        function initTouchSpin() {
+            $(".touchspin").TouchSpin({
+                buttondown_class: "btn btn-primary",
+                buttonup_class: "btn btn-primary"
+            });
+        }
+
+        function init() {
             initAutocomplete();
+            initTouchSpin();
+        }
+
+        $(function(e) {
+            init();
 
             {#$('select').select2({#}
                 {#ajax: {#}

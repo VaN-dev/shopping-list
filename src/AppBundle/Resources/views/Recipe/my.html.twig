@@ -1,26 +1,31 @@
 {% extends ':default:layout.html.twig' %}
 
 {% block content %}
-    <h1>Recettes</h1>
+    <div class="container-fluid">
+        <h1>Mes recettes</h1>
 
-    <div class="row">
-        <div class="col-xs-12">
-
-            <h2>Que souhaitez-vous faire ?</h2>
-
-            <a href="{{ path('app.recipe.create') }}" class="btn btn-primary">Ajouter une recette</a>
-
-            <h2>Vos recettes</h2>
-            <ul>
-                {% for recipe in recipes %}
-                    <li>
-                        {{ recipe.name }}
-                        <a href="{{ path('app.recipe.read', {'id': recipe.id}) }}">voir</a> -
-                        <a href="{{ path('app.recipe.update', {'id': recipe.id}) }}">modifier</a>
-                    </li>
-                {% endfor %}
-            </ul>
-
+        <div class="c-panel c-panel--default">
+            <div class="c-panel__body">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>Nom</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for recipe in recipes %}
+                        <tr>
+                            <td>{{ recipe.name }}</td>
+                            <td>
+                                <a href="{{ path('app.recipe.read', {'id': recipe.id}) }}" class="btn btn-default"><i class="glyphicon glyphicon-eye-open"></i></a>
+                                <a href="{{ path('app.recipe.update', {'id': recipe.id}) }}" class="btn btn-default"><i class="glyphicon glyphicon-edit"></i></a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 {% endblock content %}

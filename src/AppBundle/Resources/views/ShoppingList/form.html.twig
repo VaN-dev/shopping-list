@@ -1,14 +1,20 @@
-{{ form_start(form, {'attr': {'id': 'form-shoppinglist'}}) }}
-    <h3>Recettes</h3>
-
-    <div id="recipes-container" class="row recipes" data-prototype="{% filter escape %}{{ include('@App/Recipe/recipe-prototype.html.twig', { 'recipe': form.recipes.vars.prototype }) }}{% endfilter %}">
-        {% for recipe in form.recipes %}
-            {{ include('@App/Recipe/recipe-prototype.html.twig', { 'recipe': recipe }) }}
-        {% endfor %}
+<div class="c-panel c-panel--default">
+    <div class="c-panel__heading">
+        <h2 class="c-panel__title">Ma liste</h2>
     </div>
+    <div class="c-panel__body">
+        {{ form_start(form, {'attr': {'id': 'form-shoppinglist'}}) }}
 
-    <hr />
+            <div id="recipes-container" class="row recipes" data-prototype="{% filter escape %}{{ include('@App/Recipe/recipe-prototype.html.twig', { 'recipe': form.recipes.vars.prototype }) }}{% endfilter %}">
+                {% for recipe in form.recipes %}
+                    {{ include('@App/Recipe/recipe-prototype.html.twig', { 'recipe': recipe }) }}
+                {% endfor %}
+            </div>
 
-    <input type="submit" value="Valider" class="btn btn-primary">
-    {{ form_row(form._token) }}
-{{ form_end(form, {'render_rest': false}) }}
+            <hr />
+
+            <input type="submit" value="Valider" class="btn btn-primary">
+            {{ form_row(form._token) }}
+        {{ form_end(form, {'render_rest': false}) }}
+    </div>
+</div>
