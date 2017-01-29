@@ -94,25 +94,6 @@ class User implements UserInterface
      */
     protected $enabled;
 
-    /**
-     * Plain password. Used for model validation. Must not be persisted.
-     *
-     * @var string
-     */
-    protected $plainPassword;
-
-    /**
-     * Set plainPassword
-     *
-     * @param string $plainPassword
-     * @return User
-     */
-    public function setPlainPassword($plainPassword)
-    {
-        $this->plainPassword = $plainPassword;
-
-        return $this;
-    }
 
     public function eraseCredentials()
     {
@@ -129,16 +110,6 @@ class User implements UserInterface
         $this->enabled = false;
         $this->locked = false;
         $this->roles = [];
-    }
-
-    /**
-     * Get plainPassword
-     *
-     * @return string
-     */
-    public function getPlainPassword()
-    {
-        return $this->plainPassword;
     }
 
     /**

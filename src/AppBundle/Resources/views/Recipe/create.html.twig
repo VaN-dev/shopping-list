@@ -1,40 +1,37 @@
 {% extends ':default:layout.html.twig' %}
 
-{% block stylesheets %}
-    {#<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />#}
-    {#<link href="https://select2.github.io/css/s2-docs.css" rel="stylesheet" />#}
-    <link rel="stylesheet" href="{{ asset('') }}" />
-{% endblock %}
 
 {% block content %}
-    {% include "ComurImageBundle:Form:croppable_image_modal.html.twig" with {'include_jquery': false, 'include_bootstrap': false} %}
+    <div class="container-fluid">
+        {% include "ComurImageBundle:Form:croppable_image_modal.html.twig" with {'include_jquery': false, 'include_bootstrap': false} %}
 
-    <h1>Ajouter une recette</h1>
+        <h1>Ajouter une recette</h1>
 
-    <div class="row">
-        <div class="col-xs-12">
+        <div class="row">
+            <div class="col-xs-12">
 
-            <form method="POST">
-                {{ form_row(form.name) }}
-                {{ form_row(form.people) }}
-                {{ form_row(form.scope) }}
-                {{ form_row(form.image) }}
+                <form method="POST">
+                    {{ form_row(form.name) }}
+                    {{ form_row(form.people, {'attr': {'class': 'touchspin'}}) }}
+                    {{ form_row(form.scope) }}
+                    {{ form_row(form.image) }}
 
-                <h3>Ingredients</h3>
-                <div class="ingredients" data-prototype="{% filter escape %}{{ include('@App/Recipe/ingredient-prototype.html.twig', { 'ingredient': form.ingredients.vars.prototype }) }}{% endfilter %}">
-                    {% for ingredient in form.ingredients %}
-                        {{ include('@App/Recipe/ingredient-prototype.html.twig', { 'ingredient': ingredient }) }}
-                    {% endfor %}
-                </div>
+                    <h3>Ingredients</h3>
+                    <div class="ingredients" data-prototype="{% filter escape %}{{ include('@App/Recipe/ingredient-prototype.html.twig', { 'ingredient': form.ingredients.vars.prototype }) }}{% endfilter %}">
+                        {% for ingredient in form.ingredients %}
+                            {{ include('@App/Recipe/ingredient-prototype.html.twig', { 'ingredient': ingredient }) }}
+                        {% endfor %}
+                    </div>
 
-                <a href="#" id="add-ingredient-trigger">Ajouter un ingrédient</a>
+                    <a href="#" id="add-ingredient-trigger">Ajouter un ingrédient</a>
 
-                <hr />
+                    <hr />
 
-                <input type="submit" value="Valider" class="btn btn-primary">
-                {{ form_rest(form) }}
-            </form>
+                    <input type="submit" value="Valider" class="btn btn-primary">
+                    {{ form_rest(form) }}
+                </form>
 
+            </div>
         </div>
     </div>
 
@@ -45,6 +42,7 @@
     <script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
     {#<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>#}
     {#<script type="text/javascript" src="{{ asset('assets/vendor/typeahead.js/dist/typeahead.bundle.min.js') }}"></script>#}
+    <script type="text/javascript" src="{{ asset('bundles/app/vendors/bootstrap-touchspin/bootstrap-touchspin.js') }}"></script>
     <script type="text/javascript">
         function addIngredientForm(collectionHolder) {
             // Récupère l'élément ayant l'attribut data-prototype comme expliqué plus tôt
@@ -67,12 +65,24 @@
                     return false;
                 }
             })
-            .autocomplete( "instance" )._renderItem = function( ul, item ) {
-                return $( "<li>" )
-                        .append( "<a>" + item.name + "</a>" )
-                        .appendTo( ul );
-            }
+//            .autocomplete( "instance" )._renderItem = function( ul, item ) {
+//                return $( "<li>" )
+//                .append( "<a>" + item.name + "</a>" )
+//                .appendTo( ul );
+//            }
             ;
+        }
+
+        function initTouchSpin() {
+            $(".touchspin").TouchSpin({
+                buttondown_class: "btn btn-primary",
+                buttonup_class: "btn btn-primary"
+            });
+        }
+
+        function init() {
+            initAutocomplete();
+            initTouchSpin();
         }
 
         $(function(e) {
@@ -82,7 +92,7 @@
             $(document).on('click', '#add-ingredient-trigger', function(e) {
                 e.preventDefault();
                 addIngredientForm(collectionHolder);
-                initAutocomplete();
+                init();
             });
 
             $(document).on('click', '.delete-ingredient-trigger', function(e) {
@@ -90,8 +100,7 @@
                 $(this).parents('fieldset').remove();
             });
 
-            initAutocomplete();
-
+            init();
         });
     </script>
 {% endblock javascripts %}

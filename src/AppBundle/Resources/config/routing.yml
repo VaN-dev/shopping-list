@@ -2,6 +2,10 @@ index:
     path:       /
     defaults:   { _controller: "AppBundle:Default:index" }
 
+dashboard:
+    path:       /dashboard
+    defaults:   { _controller: "AppBundle:Dashboard:index" }
+
 app.user:
     resource: '@AppBundle/Resources/config/routing/user.yml'
 

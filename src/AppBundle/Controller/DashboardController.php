@@ -6,16 +6,16 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * Class DefaultController
+ * Class DashboardController
  * @package AppBundle\Controller
  */
-class DefaultController extends Controller
+class DashboardController extends Controller
 {
     /**
-     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function indexAction()
     {
-        return $this->render('@App/Default/index.html.twig');
+        return $this->render('@App/Default/dashboard.html.twig');
     }
 }

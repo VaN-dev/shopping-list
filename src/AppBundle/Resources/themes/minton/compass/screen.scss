@@ -7,3 +7,9 @@ $icon-font-path: '/assets/vendor/bootstrap-sass/assets/fonts/bootstrap/';
 
 @import "core/layout";
 @import "core/override";
+@import "core/_partials/form";
+@import "core/_partials/button";
+@import "core/_partials/h";
+
+@import "pages/home";
+@import "pages/login";

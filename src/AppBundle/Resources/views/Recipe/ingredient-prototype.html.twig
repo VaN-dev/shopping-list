@@ -4,7 +4,9 @@
             {{ form_row(ingredient.ingredient, {'attr': {'class': 'autocomplete'}}) }}
         </div>
         <div class="col-xs-2">
-            {{ form_row(ingredient.quantity) }}
+            {{ form_row(ingredient.quantity, {'attr': {'class': 'touchspin'}}) }}
+
+            {#<input id="demo0" class="form-control" value="55" name="demo0" data-bts-min="0" data-bts-max="100" data-bts-init-val="" data-bts-step="1" data-bts-decimal="0" data-bts-step-interval="100" data-bts-force-step-divisibility="round" data-bts-step-interval-delay="500" data-bts-prefix="" data-bts-postfix="" data-bts-prefix-extra-class="" data-bts-postfix-extra-class="" data-bts-booster="true" data-bts-boostat="10" data-bts-max-boosted-step="false" data-bts-mousewheel="true" data-bts-button-down-class="btn btn-default" data-bts-button-up-class="btn btn-default" style="display: block;" type="text">#}
         </div>
         <div class="col-xs-2">
             {{ form_row(ingredient.unit) }}

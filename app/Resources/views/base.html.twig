@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html{% if page is defined %} class="{{ page }}"{% endif %}>
     <head>
         <meta charset="UTF-8" />
         <title>{% block title %}Welcome!{% endblock %}</title>

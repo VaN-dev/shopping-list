@@ -29,13 +29,16 @@ class UserController extends Controller
             if ($form->isValid()) {
                 // Password encoding
                 $passwordEncoding = $this->get('app.security.encoder.password');
-                $user->setPassword($passwordEncoding->encodePassword($user->getPlainPassword(), $user->getSalt()));
+                $user->setPassword($passwordEncoding->encodePassword($user->getPassword(), $user->getSalt()));
                 $user->setRoles(["FRONTEND_USER"]);
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($user);
                 $em->flush();
                 $request->getSession()->getFlashBag()->add('success', '<strong>Well done!</strong> You successfully registered.');
                 return $this->redirect($this->generateUrl('index'));
+            } else {
+                dump((string) $form->getErrors());
+                die();
             }
         }
         return $this->render('AppBundle:User:register.html.twig', [

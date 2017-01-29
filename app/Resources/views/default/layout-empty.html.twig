@@ -4,6 +4,7 @@
     <link href='https://fonts.googleapis.com/css?family=Roboto:400,300,500' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,600' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css">
+    <link rel="stylesheet" href="{{ asset('bundles/app/vendors/font-awesome/css/font-awesome.min.css') }}">
 
     {% stylesheets
     filter="compass"
@@ -20,16 +21,12 @@
 
 {% block body %}
 
-    {% include '@App/header.html.twig' %}
-
     {% for type, flashMessage in app.session.flashbag.all %}
         {% include '@App/flash-message.html.twig' with {'type': type, 'message': flashMessage.0 | raw} %}
     {% endfor %}
 
     {% block content %}
     {% endblock content %}
-
-    {% include '@App/footer.html.twig' %}
 
 {% endblock body %}
 

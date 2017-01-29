@@ -26,7 +26,7 @@ class RecipeType extends AbstractType
 
         $builder
             ->add('name', TextType::class)
-            ->add('people')
+            ->add('people', TextType::class)
             ->add('scope', EntityType::class, [
                 'class' => 'AppBundle\Entity\Scope',
                 'choice_label' => 'name',
