@@ -7,7 +7,7 @@
 
             <div id="recipes-container" class="row recipes" data-prototype="{% filter escape %}{{ include('@App/Recipe/widgets/recipe-prototype.html.twig', { 'form': form.recipes.vars.prototype }) }}{% endfilter %}">
                 {% for recipe in form.recipes %}
-                    <div class="col-sm-6">
+                    <div class="col-sm-6 js-recipe-container">
                         {{ include('@App/Recipe/widgets/recipe-prototype.html.twig', { 'form': recipe }) }}
                     </div>
                 {% endfor %}

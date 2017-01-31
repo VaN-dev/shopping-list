@@ -37,5 +37,34 @@
   &.bootstrap-touchspin-down, &.bootstrap-touchspin-up {
     padding: 9px 17px;
   }
+
+  &.form-control {
+    line-height: 1.7;
+  }
 }
 
+.ui-widget {
+  &.ui-widget-content {
+    &.ui-autocomplete {
+      border: 1px solid #eee;
+
+      .ui-menu-item {
+        .ui-menu-item-wrapper {
+          display: block;
+          padding: 10px;
+          border: none;
+          border-bottom: 1px solid #eee;
+
+          &:hover {
+
+            background-color: $brand-primary;
+            border: none;
+            border-bottom: 1px solid $brand-primary;
+            text-decoration: none;
+          }
+        }
+
+      }
+    }
+  }
+}
