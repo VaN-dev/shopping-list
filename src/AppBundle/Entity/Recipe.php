@@ -101,7 +101,8 @@ class Recipe
      */
     public function getWebPath()
     {
-        return null === $this->image ? null : '/'.$this->getUploadDir().'/'.$this->image;
+//        return null === $this->image ? null : '/'.$this->getUploadDir().'/'.$this->image;
+        return 'http://placehold.it/120x90';
     }
 
     /**

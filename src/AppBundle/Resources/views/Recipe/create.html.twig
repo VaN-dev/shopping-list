@@ -38,50 +38,9 @@
 {% endblock content %}
 
 {% block javascripts %}
-    <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
-    <script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
-    {#<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>#}
-    {#<script type="text/javascript" src="{{ asset('assets/vendor/typeahead.js/dist/typeahead.bundle.min.js') }}"></script>#}
-    <script type="text/javascript" src="{{ asset('bundles/app/vendors/bootstrap-touchspin/bootstrap-touchspin.js') }}"></script>
     <script type="text/javascript">
-        function addIngredientForm(collectionHolder) {
-            // Récupère l'élément ayant l'attribut data-prototype comme expliqué plus tôt
-            var prototype = collectionHolder.attr('data-prototype');
-
-            // Remplace '__name__' dans le HTML du prototype par un nombre basé sur
-            // la longueur de la collection courante
-            var newForm = prototype.replace(/__name__/g, collectionHolder.children().length);
-
-            // Affiche le formulaire dans la page dans un li, avant le lien "ajouter un tag"
-            $(collectionHolder).append(newForm);
-        }
-
-        function initAutocomplete() {
-            $( ".autocomplete" ).autocomplete({
-                source: "{{ path('app.ingredient.search_by_pattern') }}",
-                minLength: 2,
-                select: function( event, ui ) {
-                    $( this ).val(ui.item.name);
-                    return false;
-                }
-            })
-            .autocomplete( "instance" )._renderItem = function( ul, item ) {
-                return $( "<li>" )
-                .append( "<a>" + item.name + "</a>" )
-                .appendTo( ul );
-            }
-            ;
-        }
-
-        function initTouchSpin() {
-            $(".touchspin").TouchSpin({
-                buttondown_class: "btn btn-primary",
-                buttonup_class: "btn btn-primary"
-            });
-        }
-
         function init() {
-            initAutocomplete();
+            initIngredientAutocomplete();
             initTouchSpin();
         }
 
@@ -92,7 +51,7 @@
             $(document).on('click', '#add-ingredient-trigger', function(e) {
                 e.preventDefault();
                 addIngredientForm(collectionHolder);
-                init();
+                initTouchSpin();
             });
 
             $(document).on('click', '.delete-ingredient-trigger', function(e) {

@@ -43,6 +43,10 @@ html {
       background-color: #eaeaea;
     }
 
+    .wrapper {
+      padding: 0 0 20px 0;
+    }
+
     .container {
       &--xs {
         max-width: 350px;
@@ -57,6 +61,11 @@ html {
       box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1);
       background-color: #fff;
 
+      .c-panel__actions {
+        position: absolute;
+        top: 20px;
+        right: 35px;
+      }
       .c-panel__heading {
         padding: 10px 20px;
 
@@ -129,16 +138,16 @@ html {
 
     .w-recipe {
       padding: 20px;
-      min-height: 112px;
+      min-height: 130px;
 
       .w-recipe__body {
         padding: 0;
-        margin-left: 120px;
+        margin-left: 140px;
       }
 
       .w-recipe__img {
         float: left;
-        height: 72px;
+        height: 90px;
         vertical-align: middle;
 
         &--responsive {

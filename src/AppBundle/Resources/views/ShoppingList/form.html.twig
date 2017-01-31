@@ -5,9 +5,11 @@
     <div class="c-panel__body">
         {{ form_start(form, {'attr': {'id': 'form-shoppinglist'}}) }}
 
-            <div id="recipes-container" class="row recipes" data-prototype="{% filter escape %}{{ include('@App/Recipe/recipe-prototype.html.twig', { 'recipe': form.recipes.vars.prototype }) }}{% endfilter %}">
+            <div id="recipes-container" class="row recipes" data-prototype="{% filter escape %}{{ include('@App/Recipe/widgets/recipe-prototype.html.twig', { 'form': form.recipes.vars.prototype }) }}{% endfilter %}">
                 {% for recipe in form.recipes %}
-                    {{ include('@App/Recipe/recipe-prototype.html.twig', { 'recipe': recipe }) }}
+                    <div class="col-sm-6">
+                        {{ include('@App/Recipe/widgets/recipe-prototype.html.twig', { 'form': recipe }) }}
+                    </div>
                 {% endfor %}
             </div>
 

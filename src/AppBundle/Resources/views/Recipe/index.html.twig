@@ -19,12 +19,7 @@
                 <div class="row">
                 {% for recipe in recipes %}
                     <div class="col-xs-12 col-sm-3">
-                        <div class="c-panel w-recipe">
-                            <img class="w-recipe__img w-recipe__img--responsive" src="{{ recipe.webPath }}" alt="">
-                            <div class="c-panel__body w-recipe__body">
-                                {{ recipe.name }}
-                            </div>
-                        </div>
+                        {% include '@App/Recipe/widgets/recipe-simple.html.twig' %}
                     </div>
                 {% endfor %}
                 </div>

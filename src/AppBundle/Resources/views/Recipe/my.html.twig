@@ -4,28 +4,12 @@
     <div class="container-fluid">
         <h1>Mes recettes</h1>
 
-        <div class="c-panel c-panel--default">
-            <div class="c-panel__body">
-                <table class="table">
-                    <thead>
-                    <tr>
-                        <th>Nom</th>
-                        <th>Actions</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {% for recipe in recipes %}
-                        <tr>
-                            <td>{{ recipe.name }}</td>
-                            <td>
-                                <a href="{{ path('app.recipe.read', {'id': recipe.id}) }}" class="btn btn-default"><i class="glyphicon glyphicon-eye-open"></i></a>
-                                <a href="{{ path('app.recipe.update', {'id': recipe.id}) }}" class="btn btn-default"><i class="glyphicon glyphicon-edit"></i></a>
-                            </td>
-                        </tr>
-                    {% endfor %}
-                    </tbody>
-                </table>
-            </div>
+        <div class="row">
+            {% for recipe in recipes %}
+                <div class="col-xs-12 col-sm-3">
+                    {% include '@App/Recipe/widgets/recipe-my.html.twig' %}
+                </div>
+            {% endfor %}
         </div>
     </div>
 {% endblock content %}

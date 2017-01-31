@@ -33,3 +33,9 @@
   }
 }
 
+.btn {
+  &.bootstrap-touchspin-down, &.bootstrap-touchspin-up {
+    padding: 9px 17px;
+  }
+}
+

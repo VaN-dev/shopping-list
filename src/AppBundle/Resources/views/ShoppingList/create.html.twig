@@ -1,10 +1,5 @@
 {% extends ':default:layout.html.twig' %}
 
-{% block stylesheets %}
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
-    <link href="https://select2.github.io/css/s2-docs.css" rel="stylesheet" />
-{% endblock %}
-
 {% block content %}
 
     <div class="container-fluid">
@@ -73,85 +68,42 @@
         $(function(e) {
             init();
 
-            {#$('select').select2({#}
-                {#ajax: {#}
-                    {#url: "{{ path('app.recipe.search_by_pattern') }}",#}
-                    {#dataType: 'json',#}
-                    {#delay: 250,#}
-                    {#data: function (params) {#}
-                        {#return {#}
-                            {#q: params.term, // search term#}
-                            {#page: params.page#}
-                        {#};#}
-                    {#},#}
-                    {#processResults: function (data, params) {#}
-                        {#// parse the results into the format expected by Select2#}
-                        {#// since we are using custom formatting functions we do not need to#}
-                        {#// alter the remote JSON data, except to indicate that infinite#}
-                        {#// scrolling can be used#}
-                        {#params.page = params.page || 1;#}
-
-                        {#return {#}
-                            {#results: data.items,#}
-                            {#pagination: {#}
-                                {#more: (params.page * 30) < data.total_count#}
-                            {#}#}
-                        {#};#}
-                    {#},#}
-                    {#cache: true#}
-                {#},#}
-                {#escapeMarkup: function (markup) { return markup; }, // let our custom formatter work#}
-                {#minimumInputLength: 1,#}
-                {#templateResult: formatRecipe, // omitted for brevity, see the source of this page#}
-                {#templateSelection: formatRepoSelection // omitted for brevity, see the source of this page#}
-            {#})#}
-            {#.on('select2:select', function (e) {#}
-                {#var container = $('#recipes-container');#}
-                {#var item = e.params.data;#}
-
-                {#var elem = $('#form-shoppinglist');#}
-                {#var form = elem.serialize();#}
-                {#var request = form + '&id='+item.id;#}
-
-                {#$.post( "{{ path('app.shopping_list.add_recipe') }}", request)#}
-                {#.done(function( data ) {#}
-                    {#var recipes = $(data).find('#recipes-container').html();#}
-                    {#container.html(recipes);#}
-                {#});#}
-            {#})#}
-            {#;#}
-
             $(document)
+            /**
+             * Add recipe event
+             */
+            .on('click', '.js-add-recipe-to-shoppinglist-trigger', function(e) {
+                $.post( "{{ path('app.shopping_list.add_recipe') }}", request)
+                .done(function( data ) {
+                    var recipes = $(data).find('#recipes-container').html();
+                    container.html(recipes);
+                });
+            })
+            /**
+             * Delete recipe event
+             */
             .on('click', '.delete-recipe-trigger', function(e) {
                 e.preventDefault();
                 $(this).parents('.recipe').fadeOut('slow', function(e) {
                     $(this).remove();
                 });
             })
+            /**
+             * Random recipes event
+             */
             .on('click', '#random-recipes-trigger', function(e) {
                 e.preventDefault();
 
                 $.getJSON( "{{ path('app.recipe.random') }}", function( data ) {
                     var container = $('#random-container');
-                    var html = '';
                     $.each( data, function( key, recipe ) {
-                        html += '<div class="col-sm-4 recipe">' +
-                                '<div class="media" style="border: 1px solid #ddd; padding: 10px;">' +
-                                '<div class="media-left">' +
-                                '<a href="#">' +
-                                '<img class="media-object" src="' + recipe.web_path + '" alt="" width="150" height="100">' +
-                                '</a>' +
-                                '</div>' +
-                                '<div class="media-body">' +
-                                '<h4 class="media-heading">' + recipe.name + '</h4>' +
-                                recipe.people +
-                                '</div>' +
-                                '</div>' +
-                                '</div>';
-
+                        $.get(Routing.generate('app.recipe.widgetize', { id: recipe.id }), function(widget) {
+                            $('<div/>', {
+                                'class': 'col-xs-12 col-sm-6',
+                                'html': widget
+                            }).appendTo(container);
+                        });
                     });
-
-                    container.html(html);
                 });
             })
             ;

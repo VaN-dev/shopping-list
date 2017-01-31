@@ -1,66 +1,64 @@
 {% extends ':default:layout.html.twig' %}
 
 {% block content %}
-    {% include "ComurImageBundle:Form:croppable_image_modal.html.twig" with {'include_jquery': false, 'include_bootstrap': false} %}
+    <div class="container-fluid">
 
-    <h1>Modifier une recette</h1>
+        {% include "ComurImageBundle:Form:croppable_image_modal.html.twig" with {'include_jquery': false, 'include_bootstrap': false} %}
 
-    <div class="row">
-        <div class="col-xs-12">
+        <h1>Modifier une recette</h1>
 
-            <form method="POST">
-                {{ form_row(form.name) }}
-                {{ form_row(form.people) }}
-                {{ form_row(form.image) }}
+        <div class="row">
+            <div class="col-xs-12">
 
-                <h3>Ingredients</h3>
-                <div class="ingredients" data-prototype="{% filter escape %}{{ include('@App/Recipe/ingredient-prototype.html.twig', { 'ingredient': form.ingredients.vars.prototype }) }}{% endfilter %}">
-                    {% for ingredient in form.ingredients %}
-                        {{ include('@App/Recipe/ingredient-prototype.html.twig', { 'ingredient': ingredient }) }}
-                    {% endfor %}
-                </div>
+                <form method="POST">
+                    {{ form_row(form.name) }}
+                    {{ form_row(form.people, {'attr': {'class': 'touchspin'}}) }}
+                    {{ form_row(form.scope) }}
+                    {{ form_row(form.image) }}
 
-                <a href="#" id="add-ingredient-trigger">Ajouter un ingrédient</a>
+                    <h3>Ingredients</h3>
+                    <div class="ingredients" data-prototype="{% filter escape %}{{ include('@App/Recipe/ingredient-prototype.html.twig', { 'ingredient': form.ingredients.vars.prototype }) }}{% endfilter %}">
+                        {% for ingredient in form.ingredients %}
+                            {{ include('@App/Recipe/ingredient-prototype.html.twig', { 'ingredient': ingredient }) }}
+                        {% endfor %}
+                    </div>
 
-                <hr />
+                    <a href="#" id="add-ingredient-trigger">Ajouter un ingrédient</a>
 
-                <input type="submit" value="Valider" class="btn btn-primary">
-                {{ form_rest(form) }}
-            </form>
+                    <hr />
 
+                    <input type="submit" value="Valider" class="btn btn-primary">
+                    {{ form_rest(form) }}
+                </form>
+
+            </div>
         </div>
     </div>
 {% endblock content %}
 
 {% block javascripts %}
-    <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
-    <script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
     <script type="text/javascript">
-        function addIngredientForm(collectionHolder) {
-            // Récupère l'élément ayant l'attribut data-prototype comme expliqué plus tôt
-            var prototype = collectionHolder.attr('data-prototype');
-
-            // Remplace '__name__' dans le HTML du prototype par un nombre basé sur
-            // la longueur de la collection courante
-            var newForm = prototype.replace(/__name__/g, collectionHolder.children().length);
-
-            // Affiche le formulaire dans la page dans un li, avant le lien "ajouter un tag"
-            $(collectionHolder).append(newForm);
+        function init() {
+            initIngredientAutocomplete();
+            initTouchSpin();
         }
 
-        $(document).ready(function() {
+        $(function(e) {
             // Récupère le div qui contient la collection d'ingredients
             var collectionHolder = $('div.ingredients');
 
             $(document).on('click', '#add-ingredient-trigger', function(e) {
                 e.preventDefault();
                 addIngredientForm(collectionHolder);
+                initTouchSpin();
             });
 
             $(document).on('click', '.delete-ingredient-trigger', function(e) {
                 e.preventDefault();
                 $(this).parents('fieldset').remove();
             });
+
+            init();
         });
     </script>
 {% endblock javascripts %}

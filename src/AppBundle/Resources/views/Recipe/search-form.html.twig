@@ -4,20 +4,20 @@
     </div>
     <div class="c-panel__body">
         {{ form_start(form) }}
-        <div class="row">
-            <div class="col-xs-12 col-sm-9">
-                <div class="form-group">
-                    {{ form_row(form.pattern, {'attr': {'class': 'autocomplete'}}) }}
-                </div>
-            </div>
-            <div class="col-xs-12 col-sm-3">
-                <div class="form-group">
-                    <label for="control-label required">Au hasard</label>
-                    <a href="#" class="btn btn-pink form-control" id="random-recipes-trigger">3 recettes alétoires</a>
-                </div>
-            </div>
-        </div>
 
+            <div class="row">
+                <div class="col-xs-12 col-sm-9">
+                    <div class="form-group">
+                        {{ form_row(form.pattern, {'attr': {'class': 'autocomplete'}}) }}
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-3">
+                    <div class="form-group">
+                        <label for="control-label required">Au hasard</label>
+                        <a href="#" class="btn btn-pink form-control" id="random-recipes-trigger">3 recettes alétoires</a>
+                    </div>
+                </div>
+            </div>
 
         {{ form_end(form) }}
 

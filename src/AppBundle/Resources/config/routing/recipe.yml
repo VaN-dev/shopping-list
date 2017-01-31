@@ -29,3 +29,11 @@ app.recipe.search_by_pattern:
 app.recipe.random:
     path:     /recettes/random
     defaults: { _controller: AppBundle:Recipe:random }
+
+app.recipe.widgetize:
+    path:     /recettes/{id}/widget
+    defaults: { _controller: AppBundle:Recipe:widgetize }
+    requirements:
+        id: \d+
+    options:
+        expose: true

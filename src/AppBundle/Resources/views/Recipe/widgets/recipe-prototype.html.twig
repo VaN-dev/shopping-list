@@ -1,0 +1,9 @@
+<div class="c-panel w-recipe">
+    {% if form.vars.data is not null %}<img class="w-recipe__img w-recipe__img--responsive" src="{{ form.vars.data.recipe.webPath }}" alt="">{% endif %}
+    <div class="c-panel__body w-recipe__body">
+        {% if form.vars.data is not null %}<a href="{{ path('app.recipe.read', {'id': form.vars.data.recipe.id}) }}">{{ form.vars.data.recipe.name }}</a>{% endif %}
+        {{ form_row(form.people, {'attr': {'class': 'touchspin'}}) }}
+        <a class="btn btn-default delete-recipe-trigger" href="#" role="button"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
+        {{ form_row(form.recipe) }}
+    </div>
+</div>

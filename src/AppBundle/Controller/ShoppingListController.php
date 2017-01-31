@@ -112,6 +112,11 @@ class ShoppingListController extends Controller
         ]);
     }
 
+    public function deleteAction(Request $request, $id)
+    {
+        $shoppingList = $this->getDoctrine()->getRepository("AppBundle:ShoppingList")->find($id);
+    }
+
     /**
      * @param Request $request
      * @param $id

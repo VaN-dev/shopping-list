@@ -152,4 +152,18 @@ class RecipeController extends Controller
 
         return new Response($json);
     }
+
+    /**
+     * @param Request $request
+     * @param $id
+     * @return Response
+     */
+    public function widgetizeAction(Request $request, $id)
+    {
+        $recipe = $this->getDoctrine()->getManager()->getRepository('AppBundle:Recipe')->find($id);
+
+        return $this->render('@App/Recipe/widgets/recipe-simple.html.twig', [
+            'recipe' => $recipe,
+        ]);
+    }
 }

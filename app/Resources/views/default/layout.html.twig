@@ -26,8 +26,10 @@
         {% include '@App/flash-message.html.twig' with {'type': type, 'message': flashMessage.0 | raw} %}
     {% endfor %}
 
-    {% block content %}
-    {% endblock content %}
+    <div class="wrapper">
+        {% block content %}
+        {% endblock content %}
+    </div>
 
     {% include '@App/footer.html.twig' %}
 
@@ -36,4 +38,13 @@
 {% block base_javascripts %}
     <!-- Latest compiled and minified JavaScript -->
     <script src="{{ asset('assets/vendor/bootstrap-sass/assets/javascripts/bootstrap.min.js') }}"></script>
+
+    <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+    <script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/app/vendors/bootstrap-touchspin/bootstrap-touchspin.js') }}"></script>
+
+    {% javascripts
+    '@AppBundle/Resources/public/js/*' %}
+    <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
 {% endblock base_javascripts %}
