@@ -1,29 +1,35 @@
 {% extends ':default:layout.html.twig' %}
 
 {% block content %}
-    <h1>Liste de courses du {{ shoppingList.createdAt | date('d/m/Y') }}</h1>
 
-    <div class="row">
-        <div class="col-xs-12">
-            <table class="table">
-                <thead>
-                <tr>
-                    <th>Recette</th>
-                    <th>Personnes</th>
-                </tr>
-                </thead>
-                <tbody>
-                {% for recipe in shoppingList.recipes %}
+    <div class="container-fluid">
+
+        <h1>Liste de courses du {{ shoppingList.createdAt | date('d/m/Y') }}</h1>
+
+        <div class="row">
+            <div class="col-xs-12">
+                <table class="table">
+                    <thead>
                     <tr>
-                        <td><img src="{{ recipe.recipe.image }}" alt="" width="100"> {{ recipe.recipe.name }}</td>
-                        <td>{{ recipe.people }}</td>
+                        <th>Recette</th>
+                        <th>Personnes</th>
                     </tr>
-                {% endfor %}
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                    {% for recipe in shoppingList.recipes %}
+                        <tr>
+                            <td><img src="{{ recipe.recipe.image }}" alt="" width="100"> {{ recipe.recipe.name }}</td>
+                            <td>{{ recipe.people }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
         </div>
+
+        <a href="{{ path('app.shopping_list.update', {'id': shoppingList.id}) }}" class="btn btn-primary"><i class="glyphicon glyphicon-edit"></i> Modifier</a>
+        <a href="{{ path('app.shopping_list.print_ingredients', {'id': shoppingList.id}) }}" class="btn btn-default"><i class="glyphicon glyphicon-print"></i> Imprimer les ingrédients</a>
+
     </div>
 
-    <a href="{{ path('app.shopping_list.update', {'id': shoppingList.id}) }}" class="btn btn-default"><span class="glyphicon glyphicon-edit"></span> Modifier</a>
-    <a href="{{ path('app.shopping_list.print_ingredients', {'id': shoppingList.id}) }}" class="btn btn-default"><span class="glyphicon glyphicon-print"></span> Imprimer les ingrédients</a>
 {% endblock content %}

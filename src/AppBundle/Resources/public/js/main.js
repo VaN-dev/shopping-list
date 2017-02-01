@@ -1,20 +1,3 @@
-function initIngredientAutocomplete() {
-    $( ".autocomplete" ).autocomplete({
-        source: "{{ path('app.ingredient.search_by_pattern') }}",
-        minLength: 2,
-        select: function( event, ui ) {
-            $( this ).val(ui.item.name);
-            return false;
-        }
-    })
-        .autocomplete( "instance" )._renderItem = function( ul, item ) {
-        return $( "<li>" )
-            .append( "<a>" + item.name + "</a>" )
-            .appendTo( ul );
-    }
-    ;
-}
-
 function initTouchSpin() {
     $(".touchspin").TouchSpin({
         buttondown_class: "btn btn-primary",

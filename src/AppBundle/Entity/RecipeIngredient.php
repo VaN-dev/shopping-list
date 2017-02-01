@@ -38,18 +38,20 @@ class RecipeIngredient
     private $ingredient;
 
     /**
+     * @var Unit
+     *
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Unit")
+     * @ORM\JoinColumn(name="unit_id")
+     */
+    private $unit;
+
+    /**
      * @var float
      *
      * @ORM\Column(name="quantity", type="float")
      */
     private $quantity;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="unit", type="string", length=50)
-     */
-    private $unit;
 
     /**
      * CUSTOM METHODS
@@ -96,11 +98,11 @@ class RecipeIngredient
     /**
      * Set unit
      *
-     * @param string $unit
+     * @param Unit $unit
      *
      * @return RecipeIngredient
      */
-    public function setUnit($unit)
+    public function setUnit(Unit $unit)
     {
         $this->unit = $unit;
 
@@ -110,7 +112,7 @@ class RecipeIngredient
     /**
      * Get unit
      *
-     * @return string
+     * @return Unit
      */
     public function getUnit()
     {
@@ -120,11 +122,11 @@ class RecipeIngredient
     /**
      * Set recipe
      *
-     * @param \AppBundle\Entity\Recipe $recipe
+     * @param Recipe $recipe
      *
      * @return RecipeIngredient
      */
-    public function setRecipe(\AppBundle\Entity\Recipe $recipe = null)
+    public function setRecipe(Recipe $recipe = null)
     {
         $this->recipe = $recipe;
 
@@ -134,7 +136,7 @@ class RecipeIngredient
     /**
      * Get recipe
      *
-     * @return \AppBundle\Entity\Recipe
+     * @return Recipe
      */
     public function getRecipe()
     {
@@ -144,11 +146,11 @@ class RecipeIngredient
     /**
      * Set ingredient
      *
-     * @param \AppBundle\Entity\Ingredient $ingredient
+     * @param Ingredient $ingredient
      *
      * @return RecipeIngredient
      */
-    public function setIngredient(\AppBundle\Entity\Ingredient $ingredient = null)
+    public function setIngredient(Ingredient $ingredient = null)
     {
         $this->ingredient = $ingredient;
 
@@ -158,7 +160,7 @@ class RecipeIngredient
     /**
      * Get ingredient
      *
-     * @return \AppBundle\Entity\Ingredient
+     * @return Ingredient
      */
     public function getIngredient()
     {

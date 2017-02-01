@@ -1,44 +1,82 @@
 {% extends ':default:layout.html.twig' %}
 
-
 {% block content %}
+
     <div class="container-fluid">
+
         {% include "ComurImageBundle:Form:croppable_image_modal.html.twig" with {'include_jquery': false, 'include_bootstrap': false} %}
 
         <h1>Ajouter une recette</h1>
 
+        {{ form_start(form) }}
+
         <div class="row">
-            <div class="col-xs-12">
-
-                <form method="POST">
-                    {{ form_row(form.name) }}
-                    {{ form_row(form.people, {'attr': {'class': 'touchspin'}}) }}
-                    {{ form_row(form.scope) }}
-                    {{ form_row(form.image) }}
-
-                    <h3>Ingredients</h3>
-                    <div class="ingredients" data-prototype="{% filter escape %}{{ include('@App/Recipe/ingredient-prototype.html.twig', { 'ingredient': form.ingredients.vars.prototype }) }}{% endfilter %}">
-                        {% for ingredient in form.ingredients %}
-                            {{ include('@App/Recipe/ingredient-prototype.html.twig', { 'ingredient': ingredient }) }}
-                        {% endfor %}
+            <div class="col-xs-12 col-lg-6">
+                <div class="c-panel c-panel--default">
+                    <div class="c-panel__heading">
+                        <h2 class="c-panel__title">Informations de base</h2>
                     </div>
+                    <div class="c-panel__body">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                {{ form_row(form.name) }}
+                                {{ form_row(form.people, {'attr': {'class': 'touchspin'}}) }}
+                                {{ form_row(form.scope) }}
+                            </div>
+                            <div class="col-lg-6">
+                                {{ form_row(form.image) }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-                    <a href="#" id="add-ingredient-trigger">Ajouter un ingrédient</a>
+            <div class="col-xs-12 col-lg-6">
+                <div class="c-panel c-panel--default">
+                    <div class="c-panel__heading">
+                        <h2 class="c-panel__title">Ingredients</h2>
+                    </div>
+                    <div class="c-panel__body">
+                        <div class="ingredients" data-prototype="{% filter escape %}{{ include('@App/Recipe/ingredient-prototype.html.twig', { 'ingredient': form.ingredients.vars.prototype }) }}{% endfilter %}">
+                            {% for ingredient in form.ingredients %}
+                                {{ include('@App/Recipe/ingredient-prototype.html.twig', { 'ingredient': ingredient }) }}
+                            {% endfor %}
+                        </div>
 
-                    <hr />
-
-                    <input type="submit" value="Valider" class="btn btn-primary">
-                    {{ form_rest(form) }}
-                </form>
-
+                        <a href="#" class="btn btn-default" id="add-ingredient-trigger"><i class="glyphicon glyphicon-plus"></i> Ajouter un ingrédient</a>
+                    </div>
+                </div>
             </div>
         </div>
+
+        <input type="submit" value="Valider" class="btn btn-primary">
+
+        {{ form_end(form) }}
     </div>
 
 {% endblock content %}
 
 {% block javascripts %}
     <script type="text/javascript">
+        function initIngredientAutocomplete() {
+            if ($(".autocomplete").length > 0) {
+                $( ".autocomplete" ).autocomplete({
+                    source: "{{ path('app.ingredient.search_by_pattern') }}",
+                    minLength: 2,
+                    select: function( event, ui ) {
+                        $( this ).val(ui.item.name);
+                        return false;
+                    }
+                })
+                .autocomplete( "instance" )._renderItem = function( ul, item ) {
+                    return $( "<li>" )
+                        .append( "<a>" + item.name + "</a>" )
+                        .appendTo( ul );
+                }
+                ;
+            }
+        }
+
         function init() {
             initIngredientAutocomplete();
             initTouchSpin();
@@ -51,7 +89,7 @@
             $(document).on('click', '#add-ingredient-trigger', function(e) {
                 e.preventDefault();
                 addIngredientForm(collectionHolder);
-                initTouchSpin();
+                init();
             });
 
             $(document).on('click', '.delete-ingredient-trigger', function(e) {

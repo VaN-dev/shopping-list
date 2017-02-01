@@ -1,22 +1,18 @@
 <fieldset class="form-group">
     <div class="row">
-        <div class="col-xs-7">
+        <div class="col-xs-12 col-lg-6">
             {{ form_row(ingredient.ingredient, {'attr': {'class': 'autocomplete'}}) }}
         </div>
-        <div class="col-xs-2">
+        <div class="col-xs-7 col-lg-3">
             {{ form_row(ingredient.quantity, {'attr': {'class': 'touchspin'}}) }}
-
-            {#<input id="demo0" class="form-control" value="55" name="demo0" data-bts-min="0" data-bts-max="100" data-bts-init-val="" data-bts-step="1" data-bts-decimal="0" data-bts-step-interval="100" data-bts-force-step-divisibility="round" data-bts-step-interval-delay="500" data-bts-prefix="" data-bts-postfix="" data-bts-prefix-extra-class="" data-bts-postfix-extra-class="" data-bts-booster="true" data-bts-boostat="10" data-bts-max-boosted-step="false" data-bts-mousewheel="true" data-bts-button-down-class="btn btn-default" data-bts-button-up-class="btn btn-default" style="display: block;" type="text">#}
         </div>
-        <div class="col-xs-2">
+        <div class="col-xs-5 col-lg-2">
             {{ form_row(ingredient.unit) }}
         </div>
-        <div class="col-xs-1">
+        <div class="col-lg-1">
             <div class="form-group">
                 <label class="control-label">&nbsp;</label>
-                <div class="form-control-static" style="padding-top: 0; padding-bottom: 0;">
-                    <a href="#" class="btn btn-danger pull-right delete-ingredient-trigger"><span class="glyphicon glyphicon-trash"></span></a>
-                </div>
+                <button class="btn btn-danger pull-right delete-ingredient-trigger form-control"><i class="glyphicon glyphicon-trash"></i></button>
             </div>
         </div>
     </div>

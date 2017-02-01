@@ -16,7 +16,7 @@
                         <ul class="list-group">
                             {% for ingredient in recipe.ingredients %}
                                 <li class="list-group-item">
-                                    <span class="badge badge-primary">{{ ingredient.quantity ~ ingredient.unit }}</span>
+                                    <span class="badge badge-primary">{{ ingredient.quantity ~ ' ' ~ ingredient.unit.name }}</span>
                                     {{ ingredient.ingredient.name }}
                                 </li>
                             {% endfor %}

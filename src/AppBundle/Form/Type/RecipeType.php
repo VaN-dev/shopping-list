@@ -58,8 +58,8 @@ class RecipeType extends AbstractType
                     'forceResize' => false,             //optional
                     'thumbs' => array(                  //optional
                         array(
-                            'maxWidth' => 400,
-                            'maxHeight' => 300,
+                            'maxWidth' => 200,
+                            'maxHeight' => 150,
                             'useAsFieldImage' => true  //optional
                         )
                     )
