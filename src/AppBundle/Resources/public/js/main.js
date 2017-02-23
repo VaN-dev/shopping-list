@@ -18,5 +18,5 @@ function addIngredientForm(collectionHolder) {
 }
 
 $(function(e) {
-
+    $('[data-toggle="tooltip"]').tooltip();
 });

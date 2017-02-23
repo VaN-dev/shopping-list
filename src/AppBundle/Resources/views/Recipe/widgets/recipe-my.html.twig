@@ -1,9 +1,9 @@
-<div class="c-panel w-recipe">
+<div class="c-panel widget">
     <div class="c-panel__actions">
         <a href="{{ path('app.recipe.update', {'id': recipe.id}) }}" class="btn btn-sm btn-default"><i class="glyphicon glyphicon-edit"></i></a>
     </div>
-    <img class="w-recipe__img w-recipe__img--responsive" src="{{ recipe.webPath }}" alt="">
-    <div class="c-panel__body w-recipe__body">
+    <img class="widget__img widget__img--responsive" src="{{ recipe.webPath }}" alt="">
+    <div class="c-panel__body widget__body">
         <p>
             <a href="{{ path('app.recipe.read', {'id': recipe.id}) }}">{{ recipe.name }}</a>
         </p>

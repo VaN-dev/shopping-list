@@ -76,6 +76,6 @@ class RegistrationType extends AbstractType
      */
     public function getName()
     {
-        return 'van_userbundle_usertype';
+        return 'appbundle_registration_type';
     }
 }

@@ -1,0 +1,14 @@
+<div class="c-panel widget">
+    <div class="c-panel__actions">
+        <a href="{{ path('app.friend.request.accept', {'id': friend_request.id}) }}" class="btn btn-sm btn-default" data-toggle="tooltip" data-placement="top" title="Accepter la demande"><i class="glyphicon glyphicon-ok"></i></a>
+    </div>
+    <img class="widget__img widget__img--responsive widget__img--circle" src="{{ friend_request.sender.avatar }}" alt="">
+    <div class="c-panel__body widget__body">
+        <p>
+            <a href="#">{{ friend_request.sender.username }}</a>
+        </p>
+        <p class="text-muted">4 recettes visibles</p>
+    </div>
+</div>
+
+

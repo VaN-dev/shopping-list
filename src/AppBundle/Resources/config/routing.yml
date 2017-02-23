@@ -20,3 +20,6 @@ app.recipe:
 
 app.shopping_list:
     resource: '@AppBundle/Resources/config/routing/shopping_list.yml'
+
+app.friend:
+    resource: '@AppBundle/Resources/config/routing/friend.yml'

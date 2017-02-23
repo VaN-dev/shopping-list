@@ -1,0 +1,27 @@
+{% extends ':default:layout.html.twig' %}
+
+{% block content %}
+    <div class="container-fluid">
+        <h1>Mes amis</h1>
+
+        <div class="row">
+            {% for friend in friends %}
+                <div class="col-xs-12 col-sm-3">
+                    {% include '@App/Friend/widgets/friend-my.html.twig' %}
+                </div>
+            {% endfor %}
+        </div>
+
+        <h2>Demandes en attente</h2>
+
+        <div class="row">
+            {% for friend_request in friend_requests %}
+                <div class="col-xs-12 col-sm-3">
+                    {% include '@App/Friend/widgets/friend-request.html.twig' with {'friend_request': friend_request} %}
+                </div>
+            {% else %}
+                <div class="col-xs-12">aucune demande en attente.</div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock content %}

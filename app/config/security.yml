@@ -10,7 +10,7 @@ security:
         main:
             entity:
                 class: AppBundle\Entity\User
-                property: username
+                property: email
 
     firewalls:
         # disables authentication for assets and the profiler, adapt it according to your needs
@@ -42,6 +42,7 @@ security:
         - { path: ^/register, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/lost-password, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/reset-password, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/dashboard, roles: IS_AUTHENTICATED_REMEMBERED }
 
-        - { path: ^/, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/app_dev.php, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/app.php, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/, roles: IS_AUTHENTICATED_REMEMBERED }

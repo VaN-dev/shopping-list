@@ -136,16 +136,16 @@ html {
       }
     }
 
-    .w-recipe {
+    .widget {
       padding: 20px;
       min-height: 130px;
 
-      .w-recipe__body {
+      .widget__body {
         padding: 0;
         margin-left: 140px;
       }
 
-      .w-recipe__img {
+      .widget__img {
         float: left;
         height: 90px;
         vertical-align: middle;
@@ -153,6 +153,10 @@ html {
         &--responsive {
           display: block;
           max-width: 100%;
+        }
+
+        &--circle {
+          border-radius: 50%;
         }
       }
     }
@@ -174,4 +178,12 @@ html {
       padding-top: 52px;
     }
   }
+}
+
+
+/* Tooltips */
+.tooltip-inner {
+  border-radius: 1px;
+  padding: 6px 10px;
+  white-space: nowrap;
 }

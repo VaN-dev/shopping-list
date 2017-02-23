@@ -17,6 +17,7 @@
                 <ul class="nav navbar-nav">
                     {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
                         <li><a href="{{ path('app.recipe') }}">Toutes les recettes</a></li>
+                        <li><a href="{{ path('app.user.list') }}">Tous les utilisateurs</a></li>
                     {% endif %}
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
@@ -26,6 +27,7 @@
                             <ul class="dropdown-menu">
                                 <li><a href="{{ path('app.recipe.my') }}">Mes recettes</a></li>
                                 <li><a href="{{ path('app.shopping_list') }}">Mes listes de courses</a></li>
+                                <li><a href="{{ path('app.user.friends') }}">Mes amis</a></li>
                                 <li role="separator" class="divider"></li>
                                 <li><a href="{{ path('app.user.profile') }}">Profil</a></li>
                                 <li><a href="{{ path('app.security.logout') }}">Déconnexion</a></li>

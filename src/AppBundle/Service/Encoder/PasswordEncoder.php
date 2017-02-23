@@ -31,7 +31,7 @@ class PasswordEncoder implements PasswordEncoderInterface
      */
     public function isPasswordValid($encoded, $raw, $salt)
     {
-        $isValid =  $encoded === $this->encodePassword($raw, $salt);
+        $isValid = $encoded === $this->encodePassword($raw, $salt);
 
         return $isValid;
     }

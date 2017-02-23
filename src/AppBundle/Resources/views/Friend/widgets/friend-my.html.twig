@@ -1,0 +1,12 @@
+<div class="c-panel widget">
+    <div class="c-panel__actions">
+        <a href="{{ path('app.friend.request.cancel', {'id': friend.id}) }}" class="btn btn-sm btn-default" data-toggle="tooltip" data-placement="top" title="Enlever de mes amis"><i class="glyphicon glyphicon-remove"></i></a>
+    </div>
+    <img class="widget__img widget__img--responsive widget__img--circle" src="{{ friend.avatar }}" alt="">
+    <div class="c-panel__body widget__body">
+        <p>
+            <a href="#">{{ friend.username }}</a>
+        </p>
+        <p class="text-muted">4 recettes visibles</p>
+    </div>
+</div>

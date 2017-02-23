@@ -1,0 +1,17 @@
+app.friend.request:
+    path:     /friend-request/{id}
+    defaults: { _controller: AppBundle:Friend:friendRequest }
+    requirements:
+        id: \d+
+
+app.friend.request.accept:
+    path:     /friend-request/{id}/accept
+    defaults: { _controller: AppBundle:Friend:acceptFriendRequest }
+    requirements:
+        id: \d+
+
+app.friend.request.cancel:
+    path:     /friend-request/{id}/cancel
+    defaults: { _controller: AppBundle:Friend:cancelFriendRequest }
+    requirements:
+        id: \d+

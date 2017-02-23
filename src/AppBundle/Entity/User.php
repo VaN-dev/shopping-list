@@ -8,7 +8,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\UserRepository")
  * @ORM\Table(name="users")
  * @UniqueEntity(fields={"username", "email"})
  */
@@ -94,10 +94,26 @@ class User implements UserInterface
      */
     protected $enabled;
 
+    /**
+     * @var string
+     * ORM\Column(name="avatar", type="string", length=255)
+     */
+    protected $avatar;
+
 
     public function eraseCredentials()
     {
 
+    }
+
+    /**
+     * @return bool
+     */
+    public function isProfileCompleted()
+    {
+        return (
+            null !== $this->avatar
+        );
     }
 
     /**
@@ -397,4 +413,24 @@ class User implements UserInterface
     {
         return $this->enabled;
     }
+
+    /**
+     * @return string
+     */
+    public function getAvatar()
+    {
+        return 'https://randomuser.me/api/portraits/men/'.rand(1, 20).'.jpg';
+    }
+
+    /**
+     * @param string $avatar
+     * @return User
+     */
+    public function setAvatar($avatar)
+    {
+        $this->avatar = $avatar;
+        return $this;
+    }
+
+
 }

@@ -14,6 +14,18 @@ use Symfony\Component\HttpFoundation\Request;
 class UserController extends Controller
 {
     /**
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function indexAction()
+    {
+        $users = $this->getDoctrine()->getRepository('AppBundle:User')->findAll();
+
+        return $this->render('AppBundle:User:index.html.twig', [
+            'users' => $users,
+        ]);
+    }
+
+    /**
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
