@@ -1,0 +1,16 @@
+{#{{ form_start(form) }}#}
+    {#{{ form_row(form.avatar) }}#}
+    {#{{ form_row(form.test) }}#}
+{#{{ form_end(form) }}#}
+
+<form method="post" action="{{ path('app.user.form.avatar') }}">
+
+    {% for avatar in avatars %}
+        <div class="radio radio-primary">
+            <img src="{{ asset('img/avatars/boy.svg') }}" alt="{{ avatar }}" width="50" class="img--circle">
+            <input type="radio" name="avatar" value="{{ avatar }}" id="avatar-{{ avatar }}">
+            <label for="avatar-{{ avatar }}">{{ avatar }}</label>
+        </div>
+    {% endfor %}
+
+</form>

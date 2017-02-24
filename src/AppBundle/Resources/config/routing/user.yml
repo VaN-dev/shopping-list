@@ -19,3 +19,7 @@ app.user.details:
 app.user.friends:
     path:     /friends
     defaults: { _controller: AppBundle:Friend:index }
+
+app.user.form.avatar:
+    path:     /form/avatar
+    defaults: { _controller: AppBundle:User:avatarForm }

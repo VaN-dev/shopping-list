@@ -4,7 +4,9 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\User;
 use AppBundle\Form\Type\RegistrationType;
+use AppBundle\Form\Type\UserType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
@@ -77,6 +79,40 @@ class UserController extends Controller
         return $this->render('AppBundle:User:details.html.twig', [
             'user' => $user,
             'recipes' => $recipes,
+        ]);
+    }
+
+    /**
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function avatarFormAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        /**
+         * @var User $user
+         */
+        $user = $this->getUser();
+
+        if (Request::METHOD_POST === $request->getMethod()) {
+            $user
+                ->setAvatar($request->request->get('avatar'))
+            ;
+
+            $em->flush();
+
+            $request->getSession()->remove('app/profile-completion');
+
+            return new RedirectResponse($this->generateUrl('dashboard'));
+        }
+
+        $avatars = [
+            'boy'
+        ];
+
+        return $this->render('@App/User/forms/avatar.html.twig', [
+//            'form' => $form->createView(),
+            'avatars' => $avatars,
         ]);
     }
 }

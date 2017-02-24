@@ -96,7 +96,7 @@ class User implements UserInterface
 
     /**
      * @var string
-     * ORM\Column(name="avatar", type="string", length=255)
+     * @ORM\Column(name="avatar", type="string", length=255, nullable=true)
      */
     protected $avatar;
 
@@ -419,7 +419,8 @@ class User implements UserInterface
      */
     public function getAvatar()
     {
-        return 'https://randomuser.me/api/portraits/men/'.rand(1, 20).'.jpg';
+        return '/img/avatars/'. $this->avatar . '.svg';
+//        return 'https://randomuser.me/api/portraits/men/'.rand(1, 20).'.jpg';
     }
 
     /**

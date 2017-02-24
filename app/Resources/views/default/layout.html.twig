@@ -43,26 +43,32 @@
                         <h4 class="modal-title" id="myModalLabel">Complétez votre profil</h4>
                     </div>
                     <div class="modal-body">
-                        {#<div class="collection-avatars">#}
-                            {#<img src="{{ asset('img/avatars/boy.svg') }}" alt="" width="50">#}
-                        {#</div>#}
-                        <form>
 
-                        </form>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Plus tard</button>
-                        <button type="button" class="btn btn-primary">Valider</button>
+                        <button type="submit" class="btn btn-primary">Valider</button>
                     </div>
                 </div><!-- /.modal-content -->
             </div>
         </div>
         <script type="text/javascript">
             $(function(e) {
-//                $.get('')
-
                 var modal = $('#profile-completion-modal');
-                modal.modal();
+
+                $.get('{{ path('app.user.form.avatar') }}', function( data ) {
+                    $( modal ).find('.modal-body').html( data );
+//                    alert( "Load was performed." );
+                    modal.modal();
+
+                    var form = $(modal).find('form');
+                    $(modal).find('button[type=submit]').click(function(e) {
+                        console.log('submit');
+                        $(form).submit();
+                    });
+                });
+
+
             });
         </script>
     {% endif %}
