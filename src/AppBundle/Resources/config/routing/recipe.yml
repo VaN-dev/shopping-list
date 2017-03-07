@@ -11,14 +11,20 @@ app.recipe.create:
     defaults: { _controller: AppBundle:Recipe:create }
 
 app.recipe.update:
-    path:     /recettes/update/{id}
+    path:     /recettes/{id}/update
     defaults: { _controller: AppBundle:Recipe:update }
     requirements:
         id: \d+
 
 app.recipe.read:
-    path:     /recettes/read/{id}
+    path:     /recettes/{id}/read
     defaults: { _controller: AppBundle:Recipe:read }
+    requirements:
+        id: \d+
+
+app.recipe.collect:
+    path:     /recettes/{id}/collect
+    defaults: { _controller: AppBundle:Recipe:collect }
     requirements:
         id: \d+
 

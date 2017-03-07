@@ -5,22 +5,24 @@
     <div class="container-fluid">
 
         <a href="{{ path('app.shopping_list.create') }}" class="btn btn-primary pull-right">Nouvelle liste</a>
-        <h1>Mes liste de courses</h1>
+        <h1>Mes listes de courses</h1>
 
         <table class="table">
             <thead>
             <tr>
-                <th></th>
-                <th></th>
+                <th>Date de création</th>
+                <th>Recettes</th>
+                <th>Actions</th>
             </tr>
             </thead>
             <tbody>
         {% for shoppingList in shoppingLists %}
             <tr>
-                <td>{{ shoppingList.createdAt | date("d/m/Y") }}, {{ shoppingList.recipes | length ~ ' recette(s)' }}</td>
+                <td>{{ shoppingList.createdAt | date("d/m/Y") }}</td>
+                <td>{{ shoppingList.recipes | length ~ ' recette(s)' }}</td>
                 <td>
-                    <a href="{{ path('app.shopping_list.read', {'id': shoppingList.id}) }}">voir</a> -
-                    <a href="{{ path('app.shopping_list.update', {'id': shoppingList.id}) }}">modifier</a>
+                    <a href="{{ path('app.shopping_list.read', {'id': shoppingList.id}) }}" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="Voir"><i class="glyphicon glyphicon-eye-open"></i></a>
+                    <a href="{{ path('app.shopping_list.update', {'id': shoppingList.id}) }}" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="Modifier"><i class="glyphicon glyphicon-edit"></i></a>
                 </td>
             </tr>
         {% endfor %}

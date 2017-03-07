@@ -100,11 +100,13 @@
             /**
              * Random recipes event
              */
-            .on('click', '#random-recipes-trigger', function(e) {
+            .on('click', '#js-random-recipes-trigger', function(e) {
                 e.preventDefault();
+                $('#js-accept-random-recipes-trigger').attr('disabled', 'disabled').removeClass('btn-primary');
 
                 $.getJSON( "{{ path('app.recipe.random') }}", function( data ) {
                     var container = $('#random-container');
+                    container.html('');
                     $.each( data, function( key, recipe ) {
                         $.get(Routing.generate('app.recipe.widgetize', { id: recipe.id }), function(widget) {
                             $('<div/>', {
@@ -113,7 +115,14 @@
                             }).appendTo(container);
                         });
                     });
-                });
+                })
+                .done(function() {
+                    $('#js-accept-random-recipes-trigger').attr('disabled', false).addClass('btn-primary');
+                })
+                ;
+            })
+            .on('click', '#js-accept-random-recipes-trigger', function(e) {
+
             })
             ;
         });

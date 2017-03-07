@@ -54,6 +54,7 @@ html {
     }
     
     .c-panel {
+      position: relative;
       margin-bottom: 20px;
 
       border: medium none;
@@ -64,7 +65,7 @@ html {
       .c-panel__actions {
         position: absolute;
         top: 20px;
-        right: 35px;
+        right: 20px;
       }
       .c-panel__heading {
         padding: 10px 20px;

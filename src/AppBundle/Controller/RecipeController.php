@@ -8,6 +8,7 @@ use AppBundle\Entity\RecipeIngredient;
 use AppBundle\Form\Type\RecipeType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -124,6 +125,29 @@ class RecipeController extends Controller
         return $this->render('@App/Recipe/read.html.twig', [
             'recipe' => $recipe,
         ]);
+    }
+
+    /**
+     * @param Request $request
+     * @param $id
+     * @return RedirectResponse
+     */
+    public function collectAction(Request $request, $id)
+    {
+        $original = $this->getDoctrine()->getManager()->getRepository('AppBundle:Recipe')->find($id);
+
+        $recipe = clone $original;
+
+        $recipe
+            ->setUser($this->getUser())
+        ;
+
+        $this->getDoctrine()->getManager()->persist($recipe);
+        $this->getDoctrine()->getManager()->flush();
+
+        $request->getSession()->getFlashBag()->add('success', 'La recette a été ajoutée à votre collection.');
+
+        return new RedirectResponse($this->generateUrl('app.user.details', ['id' => $original->getUser()->getId()]));
     }
 
     /**
