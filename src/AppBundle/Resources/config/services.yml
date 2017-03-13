@@ -1,5 +1,7 @@
 imports:
+    - { resource: services/app.yml }
     - { resource: services/security.yml }
     - { resource: services/ingredient.yml }
     - { resource: services/recipe.yml }
     - { resource: services/shopping_list.yml }
+    - { resource: services/friend.yml }

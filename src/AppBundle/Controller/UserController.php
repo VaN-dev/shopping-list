@@ -44,7 +44,6 @@ class UserController extends Controller
                 // Password encoding
                 $passwordEncoding = $this->get('app.security.encoder.password');
                 $user->setPassword($passwordEncoding->encodePassword($user->getPassword(), $user->getSalt()));
-                $user->setRoles(["FRONTEND_USER"]);
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($user);
                 $em->flush();

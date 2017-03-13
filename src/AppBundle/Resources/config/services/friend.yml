@@ -1,0 +1,7 @@
+services:
+    app.form.type.invitation:
+        class: AppBundle\Form\Type\InvitationType
+        arguments:
+            - "@router"
+        tags:
+            - { name: form.type }

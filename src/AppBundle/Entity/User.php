@@ -125,7 +125,7 @@ class User implements UserInterface
         $this->salt = base_convert(sha1(uniqid(mt_rand(), true)), 16, 36);
         $this->enabled = false;
         $this->locked = false;
-        $this->roles = [];
+        $this->roles = ["FRONTEND_USER"];
     }
 
     /**

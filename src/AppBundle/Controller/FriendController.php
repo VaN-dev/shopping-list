@@ -3,7 +3,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Friendship;
-use AppBundle\Entity\User;
+use AppBundle\Form\Type\InvitationType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -22,9 +22,13 @@ class FriendController extends Controller
         $friends = $this->getDoctrine()->getRepository('AppBundle:User')->getFriends($this->getUser());
         $friend_requests = $this->getDoctrine()->getRepository('AppBundle:Friendship')->findBy(['receiver' => $this->getUser(), 'status' => Friendship::STATUS_WAITING]);
 
+        $invitations = [];
+        $invitation_form = $this->createForm(InvitationType::class, $invitations);
+
         return $this->render('AppBundle:Friend:my.html.twig', [
             'friends' => $friends,
             'friend_requests' => $friend_requests,
+            'invitation_form' => $invitation_form->createView(),
         ]);
     }
 
@@ -95,6 +99,37 @@ class FriendController extends Controller
         $em->flush();
 
         $request->getSession()->getFlashBag()->add('success', 'Ami supprimé.');
+
+        return new RedirectResponse($this->generateUrl('app.user.friends'));
+    }
+
+    /**
+     * @param Request $request
+     * @return RedirectResponse
+     */
+    public function invitationAction(Request $request)
+    {
+        $invitations = [];
+        $invitation_form = $this->createForm(InvitationType::class, $invitations);
+
+        $invitation_form->handleRequest($request);
+
+        $recipients = $invitation_form->getData()['mails'];
+        $recipients = explode(',', $recipients);
+
+        $mailer = $this->get('app.mailer.sendpulse');
+
+        foreach ($recipients as $recipient) {
+            $subject = 'Viens essayer Shopping List';
+            $html = $this->render('@App/Friend/mails/invitation.html.twig');
+            $success = $mailer->send(['email' => $recipient], $subject, $html, ['email' => $this->getUser()->getEmail()]);
+
+            if (true === $success) {
+                $request->getSession()->getFlashBag()->add('success', 'Invitation envoyée à ' . $recipient . '.');
+            } else {
+                $request->getSession()->getFlashBag()->add('danger', 'Un problème est survenu lors de l\'envoi de l\'invitation à  ' . $recipient . '.');
+            }
+        }
 
         return new RedirectResponse($this->generateUrl('app.user.friends'));
     }

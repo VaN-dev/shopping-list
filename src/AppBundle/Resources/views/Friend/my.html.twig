@@ -5,6 +5,22 @@
         <h1>Mes amis</h1>
 
         <div class="row">
+            <div class="col-xs-12 col-lg-6">
+                {{ form_start(invitation_form, {'attr': {'class': 'form-inli'}}) }}
+                    <div class="form-group">
+                        {{ form_label(invitation_form.mails) }}
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-10">{{ form_widget(invitation_form.mails) }}</div>
+                            <div class="col-xs-12 col-sm-2"><button type="submit" class="btn btn-primary form-control">Envoyer</button></div>
+                        </div>
+
+                    </div>
+
+                {{ form_end(invitation_form) }}
+            </div>
+        </div>
+
+        <div class="row">
             {% for friend in friends %}
                 <div class="col-xs-12 col-sm-3">
                     {% include '@App/Friend/widgets/friend-my.html.twig' %}

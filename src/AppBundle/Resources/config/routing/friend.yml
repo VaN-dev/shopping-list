@@ -15,3 +15,7 @@ app.friend.request.cancel:
     defaults: { _controller: AppBundle:Friend:cancelFriendRequest }
     requirements:
         id: \d+
+
+app.friend.invitation:
+    path:     /invitation
+    defaults: { _controller: AppBundle:Friend:invitation }
