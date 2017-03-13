@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html{% if page is defined %} class="{{ page }}"{% endif %}>
     <head>
-        <meta charset="UTF-8" />
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>{% block title %}Shopping List{% endblock %}</title>
         {% block base_stylesheets %}{% endblock %}
         {% block stylesheets %}{% endblock %}
