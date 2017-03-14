@@ -46,6 +46,10 @@ html {
     .wrapper {
       padding: 0 0 20px 0;
     }
+    .wrapper-page {
+      margin: 7.5% auto;
+      max-width: 360px;
+    }
 
     .container {
       &--xs {
