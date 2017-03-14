@@ -64,33 +64,35 @@
             </a>
         </div>
 
-        {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
+        <div class="row">
+            {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
 
-            <div class="form-group">
-                {{ form_widget(form.username) }}
-            </div>
-            <div class="form-group">
-                {{ form_widget(form.email.first) }}
-            </div>
-            <div class="form-group">
-                {{ form_widget(form.email.second) }}
-            </div>
-            <div class="form-group">
-                {{ form_widget(form.password.first) }}
-            </div>
-            <div class="form-group">
-                {{ form_widget(form.password.second) }}
-            </div>
+                <div class="form-group">
+                    {{ form_widget(form.username) }}
+                </div>
+                <div class="form-group">
+                    {{ form_widget(form.email.first) }}
+                </div>
+                <div class="form-group">
+                    {{ form_widget(form.email.second) }}
+                </div>
+                <div class="form-group">
+                    {{ form_widget(form.password.first) }}
+                </div>
+                <div class="form-group">
+                    {{ form_widget(form.password.second) }}
+                </div>
 
-            <div class="form-group">
-                <button type="submit" class="btn btn-primary pull-right">register</button>
-            </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary pull-right">register</button>
+                </div>
 
-            <div class="text-center">
-                <a class="text-muted" href="{{ path('app.security.login') }}">Already have account?</a>
-            </div>
+                <div class="text-center">
+                    <a class="text-muted" href="{{ path('app.security.login') }}">Already have account?</a>
+                </div>
 
-        {{ form_end(form) }}
+            {{ form_end(form) }}
+        </div>
     </div>
 
 {% endblock content %}
