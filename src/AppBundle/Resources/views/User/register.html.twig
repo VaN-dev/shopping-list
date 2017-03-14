@@ -3,59 +3,103 @@
 
 {% block content %}
     {#<div class="container container--xs">#}
-    <div class="wrapper-page">
-        <div class="text-center">
-            <a href="{{ path('index') }}" class="logo logo-lg">
-                <i class="glyphicon glyphicon-heart-empty"></i>
-                <span>Shopping List</span>
-            </a>
+        {#<div class="text-center">#}
+            {#<a href="{{ path('index') }}" class="logo logo-lg">#}
+                {#<i class="glyphicon glyphicon-heart-empty"></i>#}
+                {#<span>Shopping List</span>#}
+            {#</a>#}
+        {#</div>#}
+
+        {#{{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}#}
+            {#<div class="col-xs-12">#}
+                {#<div class="form-group">#}
+                    {#{{ form_widget(form.username) }}#}
+                    {#<i class="zmdi zmdi-account-circle form-control-feedback l-h-34"></i>#}
+                {#</div>#}
+            {#</div>#}
+
+            {#<div class="col-xs-12">#}
+                {#<div class="form-group">#}
+                    {#{{ form_widget(form.email.first) }}#}
+                    {#<i class="zmdi zmdi-email form-control-feedback l-h-34"></i>#}
+                {#</div>#}
+            {#</div>#}
+            {#<div class="col-xs-12">#}
+                {#<div class="form-group">#}
+                    {#{{ form_widget(form.email.second) }}#}
+                    {#<i class="zmdi zmdi-email form-control-feedback l-h-34"></i>#}
+                {#</div>#}
+            {#</div>#}
+
+            {#<div class="col-xs-12">#}
+                {#<div class="form-group">#}
+                    {#{{ form_widget(form.password.first) }}#}
+                    {#<i class="zmdi zmdi-key form-control-feedback l-h-34"></i>#}
+                {#</div>#}
+            {#</div>#}
+            {#<div class="col-xs-12">#}
+                {#<div class="form-group">#}
+                    {#{{ form_widget(form.password.second) }}#}
+                    {#<i class="zmdi zmdi-key form-control-feedback l-h-34"></i>#}
+                {#</div>#}
+            {#</div>#}
+
+            {#<div class="col-xs-12">#}
+                {#<div class="form-group">#}
+                    {#<button type="submit" class="btn btn-primary pull-right">register</button>#}
+                {#</div>#}
+            {#</div>#}
+
+            {#<div class="col-sm-12 text-center">#}
+                {#<a class="text-muted" href="{{ path('app.security.login') }}">Already have account?</a>#}
+            {#</div>#}
+        {#{{ form_end(form) }}#}
+    {#</div>#}
+
+    {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
+        <div class="col-xs-12">
+            <div class="form-group">
+                {{ form_widget(form.username) }}
+                {#<i class="zmdi zmdi-account-circle form-control-feedback l-h-34"></i>#}
+            </div>
         </div>
 
-        {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
-            <div class="col-xs-12">
-                <div class="form-group">
-                    {{ form_widget(form.username) }}
-                    <i class="zmdi zmdi-account-circle form-control-feedback l-h-34"></i>
-                </div>
+        <div class="col-xs-12">
+            <div class="form-group">
+                {{ form_widget(form.email.first) }}
+                {#<i class="zmdi zmdi-email form-control-feedback l-h-34"></i>#}
             </div>
+        </div>
+        <div class="col-xs-12">
+            <div class="form-group">
+                {{ form_widget(form.email.second) }}
+                {#<i class="zmdi zmdi-email form-control-feedback l-h-34"></i>#}
+            </div>
+        </div>
 
-            <div class="col-xs-12">
-                <div class="form-group">
-                    {{ form_widget(form.email.first) }}
-                    <i class="zmdi zmdi-email form-control-feedback l-h-34"></i>
-                </div>
+        <div class="col-xs-12">
+            <div class="form-group">
+                {{ form_widget(form.password.first) }}
+                {#<i class="zmdi zmdi-key form-control-feedback l-h-34"></i>#}
             </div>
-            <div class="col-xs-12">
-                <div class="form-group">
-                    {{ form_widget(form.email.second) }}
-                    <i class="zmdi zmdi-email form-control-feedback l-h-34"></i>
-                </div>
+        </div>
+        <div class="col-xs-12">
+            <div class="form-group">
+                {{ form_widget(form.password.second) }}
+                {#<i class="zmdi zmdi-key form-control-feedback l-h-34"></i>#}
             </div>
+        </div>
 
-            <div class="col-xs-12">
-                <div class="form-group">
-                    {{ form_widget(form.password.first) }}
-                    <i class="zmdi zmdi-key form-control-feedback l-h-34"></i>
-                </div>
+        <div class="col-xs-12">
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary pull-right">register</button>
             </div>
-            <div class="col-xs-12">
-                <div class="form-group">
-                    {{ form_widget(form.password.second) }}
-                    <i class="zmdi zmdi-key form-control-feedback l-h-34"></i>
-                </div>
-            </div>
+        </div>
 
-            <div class="col-xs-12">
-                <div class="form-group">
-                    <button type="submit" class="btn btn-primary pull-right">register</button>
-                </div>
-            </div>
-
-            <div class="col-sm-12 text-center">
-                <a class="text-muted" href="{{ path('app.security.login') }}">Already have account?</a>
-            </div>
-        {{ form_end(form) }}
-    </div>
+        <div class="col-sm-12 text-center">
+            <a class="text-muted" href="{{ path('app.security.login') }}">Already have account?</a>
+        </div>
+    {{ form_end(form) }}
 
 {% endblock content %}
 
