@@ -57,6 +57,7 @@
     {#</div>#}
 
     {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
+    <div class="row">
         <div class="col-xs-12">
             <div class="form-group">
                 {{ form_widget(form.username) }}
@@ -99,6 +100,7 @@
         <div class="col-sm-12 text-center">
             <a class="text-muted" href="{{ path('app.security.login') }}">Already have account?</a>
         </div>
+    </div>
     {{ form_end(form) }}
 
 {% endblock content %}
