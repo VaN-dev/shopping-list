@@ -49,9 +49,6 @@ class UserController extends Controller
                 $em->flush();
                 $request->getSession()->getFlashBag()->add('success', '<strong>Well done!</strong> You successfully registered.');
                 return $this->redirect($this->generateUrl('index'));
-            } else {
-                dump((string) $form->getErrors());
-                die();
             }
         }
         return $this->render('AppBundle:User:register.html.twig', [

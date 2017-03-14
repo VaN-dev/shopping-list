@@ -67,6 +67,8 @@
         <div class="row">
             {{ form_start(form) }}
 
+                {{ form_errors(form) }}
+
                 <div class="col-xs-12 form-group">
                     {{ form_widget(form.username) }}
                 </div>
