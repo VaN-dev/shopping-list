@@ -6,6 +6,10 @@ dashboard:
     path:       /dashboard
     defaults:   { _controller: "AppBundle:Dashboard:index" }
 
+lab:
+    path:       /lab
+    defaults:   { _controller: "AppBundle:Default:lab" }
+
 app.user:
     resource: '@AppBundle/Resources/config/routing/user.yml'
 

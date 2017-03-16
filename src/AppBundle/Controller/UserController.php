@@ -37,17 +37,20 @@ class UserController extends Controller
 
         $form = $this->createForm(RegistrationType::class, $user);
 
-        if ("POST" == $request->getMethod()) {
-            $form->handleRequest($request);
+        $form->handleRequest($request);
 
+        if ($form->isSubmitted()) {
             if ($form->isValid()) {
                 // Password encoding
                 $passwordEncoding = $this->get('app.security.encoder.password');
                 $user->setPassword($passwordEncoding->encodePassword($user->getPassword(), $user->getSalt()));
+
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($user);
                 $em->flush();
+
                 $request->getSession()->getFlashBag()->add('success', '<strong>Well done!</strong> You successfully registered.');
+
                 return $this->redirect($this->generateUrl('index'));
             }
         }
@@ -57,11 +60,40 @@ class UserController extends Controller
     }
 
     /**
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @param Request $request
+     * @return RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
-    public function profileAction()
+    public function profileAction(Request $request)
     {
-        return $this->render('AppBundle:User:profile.html.twig');
+        $user = $this->getUser();
+
+        $current_password = $user->getPassword();
+
+        $form = $this->createForm(UserType::class, $user);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted()) {
+            if ($form->isValid()) {
+                if (null !== $user->getPassword()) {
+                    // Password encoding
+                    $passwordEncoding = $this->get('app.security.encoder.password');
+                    $user->setPassword($passwordEncoding->encodePassword($user->getPassword(), $user->getSalt()));
+                } else {
+                    $user->setPassword($current_password);
+                }
+
+                $this->getDoctrine()->getManager()->flush();
+
+                $request->getSession()->getFlashBag()->add('success', 'Vos modifications ont été enregistrées.');
+
+                return new RedirectResponse($this->generateUrl('app.user.profile'));
+            }
+        }
+
+        return $this->render('AppBundle:User:profile.html.twig', [
+            'form' => $form->createView(),
+        ]);
     }
 
     /**

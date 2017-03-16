@@ -21,6 +21,28 @@
   }
 }
 
+/* ==========
+    Errors
+ ============*/
+.has-error {
+  .form-control {
+    border-color: $state-danger-text;
+    box-shadow: none !important;
+  }
+}
+.field-error-container {
+  display: inline-block;
+  float: right;
+
+  .help-block {
+    margin: 0 0 5px;
+
+    ul {
+      margin-bottom: 0;
+    }
+  }
+}
+
 
 
 /* ===========

@@ -1,7 +1,56 @@
 {% extends ':default:layout.html.twig' %}
 
 {% block content %}
-    <h1>Profile</h1>
+    <div class="container-fluid">
+        <h1>Mon profil</h1>
+
+        <div class="row">
+            <div class="col-xs-12 col-sm-6">
+
+                <div class="c-panel c-panel--default">
+                    <div class="c-panel__heading">
+                        <h3 class="c-panel__title">Mes informations personnelles</h3>
+                    </div>
+                    <div class="c-panel__body">
+                        {{ form_start(form) }}
+
+                            {{ form_errors(form) }}
+                            <div class="row">
+                                <div class="col-xs-12 col-sm-6">
+                                    {{ form_row(form.email.first) }}
+                                </div>
+                                <div class="col-xs-12 col-sm-6">
+                                    {{ form_row(form.email.second) }}
+                                </div>
+                                <div class="col-xs-12 col-sm-6">
+                                    {#<div class="form-group{% if not form.password.first.vars.valid %} has-error{% endif %}">#}
+                                        {#{{ form_label(form.password.first) }}#}
+                                        {#<div style="display:inline-block; float: right;">{{ form_errors(form.password.first) }}</div>#}
+                                        {#{{ form_widget(form.password.first) }}#}
+                                    {#</div>#}
+                                    {{ form_row(form.password.first) }}
+                                    <span class="help-block"><small>laisser vide pour conserver le mot de passe actuel</small></span>
+                                </div>
+                                <div class="col-xs-12 col-sm-6">
+                                    <div class="form-group">
+                                        {{ form_label(form.password.second) }}
+                                        {{ form_widget(form.password.second) }}
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-6">
+                                    {{ form_row(form.avatar) }}
+                                </div>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary">Enregistrer les modifications</button>
+
+                        {{ form_end(form) }}
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
 
 
 {% endblock content %}
