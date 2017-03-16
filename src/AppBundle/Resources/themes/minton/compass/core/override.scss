@@ -71,4 +71,10 @@
 
 #image_upload_modal .modal-dialog {
   width: auto !important;
+  margin: 10px !important;
+
+  @media (min-width: $screen-lg) {
+    width: 850px !important;
+    margin: 20px auto;
+  }
 }
