@@ -47,7 +47,7 @@ class Recipe
     /**
      * @var string
      *
-     * @ORM\Column(name="image")
+     * @ORM\Column(name="image", nullable=true)
      */
     private $image;
 

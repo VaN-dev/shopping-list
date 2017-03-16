@@ -63,7 +63,8 @@ class RecipeType extends AbstractType
                             'useAsFieldImage' => true  //optional
                         )
                     )
-                )
+                ),
+                'required' => false,
             ))
         ;
     }
