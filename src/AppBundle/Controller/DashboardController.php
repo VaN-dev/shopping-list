@@ -16,6 +16,12 @@ class DashboardController extends Controller
      */
     public function indexAction()
     {
-        return $this->render('@App/Default/dashboard.html.twig');
+        $em = $this->getDoctrine()->getManager();
+
+        $recipes = $em->getRepository('AppBundle:Recipe')->fetchLatest(3);
+
+        return $this->render('@App/Default/dashboard.html.twig', [
+            'recipes' => $recipes,
+        ]);
     }
 }

@@ -2,59 +2,20 @@
 
 {% block content %}
     <div class="container-fluid">
-        <div class="c-panel c-panel--default">
 
-            <div class="c-panel__body">
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean vel consectetur ligula, vel iaculis nibh. Maecenas at elit a ligula ullamcorper mollis. Suspendisse potenti.</p>
-            </div>
-        </div>
+        <h1>Les dernières recettes ajoutées</h1>
 
-        <div class="c-panel c-panel--default">
-            <div class="c-panel__heading">
-                <h3 class="c-panel__title">Panel default</h3>
-                <p class="c-panel__subtitle">Sub title goes here with small font</p>
-            </div>
-            <div class="c-panel__body">
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean vel consectetur ligula, vel iaculis nibh. Maecenas at elit a ligula ullamcorper mollis. Suspendisse potenti.</p>
-            </div>
-        </div>
+        <div class="row">
+            <div class="col-xs-12">
 
-        <div class="c-panel c-panel--default c-panel--border">
-            <div class="c-panel__heading">
-                <h3 class="c-panel__title">Panel default</h3>
-                <p class="c-panel__subtitle">Sub title goes here with small font</p>
-            </div>
-            <div class="c-panel__body">
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean vel consectetur ligula, vel iaculis nibh. Maecenas at elit a ligula ullamcorper mollis. Suspendisse potenti.</p>
-            </div>
-        </div>
+                <div class="row">
+                    {% for recipe in recipes %}
+                        <div class="col-xs-12 col-sm-3">
+                            {% include '@App/Recipe/widgets/shoppinglist-recipe-simple.html.twig' %}
+                        </div>
+                    {% endfor %}
+                </div>
 
-        <div class="c-panel c-panel--primary">
-            <div class="c-panel__heading">
-                <h3 class="c-panel__title">Panel primary</h3>
-                <p class="c-panel__subtitle">Sub title goes here with small font</p>
-            </div>
-            <div class="c-panel__body">
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean vel consectetur ligula, vel iaculis nibh. Maecenas at elit a ligula ullamcorper mollis. Suspendisse potenti.</p>
-            </div>
-        </div>
-
-        <div class="c-panel c-panel--primary c-panel--border">
-            <div class="c-panel__heading">
-                <h3 class="c-panel__title">Panel primary</h3>
-                <p class="c-panel__subtitle">Sub title goes here with small font</p>
-            </div>
-            <div class="c-panel__body">
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean vel consectetur ligula, vel iaculis nibh. Maecenas at elit a ligula ullamcorper mollis. Suspendisse potenti.</p>
-            </div>
-        </div>
-
-        <div class="c-panel c-panel--inverse">
-            <div class="c-panel__heading">
-                <h3 class="c-panel__title">Panel inverse</h3>
-            </div>
-            <div class="c-panel__body">
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean vel consectetur ligula, vel iaculis nibh. Maecenas at elit a ligula ullamcorper mollis. Suspendisse potenti.</p>
             </div>
         </div>
     </div>

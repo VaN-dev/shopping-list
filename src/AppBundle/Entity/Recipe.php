@@ -24,6 +24,13 @@ class Recipe
     private $id;
 
     /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="created_at", type="datetime")
+     */
+    private $createdAt;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=255)
@@ -72,6 +79,7 @@ class Recipe
      */
     public function __construct()
     {
+        $this->createdAt = new \DateTime();
         $this->ingredients = new ArrayCollection();
     }
 
@@ -114,6 +122,25 @@ class Recipe
     {
         return $this->id;
     }
+
+    /**
+     * @return \DateTime
+     */
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * @param \DateTime $createdAt
+     * @return Recipe
+     */
+    public function setCreatedAt($createdAt)
+    {
+        $this->createdAt = $createdAt;
+        return $this;
+    }
+
 
     /**
      * Set name

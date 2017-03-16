@@ -9,8 +9,10 @@ app.shopping_list.read:
         id: \d+
 
 app.shopping_list.create:
-    path:     /shopping-lists/create
-    defaults: { _controller: AppBundle:ShoppingList:create }
+    path:     /shopping-lists/create/{id}
+    defaults: { _controller: AppBundle:ShoppingList:create, id: null }
+    requirements:
+        id: \d+
 
 app.shopping_list.update:
     path:     /shopping-lists/{id}/update

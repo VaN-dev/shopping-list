@@ -40,4 +40,18 @@ class RecipeRepository extends EntityRepository
 
         return $qb->getQuery()->getResult();
     }
+
+    /**
+     * @param int $nb
+     * @return array
+     */
+    public function fetchLatest($nb = 3)
+    {
+        $qb = $this->createQueryBuilder('r')
+            ->orderBy('r.createdAt', 'DESC')
+            ->setMaxResults($nb)
+        ;
+
+        return $qb->getQuery()->getResult();
+    }
 }

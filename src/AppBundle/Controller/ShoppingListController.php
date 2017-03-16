@@ -4,6 +4,7 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\Recipe;
 use AppBundle\Entity\ShoppingList;
+use AppBundle\Entity\ShoppingListRecipe;
 use AppBundle\Form\Type\RecipeSearchType;
 use AppBundle\Form\Type\ShoppingListType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -39,11 +40,25 @@ class ShoppingListController extends Controller
 
     /**
      * @param Request $request
+     * @param $id
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
-    public function createAction(Request $request)
+    public function createAction(Request $request, $id)
     {
+        $em = $this->getDoctrine()->getManager();
+
         $shoppingList = new ShoppingList();
+
+        if (null !== $id) {
+            $recipe = $em->getRepository('AppBundle:Recipe')->find($id);
+
+            $shoppingListRecipe = new ShoppingListRecipe();
+            $shoppingListRecipe
+                ->setRecipe($recipe)
+            ;
+
+            $shoppingList->addRecipe($shoppingListRecipe);
+        }
 
         /**
          * todo: to remove
@@ -65,8 +80,8 @@ class ShoppingListController extends Controller
         if ($form->isSubmitted()) {
 
             if ($form->isValid()) {
-                $this->getDoctrine()->getManager()->persist($shoppingList);
-                $this->getDoctrine()->getManager()->flush();
+                $em->persist($shoppingList);
+                $em->flush();
 
                 $this->get('session')->getFlashBag()->add('success', 'Votre liste de courses a été enregistrée.');
 

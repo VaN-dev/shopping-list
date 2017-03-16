@@ -3,9 +3,9 @@
         <a href="#" class="btn btn-sm btn-default js-remove-recipe-from-shoppinglist-trigger"><i class="glyphicon glyphicon-trash"></i></a>
     </div>
 
-    {% if form.vars.data is not null %}<img class="widget__img widget__img--responsive" src="{{ form.vars.data.recipe.webPath }}" alt="">{% endif %}
+    {% if form.vars.data is not null and form.vars.data.recipe is not null %}<img class="widget__img widget__img--responsive" src="{{ form.vars.data.recipe.webPath }}" alt="">{% endif %}
     <div class="c-panel__body widget__body">
-        {% if form.vars.data is not null %}<a href="{{ path('app.recipe.read', {'id': form.vars.data.recipe.id}) }}">{{ form.vars.data.recipe.name }}</a>{% endif %}
+        {% if form.vars.data is not null and form.vars.data.recipe is not null %}<a href="{{ path('app.recipe.read', {'id': form.vars.data.recipe.id}) }}">{{ form.vars.data.recipe.name }}</a>{% endif %}
         {{ form_row(form.people, {'attr': {'class': 'touchspin'}}) }}
         {#<a class="btn btn-default delete-recipe-trigger" href="#" role="button"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>#}
         {{ form_row(form.recipe) }}

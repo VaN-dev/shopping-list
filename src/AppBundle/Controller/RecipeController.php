@@ -186,7 +186,7 @@ class RecipeController extends Controller
     {
         $recipe = $this->getDoctrine()->getManager()->getRepository('AppBundle:Recipe')->find($id);
 
-        return $this->render('@App/Recipe/widgets/recipe-simple.html.twig', [
+        return $this->render('@App/Recipe/widgets/shoppinglist-recipe-simple.html.twig', [
             'recipe' => $recipe,
         ]);
     }
