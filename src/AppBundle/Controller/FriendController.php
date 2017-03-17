@@ -117,11 +117,16 @@ class FriendController extends Controller
         $recipients = $invitation_form->getData()['mails'];
         $recipients = explode(',', $recipients);
 
+        $recipes = $this->getDoctrine()->getRepository('AppBundle:Recipe')->fetchLatest(3);
+
         $mailer = $this->get('app.mailer.sendpulse');
 
         foreach ($recipients as $recipient) {
             $subject = 'Viens essayer Shopping List';
-            $html = $this->render('@App/Friend/mails/invitation.html.twig');
+            $html = $this->render('@App/Friend/mails/invitation.html.twig', [
+                'recipes' => $recipes,
+            ]);
+
             $success = $mailer->send(['email' => $recipient], $subject, $html, ['email' => $this->getUser()->getEmail()]);
 
             if (true === $success) {

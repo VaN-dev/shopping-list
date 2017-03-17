@@ -2,11 +2,21 @@
 <html>
 <head>
     <meta charset="UTF-8" />
+    <style type="text/css">
+        .wrapper {
+            max-width: 1000px;
+            margin: 0 auto;
+            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+        }
+    </style>
+    {% block stylesheets %}
+    {% endblock stylesheets %}
 </head>
 <body>
 
-    {% block content %}
-    {% endblock content %}
-
+    <div class="wrapper">
+        {% block content %}
+        {% endblock content %}
+    </div>
 </body>
 </html>

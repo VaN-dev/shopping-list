@@ -1,0 +1,3 @@
+app.debug.mail_invitation:
+    path:     /mail-invitation
+    defaults: { _controller: AppBundle:Debug:mailInvitation }

@@ -27,3 +27,7 @@ app.shopping_list:
 
 app.friend:
     resource: '@AppBundle/Resources/config/routing/friend.yml'
+
+app.debug:
+    resource: '@AppBundle/Resources/config/routing/debug.yml'
+    prefix: /debug

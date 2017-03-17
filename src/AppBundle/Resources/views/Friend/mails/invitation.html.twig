@@ -1,12 +1,80 @@
-<p>
-    Bonjour,
-</p>
+{% extends ':default:layout-mail.html.twig' %}
 
-<p>
-    Je t'envoie une invitation pour rejoindre le site <a href="{{ url('index') }}">Shopping List</a>, que j'utilise moi-même.
-</p>
+{% block stylesheets %}
+<style type="text/css">
+    .recipes-container {
+        background-color: #eee;
+        padding: 20px 20px 0;
+    }
+    .recipes-table {
+        width: 100%;
+    }
+    .recipes-container__title {
+        font-size: 20px;
+        margin: 0 0 20px 0;
+     }
 
-<p>
-    Il est très utile pour gérer facilement tes listes de courses de la semaine. <br>
-    Tu peux également t'inspirer de recettes d'autres utilisateurs si tu es en manque d'inspiration. C'est très pratique.<br>
-</p>
+    .widget {
+        min-height: 130px;
+        padding: 20px;
+    }
+    .c-panel {
+        background-color: #fff;
+        border: medium none;
+        border-radius: 5px;
+        box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1);
+        margin-bottom: 20px;
+        position: relative;
+    }
+    .c-panel .c-panel__actions {
+        position: absolute;
+        right: 20px;
+        top: 20px;
+    }
+    .widget .widget__img--responsive {
+        display: block;
+        max-width: 100%;
+    }
+    .widget .widget__img {
+        float: left;
+        height: 90px;
+        vertical-align: middle;
+    }
+    .widget .widget__body {
+        margin-left: 140px;
+        padding: 0;
+    }
+    p {
+        margin: 0 0 10px;
+    }
+</style>
+{% endblock stylesheets %}
+
+{% block content %}
+    <p>
+        Bonjour,
+    </p>
+
+    <p>
+        Je t'envoie une invitation pour rejoindre le site <a href="{{ url('index') }}">Shopping List</a>, que j'utilise moi-même.
+    </p>
+
+    <p>
+        Il est très utile pour gérer facilement tes listes de courses de la semaine. <br>
+        Tu peux également t'inspirer de recettes d'autres utilisateurs si tu es en manque d'inspiration. C'est très pratique.<br>
+    </p>
+
+    <div class="recipes-container">
+        <div class="recipes-container__title">Quelques recettes à découvrir</div>
+
+        <table class="recipes-table">
+            <tr>
+                {% for recipe in recipes %}
+                    <td>
+                        {% include '@App/Recipe/widgets/recipe-inline-css.html.twig' %}
+                    </td>
+                {% endfor %}
+            </tr>
+        </table>
+    </div>
+{% endblock content %}
