@@ -166,11 +166,22 @@ class ShoppingListController extends Controller
             "recipe" => $request->request->get('id'),
         ];
 
+        $recipes = [];
+        foreach ($request->request->get('id') as $id) {
+            $recipes[] = [
+                "recipe" => $id,
+            ];
+        }
+
+//        dump($recipes);
+//        die();
+
         $req = $request->request->get($form->getName(), []);
         if (!isset($req["recipes"])) {
             $req["recipes"] = [];
         }
-        array_push($req["recipes"], $recipe);
+//        array_push($req["recipes"], $recipe);
+        $req["recipes"] = array_merge($req["recipes"], $recipes);
         $request->request->set($form->getName(), $req);
 
         $form->submit($request->request->get($form->getName()));
