@@ -109,7 +109,7 @@ class Recipe
      */
     public function getWebPath()
     {
-        return null === $this->image ? 'http://placehold.it/120x90' : '/'.$this->getUploadDir().'/'.$this->image;
+        return null === $this->image ? 'http://placehold.it/120x90' : $_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['HTTP_HOST'] . '/'.$this->getUploadDir().'/'.$this->image;
     }
 
     /**
