@@ -65,6 +65,10 @@
         }
 
         function addRecipesToShoppingList(ids) {
+            console.log('addRecipesToShoppingList : ' + ids);
+
+            var container = $('#recipes-container');
+            var form = $('#form-shoppinglist');
             var params = '';
             ids.forEach(function(id) {
                 params += '&id[]=' + id;
@@ -91,10 +95,7 @@
             .on('click', '.js-add-recipe-to-shoppinglist-trigger', function(e) {
                 e.preventDefault();
 
-                var container = $('#recipes-container');
                 var item_id = $(this).data('id');
-                var form = $('#form-shoppinglist');
-
                 var ids = [item_id];
 
                 addRecipesToShoppingList(ids);
@@ -133,9 +134,14 @@
                 ;
             })
             .on('click', '#js-accept-random-recipes-trigger', function(e) {
-                var ids = $('.js-add-recipe-to-shoppinglist-trigger').data('id');
+                var elems = $('.js-add-recipe-to-shoppinglist-trigger');
+                var ids = [];
 
-                console.log(ids);
+                elems.each( function(i, e) {
+                    ids.push($(e).attr('data-id'));
+                });
+
+                addRecipesToShoppingList(ids);
             })
             ;
         });
