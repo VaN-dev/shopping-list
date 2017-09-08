@@ -12,13 +12,84 @@
     %}
     <link rel="stylesheet" href="{{ asset_url }}"/>
     {% endstylesheets %}
+
+    <style type="text/css">
+        .voice-feature input {
+            background-color: #126077;
+            border: 1px solid #3F7F93;
+            color: #A6CAE6;
+            font-family: "Titillium Web";
+            font-size: 20px;
+            line-height: 43px;
+            padding: 0 0.75em;
+            width: 400px;
+            -webkit-transition: all 0.35s ease-in;
+        }
+        .voice-feature textarea {
+            background-color: #070F24;
+            border: 1px solid #122435;
+            color: #606B88;
+            padding: 0.5em;
+            width: 100%;
+            -webkit-transition: all 0.35s ease-in;
+        }
+        .voice-feature input:active, .voice-feature input:focus, .voice-feature textarea:active, .voice-feature textarea:focus {
+            outline: 1px solid #48788B;
+        }
+        .voice-feature .btn {
+            background-color: #126178;
+            border: 1px solid #549EAF;
+            color: #549EAF;
+            cursor: pointer;
+            display: inline-block;
+            font-size: 20px;
+            line-height: 43px;
+            padding: 0 0.75em;
+            text-align: center;
+            text-transform: uppercase;
+            -webkit-transition: all 0.35s ease-in;
+        }
+        .voice-feature .btn:hover {
+            background-color: #1888A9;
+            color: #183035;
+        }
+        .voice-feature .debug {
+            bottom: 100px;
+            position: fixed;
+            right: 0;
+        }
+        .voice-feature .debug__content {
+            font-size: 14px;
+            max-height: 0;
+            overflow: hidden;
+            -webkit-transition: all 0.35s ease-in;
+        }
+        .voice-feature .debug__content.is-active {
+            display: block;
+            max-height: 500px;
+        }
+        .voice-feature .debug__btn {
+            width: 100%;
+        }
+        .voice-feature .spoken-response {
+            max-height: 0;
+            overflow: hidden;
+            -webkit-transition: all 0.35s ease-in;
+        }
+        .voice-feature .spoken-response.is-active {
+            max-height: 400px;
+        }
+        .voice-feature .spoken-response__text {
+            background-color: #040E23;
+            color: #7584A2;
+            padding: 1em;
+        }
+    </style>
 {% endblock base_stylesheets %}
 
 {% block base_head_javascripts %}
     <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
-
-
 {% endblock base_head_javascripts %}
 
 {% block body %}
@@ -32,6 +103,23 @@
     <div class="wrapper">
         {% block content %}
         {% endblock content %}
+    </div>
+
+    <div class="voice-feature">
+        <input id="speech" type="text">
+        <button id="rec" class="btn">Speak</button>
+        <div id="spokenResponse" class="spoken-response">
+            <div class="spoken-response__text"></div>
+        </div>
+
+        <div class="debug">
+            <div class="debug__btn btn">
+                Debug JSON results
+            </div>
+            <div class="debug__content">
+                <textarea id="response" cols="40" rows="20"></textarea>
+            </div>
+        </div>
     </div>
 
     {% include '@App/footer.html.twig' %}
@@ -83,6 +171,149 @@
     <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
     <script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
     <script type="text/javascript" src="{{ asset('bundles/app/vendors/bootstrap-touchspin/bootstrap-touchspin.js') }}"></script>
+
+    <script type="text/javascript">
+        var accessToken = "40766bc54b544589a01c45e64e068bd3",
+                baseUrl = "https://api.api.ai/v1/",
+                $speechInput,
+                $recBtn,
+                recognition,
+                messageRecording = "Recording...",
+                messageCouldntHear = "I couldn't hear you, could you say that again?",
+                messageInternalError = "Oh no, there has been an internal server error",
+                messageSorry = "I'm sorry, I don't have the answer to that yet.";
+
+        $(document).ready(function() {
+            $speechInput = $("#speech");
+            $recBtn = $("#rec");
+
+            $speechInput.keypress(function(event) {
+                if (event.which == 13) {
+                    event.preventDefault();
+                    send();
+                }
+            });
+            $recBtn.on("click", function(event) {
+                switchRecognition();
+            });
+            $(".debug__btn").on("click", function() {
+                $(this).next().toggleClass("is-active");
+                return false;
+            });
+        });
+
+        function startRecognition() {
+            recognition = new webkitSpeechRecognition();
+            recognition.continuous = false;
+            recognition.interimResults = false;
+
+            recognition.onstart = function(event) {
+                respond(messageRecording);
+                updateRec();
+            };
+            recognition.onresult = function(event) {
+                recognition.onend = null;
+
+                var text = "";
+                for (var i = event.resultIndex; i < event.results.length; ++i) {
+                    text += event.results[i][0].transcript;
+                }
+                setInput(text);
+                stopRecognition();
+            };
+            recognition.onend = function() {
+                respond(messageCouldntHear);
+                stopRecognition();
+            };
+//            recognition.lang = "en-US";
+            recognition.lang = "fr-FR";
+            recognition.start();
+        }
+
+        function stopRecognition() {
+            if (recognition) {
+                recognition.stop();
+                recognition = null;
+            }
+            updateRec();
+        }
+
+        function switchRecognition() {
+            if (recognition) {
+                stopRecognition();
+            } else {
+                startRecognition();
+            }
+        }
+
+        function setInput(text) {
+            $speechInput.val(text);
+            send();
+        }
+
+        function updateRec() {
+            $recBtn.text(recognition ? "Stop" : "Speak");
+        }
+
+        function send() {
+            var text = $speechInput.val();
+            $.ajax({
+                type: "POST",
+                url: baseUrl + "query",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                headers: {
+                    "Authorization": "Bearer " + accessToken
+                },
+                data: JSON.stringify({query: text, lang: "en", sessionId: "shopping-list"}),
+
+                success: function(response) {
+                    prepareResponse(response);
+
+
+                    if (response.status.errorType === "success") {
+                        if (response.result.action == "redirect") {
+                            console.log(response.result.parameters.route);
+                            window.location.href = Routing.generate(response.result.parameters.route);
+                        }
+                    }
+                },
+                error: function() {
+                    respond(messageInternalError);
+                }
+            });
+        }
+
+        function prepareResponse(val) {
+            var debugJSON = JSON.stringify(val, undefined, 2),
+                    spokenResponse = val.result.speech;
+
+            respond(spokenResponse);
+            debugRespond(debugJSON);
+        }
+
+        function debugRespond(val) {
+            $("#response").text(val);
+        }
+
+        function respond(val) {
+            if (val == "") {
+                val = messageSorry;
+            }
+
+            if (val !== messageRecording) {
+                var msg = new SpeechSynthesisUtterance();
+                msg.voiceURI = "native";
+                msg.text = val;
+//                msg.lang = "en-US";
+                msg.lang = "fr-FR";
+
+                window.speechSynthesis.speak(msg);
+            }
+
+            $("#spokenResponse").addClass("is-active").find(".spoken-response__text").html(val);
+        }
+    </script>
 
     {% javascripts
     '@AppBundle/Resources/public/js/*' %}

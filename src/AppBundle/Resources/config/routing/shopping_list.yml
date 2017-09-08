@@ -13,6 +13,8 @@ app.shopping_list.create:
     defaults: { _controller: AppBundle:ShoppingList:create, id: null }
     requirements:
         id: \d+
+    options:
+        expose: true
 
 app.shopping_list.update:
     path:     /shopping-lists/{id}/update
