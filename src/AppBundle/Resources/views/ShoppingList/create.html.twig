@@ -85,6 +85,41 @@
             });
         }
 
+        function fetchRandomRecipes() {
+            $('#js-accept-random-recipes-trigger').attr('disabled', 'disabled').removeClass('btn-primary');
+
+            var recipes = {};
+            $.getJSON( "{{ path('app.recipe.random') }}", function( data ) {
+                var container = $('#random-container');
+                container.html('');
+                $.each( data, function( key, recipe ) {
+                    recipes[key] = recipe;
+                    $.get(Routing.generate('app.recipe.widgetize', { id: recipe.id }), function(widget) {
+                        $('<div/>', {
+                            'class': 'col-xs-12 col-sm-6',
+                            'html': widget
+                        }).appendTo(container);
+                    });
+                });
+
+                //todo: à déplacer
+                var recipes_str = $.map(recipes, function(v){
+                    return v.name;
+                }).join(', ');
+
+                // voice
+                var msg = new SpeechSynthesisUtterance();
+                msg.voiceURI = "native";
+                msg.text = recipes_str;
+                msg.lang = "fr-FR";
+                window.speechSynthesis.speak(msg);
+            })
+            .done(function() {
+                $('#js-accept-random-recipes-trigger').attr('disabled', false).addClass('btn-primary');
+            })
+            ;
+        }
+
         $(function(e) {
             init();
 
@@ -114,24 +149,8 @@
              */
             .on('click', '#js-random-recipes-trigger', function(e) {
                 e.preventDefault();
-                $('#js-accept-random-recipes-trigger').attr('disabled', 'disabled').removeClass('btn-primary');
 
-                $.getJSON( "{{ path('app.recipe.random') }}", function( data ) {
-                    var container = $('#random-container');
-                    container.html('');
-                    $.each( data, function( key, recipe ) {
-                        $.get(Routing.generate('app.recipe.widgetize', { id: recipe.id }), function(widget) {
-                            $('<div/>', {
-                                'class': 'col-xs-12 col-sm-6',
-                                'html': widget
-                            }).appendTo(container);
-                        });
-                    });
-                })
-                .done(function() {
-                    $('#js-accept-random-recipes-trigger').attr('disabled', false).addClass('btn-primary');
-                })
-                ;
+                fetchRandomRecipes();
             })
             .on('click', '#js-accept-random-recipes-trigger', function(e) {
                 var elems = $('.js-add-recipe-to-shoppinglist-trigger');

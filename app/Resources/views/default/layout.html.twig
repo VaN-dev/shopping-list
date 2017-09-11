@@ -275,6 +275,26 @@
                         if (response.result.action == "redirect") {
                             console.log(response.result.parameters.route);
                             window.location.href = Routing.generate(response.result.parameters.route);
+                        } else if (response.result.action == "suggest-recipes") {
+                            fetchRandomRecipes();
+                        } else if (response.result.metadata.intentName == "Default Fallback Intent") {
+                            $.ajax({
+                                type: "GET",
+                                url: "{{ path('app.recipe.search_by_pattern') }}",
+                                dataType: "json",
+                                data: {term: response.result.resolvedQuery},
+                                success: function(response) {
+                                    var ids = [];
+                                    $.each(response, function (i, item) {
+                                        ids.push(item.id);
+                                    });
+
+                                    addRecipesToShoppingList(ids);
+                                },
+                                error: function() {
+                                    respond(messageInternalError);
+                                }
+                            });
                         }
                     }
                 },
@@ -313,6 +333,15 @@
 
             $("#spokenResponse").addClass("is-active").find(".spoken-response__text").html(val);
         }
+
+//        function suggestRecipes()  {
+//            var msg = new SpeechSynthesisUtterance();
+//            msg.voiceURI = "native";
+//            msg.text = "Crêpes bretonnes";
+//            msg.lang = "fr-FR";
+//
+//            window.speechSynthesis.speak(msg);
+//        }
     </script>
 
     {% javascripts

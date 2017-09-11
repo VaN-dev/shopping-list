@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 /**
  * Class RecipeController
@@ -86,15 +87,26 @@ class RecipeController extends Controller
         ]);
     }
 
+
     /**
      * @param Request $request
-     * @param $id
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     * @param Recipe $recipe
+     * @return Response
      */
-    public function updateAction(Request $request, $id)
+    public function readAction(Request $request, Recipe $recipe)
     {
-        $recipe = $this->getDoctrine()->getManager()->getRepository('AppBundle:Recipe')->find($id);
+        return $this->render('@App/Recipe/read.html.twig', [
+            'recipe' => $recipe,
+        ]);
+    }
 
+    /**
+     * @param Request $request
+     * @param Recipe $recipe
+     * @return RedirectResponse|Response
+     */
+    public function updateAction(Request $request, Recipe $recipe)
+    {
         $form = $this->createForm(RecipeType::class, $recipe);
 
         if ($request->isMethod('POST')) {
@@ -115,16 +127,22 @@ class RecipeController extends Controller
 
     /**
      * @param Request $request
-     * @param $id
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @param Recipe $recipe
+     * @return RedirectResponse
      */
-    public function readAction(Request $request, $id)
+    public function deleteAction(Request $request, Recipe $recipe)
     {
-        $recipe = $this->getDoctrine()->getManager()->getRepository('AppBundle:Recipe')->find($id);
+        if ($recipe->getUser() !== $this->getUser()) {
+            throw new AccessDeniedException();
+        }
 
-        return $this->render('@App/Recipe/read.html.twig', [
-            'recipe' => $recipe,
-        ]);
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($recipe);
+        $em->flush();
+
+        $this->get('session')->getFlashBag()->add('success', 'Votre recette a été supprimée.');
+
+        return new RedirectResponse($this->generateUrl("app.recipe.my"));
     }
 
     /**
