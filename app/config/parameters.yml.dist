@@ -21,3 +21,6 @@ parameters:
     ruby.bin:           /usr/bin/ruby
     sass.bin:           /usr/bin/sass
     compass.bin:        /usr/bin/compass
+
+    api.client_access_token: ~
+    api.developer_access_token: ~

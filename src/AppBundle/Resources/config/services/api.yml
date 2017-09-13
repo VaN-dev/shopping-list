@@ -1,0 +1,7 @@
+services:
+    app.api.client:
+        class: AppBundle\Service\ApiClient\ApiClient
+        arguments:
+            - "@session"
+            - "%api.developer_access_token%"
+            - "%api.client_access_token%"

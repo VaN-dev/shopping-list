@@ -5,3 +5,4 @@ imports:
     - { resource: services/recipe.yml }
     - { resource: services/shopping_list.yml }
     - { resource: services/friend.yml }
+    - { resource: services/api.yml }

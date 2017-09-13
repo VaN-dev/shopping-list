@@ -1,0 +1,3 @@
+app.api.user_entity.create:
+    path:     /create-user-entity
+    defaults: { _controller: AppBundle:Api:createUserEntity }

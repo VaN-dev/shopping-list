@@ -31,3 +31,7 @@ app.friend:
 app.debug:
     resource: '@AppBundle/Resources/config/routing/debug.yml'
     prefix: /debug
+
+app.api:
+    resource: '@AppBundle/Resources/config/routing/api.yml'
+    prefix: /api
