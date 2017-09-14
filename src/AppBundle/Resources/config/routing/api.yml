@@ -1,3 +1,7 @@
+app.api.resolve_speech:
+    path:     /resolve-speech
+    defaults: { _controller: AppBundle:Api:resolveSpeech }
+
 app.api.user_entity.create:
     path:     /create-user-entity
     defaults: { _controller: AppBundle:Api:createUserEntity }
