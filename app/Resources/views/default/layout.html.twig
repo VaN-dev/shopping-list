@@ -190,7 +190,7 @@
             $speechInput.keypress(function(event) {
                 if (event.which == 13) {
                     event.preventDefault();
-                    send();
+                    send($speechInput.val());
                 }
             });
             $recBtn.on("click", function(event) {
@@ -248,67 +248,66 @@
 
         function setInput(text) {
             $speechInput.val(text);
-            send();
+            send($speechInput.val());
         }
 
         function updateRec() {
             $recBtn.text(recognition ? "Stop" : "Speak");
         }
 
-        function send() {
-            var text = $speechInput.val();
-            $.ajax({
-                type: "POST",
-                url: baseUrl + "query",
-                contentType: "application/json; charset=utf-8",
-                dataType: "json",
-                headers: {
-                    "Authorization": "Bearer " + accessToken
-                },
-                data: JSON.stringify({query: text, lang: "en", sessionId: "shopping-list"}),
+        {#function send() {#}
+            {#var text = $speechInput.val();#}
+            {#$.ajax({#}
+                {#type: "POST",#}
+                {#url: baseUrl + "query",#}
+                {#contentType: "application/json; charset=utf-8",#}
+                {#dataType: "json",#}
+                {#headers: {#}
+                    {#"Authorization": "Bearer " + accessToken#}
+                {#},#}
+                {#data: JSON.stringify({query: text, lang: "en", sessionId: "shopping-list"}),#}
 
-                success: function(response) {
-                    prepareResponse(response);
+                {#success: function(response) {#}
+                    {#prepareResponse(response);#}
 
 
-                    if (response.status.errorType === "success") {
-                        if (response.result.action == "redirect") {
-                            console.log(response.result.parameters.route);
-                            window.location.href = Routing.generate(response.result.parameters.route);
-                        } else if (response.result.action == "suggest-recipes") {
-                            fetchRandomRecipes();
-                        } else if (response.result.metadata.intentName == "Default Fallback Intent") {
-                            $.ajax({
-                                type: "GET",
-                                url: "{{ path('app.recipe.search_by_pattern') }}",
-                                dataType: "json",
-                                data: {term: response.result.resolvedQuery},
-                                success: function(response) {
-                                    var ids = [];
-                                    $.each(response, function (i, item) {
-                                        ids.push(item.id);
-                                    });
+                    {#if (response.status.errorType === "success") {#}
+                        {#if (response.result.action == "redirect") {#}
+                            {#console.log(response.result.parameters.route);#}
+                            {#window.location.href = Routing.generate(response.result.parameters.route);#}
+                        {#} else if (response.result.action == "suggest-recipes") {#}
+                            {#fetchRandomRecipes();#}
+                        {#} else if (response.result.metadata.intentName == "Default Fallback Intent") {#}
+                            {#$.ajax({#}
+                                {#type: "GET",#}
+                                {#url: "{{ path('app.recipe.search_by_pattern') }}",#}
+                                {#dataType: "json",#}
+                                {#data: {term: response.result.resolvedQuery},#}
+                                {#success: function(response) {#}
+                                    {#var ids = [];#}
+                                    {#$.each(response, function (i, item) {#}
+                                        {#ids.push(item.id);#}
+                                    {#});#}
 
-                                    addRecipesToShoppingList(ids);
-                                },
-                                error: function() {
-                                    respond(messageInternalError);
-                                }
-                            });
-                        }
-                    }
-                },
-                error: function() {
-                    respond(messageInternalError);
-                }
-            });
-        }
+                                    {#addRecipesToShoppingList(ids);#}
+                                {#},#}
+                                {#error: function() {#}
+                                    {#respond(messageInternalError);#}
+                                {#}#}
+                            {#});#}
+                        {#}#}
+                    {#}#}
+                {#},#}
+                {#error: function() {#}
+                    {#respond(messageInternalError);#}
+                {#}#}
+            {#});#}
+        {#}#}
 
-        function prepareResponse(val) {
-            var debugJSON = JSON.stringify(val, undefined, 2),
-                    spokenResponse = val.result.speech;
+        function prepareResponse(speech) {
+            var debugJSON = JSON.stringify(speech, undefined, 2);
 
-            respond(spokenResponse);
+            respond(speech);
             debugRespond(debugJSON);
         }
 

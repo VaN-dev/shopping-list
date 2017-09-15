@@ -61,8 +61,10 @@ class ApiController extends Controller
                         'success' => true,
                         'action' => 'smalltalk',
                         'speech' => $result->result->fulfillment->speech,
+                        'params' => null,
                     ];
                     break;
+
                 case 'redirect':
                     $params = (array) $result->result->parameters;
                     unset($params['route']);
@@ -74,10 +76,28 @@ class ApiController extends Controller
                         'params' => [
                             'action' => $result->result->action,
                             'value' => $target,
-                        ]
+                        ],
                     ];
 
                     $request->getSession()->getFlashBag()->add('speech', $result->result->fulfillment->speech);
+                    break;
+
+                case 'suggest-recipes':
+                    $response = [
+                        'success' => true,
+                        'action' => $result->result->action,
+                        'speech' => $result->result->fulfillment->speech,
+                        'params' => null,
+                    ];
+                    break;
+
+                case 'recipe.choose':
+                    $response = [
+                        'success' => true,
+                        'action' => $result->result->action,
+                        'speech' => $result->result->fulfillment->speech,
+                        'params' => null,
+                    ];
                     break;
 
                 default:
@@ -89,9 +109,6 @@ class ApiController extends Controller
                     ];
                     break;
             }
-
-            dump($response);
-            die();
 
             return new JsonResponse($response);
         }
