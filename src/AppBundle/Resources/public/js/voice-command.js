@@ -13,6 +13,15 @@ function send(text){
                 } else if (response.action == "suggest-recipes") {
                     console.log(response);
                     fetchRandomRecipes();
+                } else if (response.action == "recipe.choose") {
+                    var ids = [];
+                    console.log(response.params);
+                    // $.each(response.params, function (i, item) {
+                    //     ids.push(item.id);
+                    // });
+                    ids.push(response.params.id);
+
+                    addRecipesToShoppingList(ids);
                 }
             }
         }

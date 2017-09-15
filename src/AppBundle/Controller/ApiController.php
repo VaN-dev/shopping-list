@@ -48,7 +48,7 @@ class ApiController extends Controller
 
         $client = $this->get('app.api.client');
         $result = $client->query($query);
-        
+
 //        dump($result);
 //        die();
 
@@ -96,7 +96,7 @@ class ApiController extends Controller
                         'success' => true,
                         'action' => $result->result->action,
                         'speech' => $result->result->fulfillment->speech,
-                        'params' => null,
+                        'params' => $result->result->parameters,
                     ];
                     break;
 
