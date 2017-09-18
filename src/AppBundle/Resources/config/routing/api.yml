@@ -2,6 +2,10 @@ app.api.resolve_speech:
     path:     /resolve-speech
     defaults: { _controller: AppBundle:Api:resolveSpeech }
 
+app.api.update_recipes:
+    path:     /update-recipes
+    defaults: { _controller: AppBundle:Api:updateRecipes }
+
 app.api.user_entity.create:
     path:     /create-user-entity
     defaults: { _controller: AppBundle:Api:createUserEntity }
