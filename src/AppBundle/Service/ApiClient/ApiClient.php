@@ -118,8 +118,8 @@ class ApiClient
          */
         foreach ($recipes as $recipe) {
             $entries[] = [
-                "value" => $recipe->getName(),
-                "synonyms" => [],
+                "value" => $recipe->getId(),
+                "synonyms" => [$recipe->getName()],
             ];
         }
 
@@ -136,6 +136,45 @@ class ApiClient
         ];
 
         $response = json_decode((string) $this->client->request("PUT", $this->base_uri . "/entities/" . $body["name"] . "?v=" . $this->version, $request)->getBody());
+
+        return $response;
+    }
+
+    /**
+     * @param Recipe $recipe
+     * @return mixed
+     */
+    public function updateRecipeEntry(Recipe $recipe)
+    {
+        $headers["Authorization"] = "Bearer " . $this->developer_access_token;
+
+        $body = [
+            "value" => $recipe->getId(),
+            "synonyms" => [$recipe->getName()],
+        ];
+
+        $request = [
+            "headers" => $this->headers,
+            "json" => $body,
+        ];
+
+        $response = json_decode((string) $this->client->request("PUT", $this->base_uri . "/entities/recipe/entries?v=" . $this->version, $request)->getBody());
+
+        return $response;
+    }
+
+    public function deleteRecipeEntry(Recipe $recipe)
+    {
+        $headers["Authorization"] = "Bearer " . $this->developer_access_token;
+
+        $body = [$recipe->getId()];
+
+        $request = [
+            "headers" => $this->headers,
+            "json" => $body,
+        ];
+
+        $response = json_decode((string) $this->client->request("DELETE", $this->base_uri . "/entities/recipe/entries?v=" . $this->version, $request)->getBody());
 
         return $response;
     }

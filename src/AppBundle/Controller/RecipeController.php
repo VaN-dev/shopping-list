@@ -76,6 +76,9 @@ class RecipeController extends Controller
                 $em->persist($recipe);
                 $em->flush();
 
+                // update api.ai entry
+                $response = $this->get("app.api.client")->updateRecipeEntry($recipe);
+
                 $this->get('session')->getFlashBag()->add('success', 'Votre recette a été enregistrée.');
 
                 return $this->redirect($this->generateUrl('app.recipe.my'));
@@ -114,6 +117,9 @@ class RecipeController extends Controller
             if ($form->isValid()) {
                 $this->getDoctrine()->getManager()->flush();
 
+                // update api.ai entry
+                $response = $this->get("app.api.client")->updateRecipeEntry($recipe);
+
                 $this->get('session')->getFlashBag()->add('success', 'Votre recette a été mise à jour.');
 
                 return $this->redirect($this->generateUrl('app.recipe.my'));
@@ -139,6 +145,9 @@ class RecipeController extends Controller
         $em = $this->getDoctrine()->getManager();
         $em->remove($recipe);
         $em->flush();
+
+        // update api.ai entry
+        $response = $this->get("app.api.client")->updateRecipeEntry($recipe);
 
         $this->get('session')->getFlashBag()->add('success', 'Votre recette a été supprimée.');
 

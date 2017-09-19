@@ -2,9 +2,17 @@ app.api.resolve_speech:
     path:     /resolve-speech
     defaults: { _controller: AppBundle:Api:resolveSpeech }
 
-app.api.update_recipes:
-    path:     /update-recipes
+app.api.recipes.update:
+    path:     /recipes/update
     defaults: { _controller: AppBundle:Api:updateRecipes }
+
+app.api.recipe.update_entry:
+    path:     /recipes/{id}/update-entry
+    defaults: { _controller: AppBundle:Api:updateRecipeEntry }
+
+app.api.recipe.delete_entry:
+    path:     /recipes/{id}/delete-entry
+    defaults: { _controller: AppBundle:Api:deleteRecipeEntry }
 
 app.api.user_entity.create:
     path:     /create-user-entity

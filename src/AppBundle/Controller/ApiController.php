@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Recipe;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -100,6 +101,32 @@ class ApiController extends Controller
         $recipes = $this->getDoctrine()->getRepository("AppBundle:Recipe")->findAll();
 
         $response = $client->updateRecipes($recipes);
+
+        dump($response);
+        die();
+    }
+
+    /**
+     * @param Recipe $recipe
+     */
+    public function updateRecipeEntryAction(Recipe $recipe)
+    {
+        $client = $this->get("app.api.client");
+
+        $response = $client->updateRecipeEntry($recipe);
+
+        dump($response);
+        die();
+    }
+
+    /**
+     * @param Recipe $recipe
+     */
+    public function deleteRecipeEntryAction(Recipe $recipe)
+    {
+        $client = $this->get("app.api.client");
+
+        $response = $client->deleteRecipeEntry($recipe);
 
         dump($response);
         die();
