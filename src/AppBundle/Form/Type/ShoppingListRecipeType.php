@@ -2,6 +2,7 @@
 
 namespace AppBundle\Form\Type;
 
+use AppBundle\Entity\ShoppingListRecipe;
 use AppBundle\Form\DataTransformer\RecipeToNumberTransformer;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Form\AbstractType;
@@ -53,7 +54,7 @@ class ShoppingListRecipeType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\ShoppingListRecipe',
+            'data_class' => ShoppingListRecipe::class,
         ));
     }
 

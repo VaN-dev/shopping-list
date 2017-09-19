@@ -2,16 +2,16 @@
 
 namespace AppBundle\Form\Type;
 
-use AppBundle\Entity\Ingredient;
+use AppBundle\Entity\Tag;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
- * Class IngredientType
+ * Class TagType
  * @package AppBundle\Form\Type
  */
-class IngredientType extends AbstractType
+class TagType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -19,9 +19,7 @@ class IngredientType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder
-            ->add('name')
-        ;
+        $builder->add('name');
     }
 
     /**
@@ -30,15 +28,7 @@ class IngredientType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => Ingredient::class,
+            'data_class' => Tag::class,
         ));
-    }
-
-    /**
-     * @return string
-     */
-    public function getName()
-    {
-        return 'vanrecipebundle_ingredienttype';
     }
 }

@@ -62,7 +62,7 @@ class Recipe
     /**
      * @var RecipeIngredient[]
      *
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\RecipeIngredient", mappedBy="recipe", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\RecipeIngredient", mappedBy="recipe", cascade={"persist", "remove"})
      */
     private $ingredients;
 
@@ -73,6 +73,13 @@ class Recipe
      */
     private $scope;
 
+    /**
+     * @var ArrayCollection
+     *
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Tag", mappedBy="recipes", cascade={"persist"})
+     */
+    private $tags;
+
 
     /**
      * Constructor
@@ -81,6 +88,7 @@ class Recipe
     {
         $this->createdAt = new \DateTime();
         $this->ingredients = new ArrayCollection();
+        $this->tags = new ArrayCollection();
     }
 
     public function getUploadRootDir()
@@ -296,5 +304,28 @@ class Recipe
     public function getScope()
     {
         return $this->scope;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getTags()
+    {
+        return $this->tags;
+    }
+
+    /**
+     * @param Tag $tag
+     */
+    public function addTag(Tag $tag)
+    {
+        $tag->addRecipe($this);
+
+        $this->tags->add($tag);
+    }
+
+    public function removeTag(Tag $tag)
+    {
+        $this->tags->removeElement($tag);
     }
 }

@@ -17,16 +17,7 @@
                         <h2 class="c-panel__title">Informations de base</h2>
                     </div>
                     <div class="c-panel__body">
-                        <div class="row">
-                            <div class="col-lg-6">
-                                {{ form_row(form.name) }}
-                                {{ form_row(form.people, {'attr': {'class': 'touchspin'}}) }}
-                                {{ form_row(form.scope) }}
-                            </div>
-                            <div class="col-lg-6">
-                                {{ form_row(form.image) }}
-                            </div>
-                        </div>
+                        {{ include('@App/Recipe/form-base.html.twig') }}
                     </div>
                 </div>
             </div>

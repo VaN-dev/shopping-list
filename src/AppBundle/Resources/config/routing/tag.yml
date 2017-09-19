@@ -1,0 +1,7 @@
+app.tag:
+    path:     /tags
+    defaults: { _controller: AppBundle:Tag:index }
+
+app.tag.read:
+    path:     /tags/{name}
+    defaults: { _controller: AppBundle:Tag:read }

@@ -2,6 +2,7 @@
 
 namespace AppBundle\Form\Type;
 
+use AppBundle\Entity\Recipe;
 use Comur\ImageBundle\Form\Type\CroppableImageType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -38,6 +39,13 @@ class RecipeType extends AbstractType
                 'by_reference' => false,
                 'label' => false,
             ])
+            ->add('tags', CollectionType::class, array(
+                'entry_type' => TagType::class,
+                'entry_options' => array('label' => false),
+                'allow_add' => true,
+                'by_reference' => false,
+                'allow_delete' => true,
+            ))
             ->add('image', CroppableImageType::class, array(
                 'uploadConfig' => array(
                     'uploadRoute' => 'comur_api_upload',        //optional
@@ -75,7 +83,7 @@ class RecipeType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\Recipe',
+            'data_class' => Recipe::class,
         ));
     }
 

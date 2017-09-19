@@ -2,10 +2,9 @@
 
 namespace AppBundle\Controller;
 
-use AppBundle\Entity\Ingredient;
 use AppBundle\Entity\Recipe;
-use AppBundle\Entity\RecipeIngredient;
 use AppBundle\Form\Type\RecipeType;
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -110,12 +109,41 @@ class RecipeController extends Controller
      */
     public function updateAction(Request $request, Recipe $recipe)
     {
+        $em = $this->getDoctrine()->getManager();
         $form = $this->createForm(RecipeType::class, $recipe);
+
+        $originalTags = new ArrayCollection();
+
+        // Create an ArrayCollection of the current Tag objects in the database
+        foreach ($recipe->getTags() as $tag) {
+            $originalTags->add($tag);
+        }
 
         if ($request->isMethod('POST')) {
             $form->handleRequest($request);
             if ($form->isValid()) {
-                $this->getDoctrine()->getManager()->flush();
+                // remove the relationship between the tag and the Task
+                foreach ($originalTags as $tag) {
+                    if (false === $recipe->getTags()->contains($tag)) {
+                        // remove the Task from the Tag
+                        $tag->getRecipes()->removeElement($recipe);
+
+                        $this->getDoctrine()->getManager()->persist($tag);
+                    }
+                }
+
+                // re-building relation on existing tag
+                foreach ($recipe->getTags() as $tag) {
+                    $dbTag = $em->getRepository('AppBundle:Tag')->findOneBy(['name' => $tag->getName()]);
+
+                    if (null !== $dbTag) {
+                        $recipe->getTags()->removeElement($tag);
+                        $recipe->addTag($dbTag);
+                    }
+                }
+
+
+                $em->flush();
 
                 // update api.ai entry
                 $response = $this->get("app.api.client")->updateRecipeEntry($recipe);

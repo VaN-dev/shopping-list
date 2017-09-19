@@ -1,0 +1,17 @@
+{% extends ':default:layout.html.twig' %}
+
+{% block content %}
+    <div class="container-fluid">
+        <h1>Tag {{ tag.name }}</h1>
+
+        <h2>Recettes</h2>
+
+        <div class="row">
+            {% for recipe in tag.recipes %}
+                <div class="col-xs-12 col-sm-4">
+                    {{ include('@App/Recipe/widgets/shoppinglist-recipe-simple.html.twig') }}
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock content %}

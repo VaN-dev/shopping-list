@@ -11,5 +11,10 @@
         <p>
             {{ recipe.people }} personnes
         </p>
+        <p>
+            {% for tag in recipe.tags %}
+                <a href="{{ path('app.tag.read', {'name': tag.name}) }}" class="label label-default">{{ tag.name }}</a>
+            {% endfor %}
+        </p>
     </div>
 </div>

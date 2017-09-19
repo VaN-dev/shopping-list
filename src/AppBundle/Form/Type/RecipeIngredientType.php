@@ -2,6 +2,7 @@
 
 namespace AppBundle\Form\Type;
 
+use AppBundle\Entity\RecipeIngredient;
 use AppBundle\Form\DataTransformer\IngredientToStringTransformer;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -57,7 +58,7 @@ class RecipeIngredientType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\RecipeIngredient',
+            'data_class' => RecipeIngredient::class,
         ));
     }
 
