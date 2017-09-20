@@ -49,7 +49,15 @@ class ApiController extends Controller
                         ],
                     ];
 
-                    $this->addFlash('speech', $result->result->fulfillment->speech);
+                    if (false === $request->getSession()->has('speeches')) {
+                        $speeches = [];
+                    } else {
+                        $speeches = $request->getSession()->get('speeches');
+                    }
+                    $speeches[] = $result->result->fulfillment->speech;
+                    $request->getSession()->set('speeches', $speeches);
+
+
                     break;
 
                 case 'suggest-recipes':

@@ -200,6 +200,11 @@
                 $(this).next().toggleClass("is-active");
                 return false;
             });
+
+            {% for sessionSpeech in app.request.session.get('speeches') %}
+                respond("{{ sessionSpeech | raw }}");
+            {% endfor %}
+            {{ app.request.session.clear('speeches') }}
         });
 
         function startRecognition() {
