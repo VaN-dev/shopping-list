@@ -14,6 +14,14 @@ use Symfony\Component\HttpFoundation\Request;
 class ApiController extends Controller
 {
     /**
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function indexAction()
+    {
+        return $this->render('@App/ApiAi/index.html.twig');
+    }
+
+    /**
      * @param Request $request
      * @return JsonResponse
      */

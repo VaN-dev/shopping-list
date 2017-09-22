@@ -1,3 +1,7 @@
+app.api:
+    path:     /
+    defaults: { _controller: AppBundle:Api:index }
+
 app.api.resolve_speech:
     path:     /resolve-speech
     defaults: { _controller: AppBundle:Api:resolveSpeech }
