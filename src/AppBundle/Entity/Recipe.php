@@ -121,6 +121,20 @@ class Recipe
     }
 
     /**
+     * @return array
+     */
+    public function guessSynonyms()
+    {
+        $synonyms = [];
+
+        if (false !== strpos($this->name, '/')) {
+            $synonyms[] = str_replace('/', '', $this->name);
+        }
+
+        return $synonyms;
+    }
+
+    /**
      * Get id
      *
      * @return integer

@@ -119,7 +119,7 @@ class ApiClient
         foreach ($recipes as $recipe) {
             $entries[] = [
                 "value" => $recipe->getId(),
-                "synonyms" => [$recipe->getName()],
+                "synonyms" => $recipe->guessSynonyms(),
             ];
         }
 
