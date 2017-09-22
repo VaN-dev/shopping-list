@@ -86,6 +86,15 @@ class ApiController extends Controller
                     ];
                     break;
 
+                case 'shopping-list.save':
+                    $response = [
+                        'success' => true,
+                        'action' => $result->result->action,
+                        'speech' => $result->result->fulfillment->speech,
+                        'params' => null,
+                    ];
+                    break;
+
                 default:
                     $response = [
                         'success' => false,

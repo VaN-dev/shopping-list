@@ -22,6 +22,9 @@ function send(text){
                     ids.push(response.params.id);
 
                     addRecipesToShoppingList(ids);
+                } else if (response.action == "shopping-list.save") {
+                    console.log('submitting');
+                    $('#form-shoppinglist').submit();
                 }
             }
         }
