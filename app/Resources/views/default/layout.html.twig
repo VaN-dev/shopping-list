@@ -9,82 +9,10 @@
     {% stylesheets
     filter="compass"
     "@AppBundle/Resources/themes/minton/compass/*.scss"
+    "@AppBundle/Resources/public/compass/*.scss"
     %}
     <link rel="stylesheet" href="{{ asset_url }}"/>
     {% endstylesheets %}
-
-    <style type="text/css">
-        .voice-feature input {
-            background-color: #126077;
-            border: 1px solid #3F7F93;
-            color: #A6CAE6;
-            font-family: "Titillium Web";
-            font-size: 20px;
-            line-height: 43px;
-            padding: 0 0.75em;
-            width: 400px;
-            -webkit-transition: all 0.35s ease-in;
-        }
-        .voice-feature textarea {
-            background-color: #070F24;
-            border: 1px solid #122435;
-            color: #606B88;
-            padding: 0.5em;
-            width: 100%;
-            -webkit-transition: all 0.35s ease-in;
-        }
-        .voice-feature input:active, .voice-feature input:focus, .voice-feature textarea:active, .voice-feature textarea:focus {
-            outline: 1px solid #48788B;
-        }
-        .voice-feature .btn {
-            background-color: #126178;
-            border: 1px solid #549EAF;
-            color: #549EAF;
-            cursor: pointer;
-            display: inline-block;
-            font-size: 20px;
-            line-height: 43px;
-            padding: 0 0.75em;
-            text-align: center;
-            text-transform: uppercase;
-            -webkit-transition: all 0.35s ease-in;
-        }
-        .voice-feature .btn:hover {
-            background-color: #1888A9;
-            color: #183035;
-        }
-        .voice-feature .debug {
-            bottom: 100px;
-            position: fixed;
-            right: 0;
-        }
-        .voice-feature .debug__content {
-            font-size: 14px;
-            max-height: 0;
-            overflow: hidden;
-            -webkit-transition: all 0.35s ease-in;
-        }
-        .voice-feature .debug__content.is-active {
-            display: block;
-            max-height: 500px;
-        }
-        .voice-feature .debug__btn {
-            width: 100%;
-        }
-        .voice-feature .spoken-response {
-            max-height: 0;
-            overflow: hidden;
-            -webkit-transition: all 0.35s ease-in;
-        }
-        .voice-feature .spoken-response.is-active {
-            max-height: 400px;
-        }
-        .voice-feature .spoken-response__text {
-            background-color: #040E23;
-            color: #7584A2;
-            padding: 1em;
-        }
-    </style>
 {% endblock base_stylesheets %}
 
 {% block base_head_javascripts %}
@@ -106,10 +34,14 @@
     </div>
 
     <div class="voice-feature">
-        <input id="speech" type="text">
-        <button id="rec" class="btn">Speak</button>
-        <div id="spokenResponse" class="spoken-response">
-            <div class="spoken-response__text"></div>
+        <div class="form-inline">
+            <div class="row">
+                <button class="btn trigger fa fa-microphone" id="rec"></button>
+                <input type="text" id="speech" class="form-control" placeholder="Click voice button or type here...">
+            </div>
+            <div id="spokenResponse" class="spoken-response">
+                <div class="spoken-response__text"></div>
+            </div>
         </div>
 
         <div class="debug">
@@ -121,6 +53,23 @@
             </div>
         </div>
     </div>
+
+    {#<div class="voice-feature">#}
+        {#<input id="speech" type="text">#}
+        {#<button id="rec" class="btn">Speak</button>#}
+        {#<div id="spokenResponse" class="spoken-response">#}
+            {#<div class="spoken-response__text"></div>#}
+        {#</div>#}
+
+        {#<div class="debug">#}
+            {#<div class="debug__btn btn">#}
+                {#Debug JSON results#}
+            {#</div>#}
+            {#<div class="debug__content">#}
+                {#<textarea id="response" cols="40" rows="20"></textarea>#}
+            {#</div>#}
+        {#</div>#}
+    {#</div>#}
 
     {% include '@App/footer.html.twig' %}
 
@@ -257,57 +206,9 @@
         }
 
         function updateRec() {
-            $recBtn.text(recognition ? "Stop" : "Speak");
+//            $recBtn.text(recognition ? "Stop" : "Speak");
+            $recBtn.removeClass(recognition ? "fa-microphone" : "fa-microphone-slash").addClass(recognition ? "fa-microphone-slash" : "fa-microphone");
         }
-
-        {#function send() {#}
-            {#var text = $speechInput.val();#}
-            {#$.ajax({#}
-                {#type: "POST",#}
-                {#url: baseUrl + "query",#}
-                {#contentType: "application/json; charset=utf-8",#}
-                {#dataType: "json",#}
-                {#headers: {#}
-                    {#"Authorization": "Bearer " + accessToken#}
-                {#},#}
-                {#data: JSON.stringify({query: text, lang: "en", sessionId: "shopping-list"}),#}
-
-                {#success: function(response) {#}
-                    {#prepareResponse(response);#}
-
-
-                    {#if (response.status.errorType === "success") {#}
-                        {#if (response.result.action == "redirect") {#}
-                            {#console.log(response.result.parameters.route);#}
-                            {#window.location.href = Routing.generate(response.result.parameters.route);#}
-                        {#} else if (response.result.action == "suggest-recipes") {#}
-                            {#fetchRandomRecipes();#}
-                        {#} else if (response.result.metadata.intentName == "Default Fallback Intent") {#}
-                            {#$.ajax({#}
-                                {#type: "GET",#}
-                                {#url: "{{ path('app.recipe.search_by_pattern') }}",#}
-                                {#dataType: "json",#}
-                                {#data: {term: response.result.resolvedQuery},#}
-                                {#success: function(response) {#}
-                                    {#var ids = [];#}
-                                    {#$.each(response, function (i, item) {#}
-                                        {#ids.push(item.id);#}
-                                    {#});#}
-
-                                    {#addRecipesToShoppingList(ids);#}
-                                {#},#}
-                                {#error: function() {#}
-                                    {#respond(messageInternalError);#}
-                                {#}#}
-                            {#});#}
-                        {#}#}
-                    {#}#}
-                {#},#}
-                {#error: function() {#}
-                    {#respond(messageInternalError);#}
-                {#}#}
-            {#});#}
-        {#}#}
 
         function prepareResponse(speech) {
             var debugJSON = JSON.stringify(speech, undefined, 2);
