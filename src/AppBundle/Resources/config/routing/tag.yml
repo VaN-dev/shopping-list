@@ -2,6 +2,10 @@ app.tag:
     path:     /tags
     defaults: { _controller: AppBundle:Tag:index }
 
+app.tag.json_list:
+    path:     /tags/list.json
+    defaults: { _controller: AppBundle:Tag:jsonList }
+
 app.tag.read:
     path:     /tags/{name}
     defaults: { _controller: AppBundle:Tag:read }

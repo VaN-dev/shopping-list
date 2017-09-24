@@ -3,6 +3,7 @@
 namespace AppBundle\Form\Type;
 
 use AppBundle\Entity\Recipe;
+use AppBundle\Entity\Tag;
 use Comur\ImageBundle\Form\Type\CroppableImageType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -10,6 +11,7 @@ use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Tetranz\Select2EntityBundle\Form\Type\Select2EntityType;
 
 /**
  * Class RecipeType
@@ -39,13 +41,25 @@ class RecipeType extends AbstractType
                 'by_reference' => false,
                 'label' => false,
             ])
-            ->add('tags', CollectionType::class, array(
-                'entry_type' => TagType::class,
-                'entry_options' => array('label' => false),
-                'allow_add' => true,
-                'by_reference' => false,
-                'allow_delete' => true,
-            ))
+//            ->add('tags', CollectionType::class, array(
+//                'entry_type' => TagType::class,
+//                'entry_options' => array('label' => false),
+//                'allow_add' => true,
+//                'by_reference' => false,
+//                'allow_delete' => true,
+//            ))
+//            ->add('tags', Select2EntityType::class, [
+//                'remote_route' => 'app.tag.json_list',
+//                'class' => Tag::class,
+//                'text_property' => 'name',
+//                'multiple' => true,
+//                'allow_add' => [
+//                    'enabled' => true,
+//                    'new_tag_text' => ' (NEW)',
+//                    'new_tag_prefix' => '__',
+//                    'tag_separators' => '[",", " "]'
+//                ],
+//            ])
             ->add('image', CroppableImageType::class, array(
                 'uploadConfig' => array(
                     'uploadRoute' => 'comur_api_upload',        //optional

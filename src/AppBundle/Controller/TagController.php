@@ -3,6 +3,8 @@
 namespace AppBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Class TagController
@@ -33,5 +35,15 @@ class TagController extends Controller
         return $this->render('@App/Tag/read.html.twig', [
             'tag' => $tag,
         ]);
+    }
+
+    /**
+     * @return JsonResponse
+     */
+    public function jsonListAction(Request $request)
+    {
+        $tags = $this->getDoctrine()->getRepository('AppBundle:Tag')->findBy(['name' => $request->query->get('q')]);
+
+        return new JsonResponse($tags);
     }
 }

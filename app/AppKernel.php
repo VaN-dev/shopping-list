@@ -21,6 +21,7 @@ class AppKernel extends Kernel
             new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
             new JMS\TranslationBundle\JMSTranslationBundle(),
             new Comur\ImageBundle\ComurImageBundle(),
+            new Tetranz\Select2EntityBundle\TetranzSelect2EntityBundle(),
 
             new AppBundle\AppBundle(),
         ];

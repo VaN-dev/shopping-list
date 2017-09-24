@@ -81,6 +81,9 @@ class RecipeController extends Controller
                 $this->get('session')->getFlashBag()->add('success', 'Votre recette a été enregistrée.');
 
                 return $this->redirect($this->generateUrl('app.recipe.my'));
+            } else {
+                dump((string) $form->getErrors());
+                die();
             }
         }
 
@@ -151,6 +154,9 @@ class RecipeController extends Controller
                 $this->get('session')->getFlashBag()->add('success', 'Votre recette a été mise à jour.');
 
                 return $this->redirect($this->generateUrl('app.recipe.my'));
+            } else {
+                dump((string) $form->getErrors());
+                die();
             }
         }
 

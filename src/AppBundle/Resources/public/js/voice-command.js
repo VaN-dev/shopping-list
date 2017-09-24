@@ -24,7 +24,7 @@ function send(text){
                     addRecipesToShoppingList(ids);
                 } else if (response.action == "shopping-list.save") {
                     console.log('submitting');
-                    $('#form-shoppinglist').submit();
+                    $('#form-shoppinglist').find('input[type=submit]').click();
                 }
             }
         }

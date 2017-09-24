@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "01f18c207b9cf13b8cc2c8c2433e81ca",
+    "content-hash": "0857dd43c3a579589f34b790ec35ea70",
     "packages": [
         {
             "name": "composer/ca-bundle",
@@ -2980,6 +2980,54 @@
             "time": "2017-05-29T19:32:17+00:00"
         },
         {
+            "name": "tetranz/select2entity-bundle",
+            "version": "dev-master",
+            "target-dir": "Tetranz/Select2EntityBundle",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/tetranz/select2entity-bundle.git",
+                "reference": "f75fd139eac4160f2df12c90a9e44e0281fcdfeb"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/tetranz/select2entity-bundle/zipball/f75fd139eac4160f2df12c90a9e44e0281fcdfeb",
+                "reference": "f75fd139eac4160f2df12c90a9e44e0281fcdfeb",
+                "shasum": ""
+            },
+            "require": {
+                "doctrine/orm": ">=2.4",
+                "php": ">=5.4.0",
+                "symfony/symfony": ">=2.2"
+            },
+            "type": "symfony-bundle",
+            "extra": {
+                "branch-alias": []
+            },
+            "autoload": {
+                "psr-0": {
+                    "Tetranz\\Select2EntityBundle": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Ross Keatinge",
+                    "email": "tetranz@gmail.com"
+                }
+            ],
+            "description": "A Symfony2 bundle that integrates Select2 as a drop-in replacement for a standard entity field on a Symfony form.",
+            "keywords": [
+                "autocomplete",
+                "select2",
+                "symfony",
+                "typeahead"
+            ],
+            "time": "2017-09-17 15:20:49"
+        },
+        {
             "name": "twig/extensions",
             "version": "dev-master",
             "source": {
@@ -3252,7 +3300,7 @@
                 "Fixture",
                 "persistence"
             ],
-            "time": "2017-09-10T23:22:01+00:00"
+            "time": "2017-09-10 23:22:01"
         },
         {
             "name": "sensio/generator-bundle",
@@ -3306,7 +3354,7 @@
                 }
             ],
             "description": "This bundle generates code for you",
-            "time": "2017-07-23T07:08:53+00:00"
+            "time": "2017-07-23 07:08:53"
         },
         {
             "name": "symfony/phpunit-bridge",
@@ -3368,13 +3416,14 @@
             ],
             "description": "Symfony PHPUnit Bridge",
             "homepage": "https://symfony.com",
-            "time": "2017-09-06T19:03:12+00:00"
+            "time": "2017-09-06 19:03:12"
         }
     ],
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
         "comur/image-bundle": 20,
+        "tetranz/select2entity-bundle": 20,
         "doctrine/doctrine-fixtures-bundle": 20
     },
     "prefer-stable": false,
