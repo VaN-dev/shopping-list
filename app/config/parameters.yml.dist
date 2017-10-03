@@ -24,3 +24,5 @@ parameters:
 
     api.client_access_token: ~
     api.developer_access_token: ~
+
+    voice.enabled: true

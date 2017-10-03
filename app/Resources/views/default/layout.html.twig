@@ -34,26 +34,28 @@
         {% endblock content %}
     </div>
 
-    <div class="voice-feature">
-        <div class="form-inline">
-            <div class="row">
-                <button class="btn trigger fa fa-microphone" id="rec"></button>
-                <input type="text" id="speech" class="form-control" placeholder="Click voice button or type here...">
+    {% if voice_enabled == true %}
+        <div class="voice-feature">
+            <div class="form-inline">
+                <div class="row">
+                    <button class="btn trigger fa fa-microphone" id="rec"></button>
+                    <input type="text" id="speech" class="form-control" placeholder="Click voice button or type here...">
+                </div>
+                <div id="spokenResponse" class="spoken-response">
+                    <div class="spoken-response__text"></div>
+                </div>
             </div>
-            <div id="spokenResponse" class="spoken-response">
-                <div class="spoken-response__text"></div>
-            </div>
-        </div>
 
-        <div class="debug">
-            <div class="debug__btn btn">
-                Debug JSON results
-            </div>
-            <div class="debug__content">
-                <textarea id="response" cols="40" rows="20"></textarea>
+            <div class="debug">
+                <div class="debug__btn btn">
+                    Debug JSON results
+                </div>
+                <div class="debug__content">
+                    <textarea id="response" cols="40" rows="20"></textarea>
+                </div>
             </div>
         </div>
-    </div>
+    {% endif %}
 
     {#<div class="voice-feature">#}
         {#<input id="speech" type="text">#}

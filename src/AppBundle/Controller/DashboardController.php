@@ -18,7 +18,7 @@ class DashboardController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $recipes = $em->getRepository('AppBundle:Recipe')->fetchLatest(3);
+        $recipes = $em->getRepository('AppBundle:Recipe')->fetchLatest(9);
 
         return $this->render('@App/Default/dashboard.html.twig', [
             'recipes' => $recipes,

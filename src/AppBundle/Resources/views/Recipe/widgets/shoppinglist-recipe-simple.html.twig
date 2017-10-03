@@ -1,6 +1,8 @@
 <div class="c-panel widget">
     <div class="c-panel__actions">
-        <a href="{{ path('app.shopping_list.create', {'id': recipe.id}) }}" class="btn btn-sm btn-default js-add-recipe-to-shoppinglist-trigger" data-id="{{ recipe.id }}"><i class="glyphicon glyphicon-ok-sign"></i></a>
+        <a href="{{ path('app.shopping_list.create', {'id': recipe.id}) }}" class="btn btn-sm btn-default js-add-recipe-to-shoppinglist-trigger" data-id="{{ recipe.id }}">
+            <i class="glyphicon glyphicon-ok-sign"></i>
+        </a>
     </div>
 
     <img class="widget__img widget__img--responsive" src="{{ recipe.webPath }}" alt="">
