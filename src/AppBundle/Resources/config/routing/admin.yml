@@ -1,0 +1,7 @@
+app.admin:
+    path:     /
+    defaults: { _controller: AppBundle:Admin/Default:index }
+
+app.admin.config:
+    path:     /config
+    defaults: { _controller: AppBundle:Admin/Config:index }
