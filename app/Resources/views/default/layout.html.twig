@@ -1,3 +1,5 @@
+{% set config = config_fetcher.getActive %}
+
 {% extends 'base.html.twig' %}
 
 {% block base_stylesheets %}
@@ -34,7 +36,7 @@
         {% endblock content %}
     </div>
 
-    {% if voice_enabled == true %}
+    {% if config.voiceEnabled == true %}
         <div class="voice-feature">
             <div class="form-inline">
                 <div class="row">
@@ -48,7 +50,7 @@
 
             <div class="debug">
                 <div class="debug__btn btn">
-                    Debug JSON results
+                    Debu±g JSON results
                 </div>
                 <div class="debug__content">
                     <textarea id="response" cols="40" rows="20"></textarea>

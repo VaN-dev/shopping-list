@@ -1,5 +1,6 @@
 function initTouchSpin() {
     $(".touchspin").TouchSpin({
+        max:  999999,
         buttondown_class: "btn btn-primary",
         buttonup_class: "btn btn-primary"
     });

@@ -1,0 +1,5 @@
+services:
+    app.config.fetcher:
+        class: AppBundle\Service\Config\ConfigFetcher
+        arguments:
+            - "@doctrine.orm.entity_manager"

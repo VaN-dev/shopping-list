@@ -38,6 +38,13 @@ class Config
     /**
      * @var bool
      *
+     * @ORM\Column(name="enabled", type="boolean")
+     */
+    private $enabled;
+
+    /**
+     * @var bool
+     *
      * @ORM\Column(name="voice_enabled", type="boolean")
      */
     private $voiceEnabled;
@@ -104,6 +111,30 @@ class Config
     public function getCreatedAt()
     {
         return $this->createdAt;
+    }
+
+    /**
+     * Set enabled
+     *
+     * @param boolean $enabled
+     *
+     * @return Config
+     */
+    public function setEnabled($enabled)
+    {
+        $this->enabled = $enabled;
+
+        return $this;
+    }
+
+    /**
+     * Is enabled
+     *
+     * @return bool
+     */
+    public function isEnabled()
+    {
+        return $this->enabled;
     }
 
     /**
